@@ -1,0 +1,376 @@
+/* Rosé Pine Dawn Theme for Waybar with Glassmorphism */
+
+/*
+* Variant: Rosé Pine Dawn
+* Maintainer: DankChoir
+*/
+
+@define-color base            #faf4ed;
+@define-color surface         #fffaf3;
+@define-color overlay         #f2e9e1;
+
+@define-color muted           #9893a5;
+@define-color subtle          #797593;
+@define-color text            #575279;
+
+@define-color love            #b4637a;
+@define-color gold            #ea9d34;
+@define-color rose            #d7827e;
+@define-color pine            #286983;
+@define-color foam            #56949f;
+@define-color iris            #907aa9;
+
+@define-color highlightLow    #f4ede8;
+@define-color highlightMed    #dfdad9;
+@define-color highlightHigh   #cecacd;
+
+/* Compatibility aliases for existing styles */
+@define-color rosewater #d7827e;
+@define-color flamingo #d7827e;
+@define-color pink #b4637a;
+@define-color mauve #907aa9;
+@define-color red #b4637a;
+@define-color maroon #b4637a;
+@define-color peach #ea9d34;
+@define-color yellow #ea9d34;
+@define-color green #56949f;
+@define-color teal #56949f;
+@define-color sky #286983;
+@define-color sapphire #286983;
+@define-color blue #286983;
+@define-color lavender #907aa9;
+@define-color subtext1 #797593;
+@define-color subtext0 #9893a5;
+@define-color overlay2 #9893a5;
+@define-color overlay1 #9893a5;
+@define-color overlay0 #9893a5;
+@define-color surface2 #f2e9e1;
+@define-color surface1 #fffaf3;
+@define-color surface0 #fffaf3;
+@define-color mantle #fffaf3;
+@define-color crust #f2e9e1;
+
+/* Reset styles */
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    min-height: 0;
+}
+
+/* Main window - Glassmorphism effect */
+window#waybar {
+    background: rgba(250, 244, 237, 0.75);
+    border-radius: 16px;
+    color: @text;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition-property: background-color;
+    transition-duration: 0.5s;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/* Tooltips */
+tooltip {
+    background: rgba(250, 244, 237, 0.9);
+    border-radius: 12px;
+    border: 1px solid rgba(144, 122, 169, 0.3);
+    color: @text;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+tooltip label {
+    color: @text;
+}
+
+/* Workspaces */
+#workspaces {
+    background: rgba(242, 233, 225, 0.6);
+    margin: 5px;
+    padding: 0px 5px;
+    border-radius: 12px;
+    border: 1px solid rgba(144, 122, 169, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+#workspaces button {
+    padding: 5px 10px;
+    margin: 3px 3px;
+    border-radius: 8px;
+    color: @text;
+    background: transparent;
+    transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.active {
+    color: @base;
+    background: @lavender;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(114, 135, 253, 0.3);
+}
+
+#workspaces button.focused {
+    color: @base;
+    background: @mauve;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(136, 57, 239, 0.3);
+}
+
+#workspaces button.urgent {
+    color: @base;
+    background: @red;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(210, 15, 57, 0.3);
+}
+
+#workspaces button:hover {
+    background: rgba(114, 135, 253, 0.2);
+    color: @lavender;
+    border-radius: 8px;
+}
+
+/* Mode */
+#mode {
+    background: @red;
+    color: @base;
+    padding: 5px 10px;
+    margin: 5px 0px 5px 5px;
+    border-radius: 12px;
+    border: 1px solid rgba(210, 15, 57, 0.5);
+    box-shadow: 0 2px 5px rgba(210, 15, 57, 0.2);
+}
+
+/* Scratchpad */
+#scratchpad {
+    background: rgba(242, 233, 225, 0.6);
+    color: @text;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 12px;
+    border: 1px solid rgba(152, 147, 165, 0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+#scratchpad.empty {
+    background: transparent;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    box-shadow: none;
+}
+
+/* Clock */
+#clock {
+    background: rgba(242, 233, 225, 0.6);
+    color: @text;
+    padding: 5px 15px;
+    margin: 5px;
+    border-radius: 12px;
+    border: 1px solid rgba(40, 105, 131, 0.3);
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* System modules */
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#battery,
+#network,
+#pulseaudio,
+#idle_inhibitor,
+#tray {
+    background: rgba(242, 233, 225, 0.6);
+    color: @text;
+    padding: 5px 10px;
+    margin: 5px 2px;
+    border-radius: 12px;
+    border: 1px solid rgba(152, 147, 165, 0.3);
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+/* CPU */
+#cpu {
+    color: @green;
+    border-color: rgba(64, 160, 43, 0.3);
+}
+
+#cpu:hover {
+    background: rgba(64, 160, 43, 0.1);
+    border-color: rgba(64, 160, 43, 0.6);
+    box-shadow: 0 2px 8px rgba(64, 160, 43, 0.15);
+}
+
+/* Memory */
+#memory {
+    color: @yellow;
+    border-color: rgba(223, 142, 29, 0.3);
+}
+
+#memory:hover {
+    background: rgba(223, 142, 29, 0.1);
+    border-color: rgba(223, 142, 29, 0.6);
+    box-shadow: 0 2px 8px rgba(223, 142, 29, 0.15);
+}
+
+/* Temperature */
+#temperature {
+    color: @blue;
+    border-color: rgba(30, 102, 245, 0.3);
+}
+
+#temperature.critical {
+    color: @red;
+    border-color: rgba(210, 15, 57, 0.6);
+    background: rgba(210, 15, 57, 0.1);
+    box-shadow: 0 2px 8px rgba(210, 15, 57, 0.15);
+}
+
+/* Backlight */
+#backlight {
+    color: @peach;
+    border-color: rgba(254, 100, 11, 0.3);
+}
+
+#backlight:hover {
+    background: rgba(254, 100, 11, 0.1);
+    border-color: rgba(254, 100, 11, 0.6);
+    box-shadow: 0 2px 8px rgba(254, 100, 11, 0.15);
+}
+
+/* Battery */
+#battery {
+    color: @green;
+    border-color: rgba(64, 160, 43, 0.3);
+}
+
+#battery.charging {
+    color: @green;
+    border-color: rgba(64, 160, 43, 0.6);
+    box-shadow: 0 2px 8px rgba(64, 160, 43, 0.15);
+}
+
+#battery.warning:not(.charging) {
+    color: @yellow;
+    border-color: rgba(223, 142, 29, 0.6);
+    background: rgba(223, 142, 29, 0.1);
+    box-shadow: 0 2px 8px rgba(223, 142, 29, 0.15);
+}
+
+#battery.critical:not(.charging) {
+    color: @red;
+    border-color: rgba(210, 15, 57, 0.6);
+    background: rgba(210, 15, 57, 0.1);
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    box-shadow: 0 2px 8px rgba(210, 15, 57, 0.15);
+}
+
+/* Network */
+#network {
+    color: @teal;
+    border-color: rgba(23, 146, 153, 0.3);
+}
+
+#network:hover {
+    background: rgba(23, 146, 153, 0.1);
+    border-color: rgba(23, 146, 153, 0.6);
+    box-shadow: 0 2px 8px rgba(23, 146, 153, 0.15);
+}
+
+#network.disconnected {
+    color: @red;
+    border-color: rgba(210, 15, 57, 0.6);
+    background: rgba(210, 15, 57, 0.1);
+    box-shadow: 0 2px 8px rgba(210, 15, 57, 0.15);
+}
+
+/* Audio */
+#pulseaudio {
+    color: @pink;
+    border-color: rgba(234, 118, 203, 0.3);
+}
+
+#pulseaudio:hover {
+    background: rgba(234, 118, 203, 0.1);
+    border-color: rgba(234, 118, 203, 0.6);
+    box-shadow: 0 2px 8px rgba(234, 118, 203, 0.15);
+}
+
+#pulseaudio.muted {
+    color: @overlay0;
+    border-color: rgba(156, 160, 176, 0.3);
+}
+
+/* Idle inhibitor */
+#idle_inhibitor {
+    color: @lavender;
+    border-color: rgba(114, 135, 253, 0.3);
+}
+
+#idle_inhibitor:hover {
+    background: rgba(114, 135, 253, 0.1);
+    border-color: rgba(114, 135, 253, 0.6);
+    box-shadow: 0 2px 8px rgba(114, 135, 253, 0.15);
+}
+
+#idle_inhibitor.activated {
+    color: @green;
+    border-color: rgba(64, 160, 43, 0.6);
+    background: rgba(64, 160, 43, 0.1);
+    box-shadow: 0 2px 8px rgba(64, 160, 43, 0.15);
+}
+
+/* Tray */
+#tray {
+    padding: 5px 5px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: rgba(210, 15, 57, 0.8);
+}
+
+/* Animations */
+@keyframes blink {
+    to {
+        background-color: rgba(210, 15, 57, 0.3);
+        color: @base;
+    }
+}
+
+/* Hover effects */
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#backlight:hover,
+#battery:hover,
+#network:hover,
+#pulseaudio:hover,
+#idle_inhibitor:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Additional styling for better visual hierarchy */
+.modules-left {
+    margin-left: 12px;
+}
+
+.modules-right {
+    margin-right: 12px;
+}

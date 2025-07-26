@@ -1,0 +1,101 @@
+# Configuration glassmorphisme pour SwayFX
+# À inclure dans le fichier principal sway/config
+
+# Effets de base pour toutes les fenêtres
+for_window [app_id=".*"] {
+    # Ajouter un flou de base à toutes les fenêtres
+    blur enable
+    blur_xray disable
+    blur_passes 3
+    blur_radius 5
+    
+    # Ajouter une légère transparence à toutes les fenêtres
+    opacity 0.92
+    
+    # Effet de coin arrondi
+    corner_radius 8
+}
+
+# Effets glassmorphiques pour les fenêtres flottantes
+# for_window [floating] {
+#     blur enable
+#     blur_passes 4
+#     blur_radius 8
+#     opacity 0.87
+#     corner_radius 12
+#     shadow enable
+#     shadow_blur_radius 20
+#     shadow_color #11111baa
+# }
+
+# Effet spécial pour les fenêtres actives
+# Règles spécifiques par type d'application
+for_window [app_id="kitty"] {
+    blur enable
+    blur_passes 5
+    blur_radius 7
+    opacity 0.84
+    corner_radius 10
+}
+
+for_window [app_id="Clapper"] {
+    corner_radius 10
+}
+
+
+for_window [app_id="firefox"] {
+    blur enable
+    blur_passes 3
+    blur_radius 6
+    opacity 0.92
+}
+
+for_window [app_id="Thunar"] {
+    blur enable
+    blur_passes 4
+    blur_radius 6
+    opacity 0.84
+    corner_radius 10
+}
+
+# Effets pour les dialogues et popups
+# for_window [window_type="dialog"] {
+#     blur enable
+#     blur_passes 5
+#     blur_radius 8
+#     opacity 0.85
+#     corner_radius 15
+#     shadow enable
+#     shadow_blur_radius 25
+#     shadow_color #cba6f7aa
+# }
+#
+# for_window [window_type="popup_menu"] {
+#     blur enable
+#     blur_passes 3
+#     blur_radius 5
+#     opacity 0.85
+#     corner_radius 10
+#     shadow enable
+#     shadow_blur_radius 15
+# }
+
+# Effets pour la barre de titre (si utilisée)
+titlebar_border_thickness 0
+titlebar_padding 5 2
+
+
+# Paramètres supplémentaires pour l'effet glassmorphique
+# layer_effects "waybar" blur enable; blur_ignore_transparent enable; corner_radius 16; shadows enable; shadow_blur_radius 20; shadow_color #00000066
+# layer_effects "wofi" blur enable; blur_passes 3; blur_radius 10; corner_radius 12
+# layer_effects "notifications" blur enable; corner_radius 12; shadows enable
+
+# Effets de fond global (désactiver si performance faible)
+blur enable
+blur_xray disable
+blur_passes 4
+blur_radius 5
+
+# Effet glow pour les bordures
+default_dim_inactive 0.1
+smart_corner_radius enable

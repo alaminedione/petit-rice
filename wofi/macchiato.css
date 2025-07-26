@@ -1,0 +1,150 @@
+/* Catppuccin Mocha Theme for Wofi */
+
+/* Define Catppuccin Mocha colors */
+@define-color rosewater #f5e0dc;
+@define-color flamingo #f2cdcd;
+@define-color pink #f5c2e7;
+@define-color mauve #cba6f7;
+@define-color red #f38ba8;
+@define-color maroon #eba0ac;
+@define-color peach #fab387;
+@define-color yellow #f9e2af;
+@define-color green #a6e3a1;
+@define-color teal #94e2d5;
+@define-color sky #89dceb;
+@define-color sapphire #74c7ec;
+@define-color blue #89b4fa;
+@define-color lavender #b4befe;
+@define-color text #cdd6f4;
+@define-color subtext1 #bac2de;
+@define-color subtext0 #a6adc8;
+@define-color overlay2 #9399b2;
+@define-color overlay1 #7f849c;
+@define-color overlay0 #6c7086;
+@define-color surface2 #585b70;
+@define-color surface1 #45475a;
+@define-color surface0 #313244;
+@define-color base #1e1e2e;
+@define-color mantle #181825;
+@define-color crust #11111b;
+
+/* Main window */
+window {
+    margin: 0px;
+    border: 2px solid @lavender;
+    background-color: @base;
+    border-radius: 12px;
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 14px;
+}
+
+/* Input field */
+#input {
+    all: unset;
+    min-height: 36px;
+    padding: 4px 10px;
+    margin: 4px;
+    border: none;
+    color: @text;
+    font-weight: bold;
+    background-color: @surface0;
+    border-radius: 8px;
+    border: 2px solid @surface1;
+}
+
+#input:focus {
+    border: 2px solid @lavender;
+    margin: 4px;
+    outline: none;
+}
+
+/* Inner box */
+#inner-box {
+    margin: 4px;
+    border: none;
+    background-color: @base;
+    border-radius: 8px;
+}
+
+/* Outer box */
+#outer-box {
+    margin: 0px;
+    border: none;
+    background-color: @base;
+    border-radius: 12px;
+}
+
+/* Scroll area */
+#scroll {
+    margin-top: 5px;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 5px;
+}
+
+/* Text styling */
+#text:selected {
+    color: @base;
+    margin: 0px 0px;
+    border: none;
+    border-radius: 8px;
+}
+
+#text {
+    margin: 0px 0px;
+    border: none;
+    color: @text;
+    animation: none;
+}
+
+/* Entry styling */
+#entry {
+    background-color: transparent;
+    margin: 0px 0px;
+    border: none;
+    border-radius: 8px;
+    animation: none;
+}
+
+#entry:selected {
+    background-color: @lavender;
+    margin: 0px 0px;
+    border: none;
+    border-radius: 8px;
+    animation: none;
+}
+
+#entry:selected #text {
+    color: @base;
+}
+
+#entry:hover {
+    background-color: @surface0;
+    margin: 0px 0px;
+    border: none;
+    border-radius: 8px;
+    animation: none;
+}
+
+/* Image styling */
+#img {
+    margin: 0px 0px;
+    border: none;
+    border-radius: 8px;
+    animation: none;
+}
+
+/* Unselected text */
+#unselected {
+    color: @text;
+}
+
+/* Selected text */
+#selected {
+    color: @base;
+}
+
+/* Input placeholder */
+#input:placeholder {
+    color: @overlay1;
+}

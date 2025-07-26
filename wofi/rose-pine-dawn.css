@@ -1,0 +1,222 @@
+/* Rose Pine Dawn Theme for Wofi */
+/* Palette de couleurs Rose Pine Dawn */
+/* 
+ * Base: #faf4ed
+ * Surface: #fffaf3
+ * Overlay: #f2e9e1
+ * Muted: #9893a5
+ * Subtle: #797593
+ * Text: #575279
+ * Love: #b4637a
+ * Gold: #ea9d34
+ * Rose: #d7827e
+ * Pine: #286983
+ * Foam: #56949f
+ * Iris: #907aa9
+ * Highlight Low: #f4ede8
+ * Highlight Med: #dfdad9
+ * Highlight High: #cecacd
+ */
+
+* {
+    box-sizing: border-box;
+}
+
+/* Fenêtre principale */
+window {
+    margin: 0px;
+    border: 2px solid #dfdad9;
+    background-color: #faf4ed;
+    border-radius: 0px;
+    font-family: "JetBrains Mono", "Fira Code", monospace;
+    font-size: 14px;
+    color: #575279;
+}
+
+/* Conteneur principal */
+#outer-box {
+    margin: 8px;
+    border: none;
+    background-color: transparent;
+}
+
+/* Zone de saisie */
+#input {
+    margin: 8px 12px;
+    border: 2px solid #f2e9e1;
+    background-color: #fffaf3;
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #575279;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#input:focus {
+    border-color: #907aa9;
+    background-color: #f4ede8;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(144, 122, 169, 0.2);
+}
+
+/* Zone de défilement */
+#scroll {
+    margin: 8px 12px;
+    border: none;
+    background-color: transparent;
+}
+
+/* Liste des éléments */
+#inner-box {
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+    border-radius: 8px;
+}
+
+/* Éléments de la liste */
+#entry {
+    margin: 2px 0px;
+    border: none;
+    border-radius: 6px;
+    background-color: transparent;
+    padding: 10px 16px;
+    color: #575279;
+    transition: all 0.2s ease;
+}
+
+/* Élément survolé */
+#entry:hover {
+    background-color: #f4ede8;
+    color: #575279;
+}
+
+/* Élément sélectionné */
+#entry:selected {
+    background-color: #907aa9;
+    color: #faf4ed;
+    font-weight: 600;
+}
+
+/* Texte des éléments */
+#text {
+    margin: 0px;
+    border: none;
+    background-color: transparent;
+    color: inherit;
+    font-size: 14px;
+}
+
+/* Icônes */
+#img {
+    margin: 0px 8px 0px 0px;
+    border: none;
+    background-color: transparent;
+}
+
+/* Mode sans icônes */
+#text:only-child {
+    margin: 0px;
+}
+
+/* Séparateurs */
+separator {
+    background-color: #dfdad9;
+    margin: 4px 12px;
+    min-height: 1px;
+}
+
+/* Barres de défilement */
+scrollbar {
+    background-color: #f2e9e1;
+    border-radius: 6px;
+    margin: 4px;
+    min-width: 8px;
+}
+
+scrollbar slider {
+    background-color: #9893a5;
+    border-radius: 6px;
+    min-height: 20px;
+}
+
+scrollbar slider:hover {
+    background-color: #797593;
+}
+
+/* Styles pour les modes spéciaux */
+.urgent {
+    color: #b4637a !important;
+    background-color: rgba(180, 99, 122, 0.1) !important;
+}
+
+.urgent:selected {
+    background-color: #b4637a !important;
+    color: #faf4ed !important;
+}
+
+.active {
+    color: #286983 !important;
+    background-color: rgba(40, 105, 131, 0.1) !important;
+}
+
+.active:selected {
+    background-color: #286983 !important;
+    color: #faf4ed !important;
+}
+
+/* Animation d'apparition */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+window {
+    animation: fadeIn 0.2s ease-out;
+}
+
+/* Responsive design pour différentes tailles */
+@media (max-width: 800px) {
+    window {
+        font-size: 12px;
+    }
+    
+    #input {
+        font-size: 14px;
+        padding: 10px 14px;
+    }
+    
+    #entry {
+        padding: 8px 14px;
+    }
+}
+
+/* Mode sombre alternatif (commenté par défaut) */
+/*
+window.dark {
+    background-color: #232136;
+    border-color: #393552;
+    color: #e0def4;
+}
+
+#input.dark {
+    background-color: #2a273f;
+    border-color: #393552;
+    color: #e0def4;
+}
+
+#entry.dark:hover {
+    background-color: #393552;
+}
+
+#entry.dark:selected {
+    background-color: #c4a7e7;
+    color: #232136;
+}
+*/

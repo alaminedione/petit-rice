@@ -1,0 +1,52 @@
+# Rose Pine Dawn Theme for Sway
+# Palette officielle Rose Pine Dawn
+# Base colors
+set $base         #faf4ed
+set $surface      #fffaf3
+set $overlay      #f2e9e1
+set $muted        #9893a5
+set $subtle       #797593
+set $text         #575279
+set $love         #b4637a
+set $gold         #ea9d34
+set $rose         #d7827e
+set $pine         #286983
+set $foam         #56949f
+set $iris         #907aa9
+set $highlight    #eee9e6
+
+# Surface colors (variations for different UI elements)
+set $surface0     #fffaf3
+set $surface1     #f4ede8
+set $surface2     #f2e9e1
+set $overlay0     #e4dfde
+set $overlay1     #cecacd
+set $overlay2     #b5b1b3
+
+# Window colors for Sway
+#                       border    bg        text      indicator child_border
+client.focused          $iris     $base     $text     $love     $iris
+client.focused_inactive $overlay1 $base     $text     $love     $overlay1
+client.unfocused        $overlay0 $base     $muted    $love     $overlay0
+client.urgent           $love     $base     $love     $overlay0 $love
+client.placeholder      $overlay0 $base     $text     $overlay0 $overlay0
+client.background       $base
+
+# Additional semantic colors for use in other configs
+set $accent       $iris
+set $primary      $pine
+set $secondary    $foam
+set $warning      $gold
+set $error        $love
+set $success      $pine
+set $info         $foam
+
+# Workspace colors (can be used with waybar or other status bars)
+set $workspace_active   $iris
+set $workspace_inactive $muted
+set $workspace_urgent   $love
+
+# Status bar colors
+set $statusbar_bg       $surface
+set $statusbar_text     $text
+set $statusbar_accent   $iris

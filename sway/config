@@ -1,0 +1,279 @@
+### includes 
+
+include ./themes/catppuccin-mocha
+
+for_window [app_id=".*"] focus
+gaps inner 1
+gaps outer 2
+
+default_border pixel
+default_floating_border pixel
+
+### Variables
+gaps inner 8
+gaps outer 4
+#smart_gaps on
+smart_borders on
+
+# Window borders
+default_border pixel 2
+default_floating_border pixel 2
+hide_edge_borders smart
+
+
+# Gestion des fenêtres flottantes selon leur type
+for_window [window_type="dialog"] floating enable
+for_window [window_type="utility"] floating enable
+for_window [window_type="toolbar"] floating enable
+for_window [window_type="splash"] floating enable
+for_window [window_type="popup_menu"] floating enable
+for_window [window_type="dropdown_menu"] floating enable
+#for_window [window_type="modal"] floating enable  # apparament pas correcte
+
+# Les couleurs sont maintenant définies dans le fichier de thème
+# Couleurs supplémentaires pour compatibilité
+set $accent     $lavender
+set $warning    $yellow
+set $error      $red
+set $success    $green
+set $info       $blue
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left h
+set $down j
+set $up k
+set $right l
+
+# apps
+set $term ghostty
+set $browser firefox
+set $file_manager Thunar
+set $code gvim
+
+### Output configuration
+output * bg ~/.wallpaper/sasha.jpg fill
+
+### Idle configuration
+exec swayidle -w \
+          timeout 600 '~/.config/swaylock/swaylock.sh' \
+          timeout 1200 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+          before-sleep '~/.config/swaylock/swaylock.sh'
+
+### Input configuration
+input "type:touchpad" {
+    tap enabled            # Active le clic tactile
+ #   tap_button_map lrm     # Définit 1 doigt = clic gauche, 2 doigts = clic droit, 3 doigts = clic du milieu
+ #   dwt enabled            # Désactive le touchpad pendant la frappe
+    natural_scroll disabled # Active le défilement naturel (optionnel)
+}
+
+input type:keyboard {
+    xkb_options "compose:ralt,terminate:ctrl_alt_bksp,accessx"
+}
+
+### Key bindings
+
+# Applications de base
+bindsym $mod+Return exec $term
+bindsym $mod+Shift+b exec $browser
+bindsym $mod+Shift+c exec $code
+bindsym $mod+Shift+f exec $file_manager
+bindsym $mod+Shift+a exec alacritty
+bindsym $mod+Shift+t exec foot
+bindsym $mod+q kill
+
+# Wofi - Lanceurs d'applications et utilitaires
+bindsym $mod+a exec ~/.config/wofi/wofi-launcher.sh drun     # Liste des applications
+bindsym $mod+r exec ~/.config/wofi/wofi-launcher.sh run      # Commandes
+bindsym $mod+w exec ~/.config/wofi/wofi-launcher.sh window   # Fenêtres ouvertes
+bindsym $mod+e exec ~/.config/wofi/wofi-launcher.sh emoji    # Sélecteur d'emojis
+bindsym $mod+x exec ~/.config/wofi/wofi-launcher.sh power    # Menu power
+bindsym $mod+d exec ~/.config/wofi/wofi-launcher.sh drun     # Applications (alias)
+bindsym $mod+c exec galculator                               # Calculatrice
+
+# Utilitaires système
+bindsym $mod+n exec iwgtk
+bindsym $mod+v exec clipcat-menu --finder wofi
+bindsym $mod+ctrl+l exec ~/.config/swaylock/swaylock.sh
+bindsym $mod+b exec ~/.config/waybar/scripts/toggle-waybar.sh  # Toggle waybar
+
+# Screenshots avec grim et slurp
+bindsym Print exec ~/.config/sway/scripts/screenshot.sh full          # Capture complète
+bindsym $mod+s exec ~/.config/sway/scripts/screenshot.sh area         # Capture zone sélectionnée
+bindsym $mod+Print exec ~/.config/sway/scripts/screenshot.sh clipboard # Capture vers presse-papiers
+bindsym $mod+Shift+s exec ~/.config/sway/scripts/screenshot.sh window  # Capture fenêtre active
+
+# Contrôles multimédia avec pipewire
+bindsym --locked XF86AudioMute exec ~/.config/waybar/scripts/volume.sh mute
+bindsym --locked XF86AudioLowerVolume exec ~/.config/waybar/scripts/volume.sh down
+bindsym --locked XF86AudioRaiseVolume exec ~/.config/waybar/scripts/volume.sh up
+bindsym --locked XF86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+
+# Contrôles de luminosité avec notifications
+bindsym --locked XF86MonBrightnessDown exec ~/.config/waybar/scripts/brightness.sh down
+bindsym --locked XF86MonBrightnessUp exec ~/.config/waybar/scripts/brightness.sh up 
+
+# Contrôles additionnels avec notifications
+bindsym $mod+F1 exec ~/.config/waybar/scripts/volume.sh mute
+bindsym $mod+F2 exec ~/.config/waybar/scripts/volume.sh down
+bindsym $mod+F3 exec ~/.config/waybar/scripts/volume.sh up
+bindsym $mod+F11 exec ~/.config/waybar/scripts/brightness.sh down
+bindsym $mod+F12 exec ~/.config/waybar/scripts/brightness.sh up
+
+floating_modifier $mod normal
+
+# Navigation
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Gestion des fenêtres
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Contrôles système
+bindsym $mod+ctrl+c reload
+bindsym $mod+ctrl+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+# Workspaces
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+
+# Déplacer vers workspace
+bindsym $mod+Shift+1 move container to workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10
+
+# Layout
+bindsym $mod+ctrl+h splith
+bindsym $mod+ctrl+v splitv
+bindsym $mod+ctrl+s layout stacking
+bindsym $mod+ctrl+t layout tabbed
+bindsym $mod+ctrl+w layout toggle split
+bindsym $mod+ctrl+f fullscreen
+
+# Floating
+bindsym $mod+space floating toggle
+bindsym $mod+ctrl+space focus mode_toggle
+
+# Barre et resize
+bindsym $mod+ctrl+x exec swaymsg bar mode toggle
+bindsym $mod+ctrl+r mode "resize"
+
+# Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
+
+# Navigation rapide
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+grave workspace back_and_forth
+
+# Mode resize
+mode "resize" {
+    bindsym $left resize shrink width 10px
+    bindsym $down resize grow height 10px
+    bindsym $up resize shrink height 10px
+    bindsym $right resize grow width 10px
+
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+### Règles d'applications
+
+# Terminal applications on workspace 1
+assign [app_id="Alacritty"] workspace 1
+assign [app_id="kitty"] workspace 1
+
+# Browsers on workspace 2
+assign [app_id="Brave"] workspace 2
+assign [app_id="zen-browser"] workspace 2
+assign [app_id="chromium"] workspace 2
+assign [app_id="thorium-browser"] workspace 2
+assign [app_id="librewolf"] workspace 2
+
+# File manager on workspace 3
+assign [app_id="Thunar"] workspace 3
+
+# Code editors on workspace 4
+assign [app_id="Geany"] workspace 4
+assign [app_id="zeditor"] workspace 4
+assign [app_id="code"] workspace 4
+assign [app_id="gvim"] workspace 4
+
+# PDF viewers on workspace 5
+assign [app_id="Evince"] workspace 5
+assign [app_id="atril"] workspace 5
+
+# Messaging and note-taking apps on workspace 6
+assign [app_id="org.telegram.desktop"] workspace 6
+assign [app_id="obsidian"] workspace 6
+assign [app_id="AppFlowy"] workspace 6
+
+# Media players on workspace 7
+assign [app_id="Clapper"] workspace 7
+assign [app_id="vlc"] workspace 7
+
+# System tools on workspace 8
+assign [app_id="VirtualBox Manager"] workspace 8
+assign [app_id="gparted"] workspace 8
+
+# Floating windows
+for_window [app_id="viewnior"] floating enable, focus
+for_window [app_id="feh"] floating enable, move to workspace 8
+for_window [app_id="iwgtk"] floating enable, focus
+for_window [app_id="pavucontrol"] floating enable, focus
+for_window [app_id="nm-connection-editor"] floating enable, focus
+for_window [app_id="galculator"] floating enable, focus
+
+### Démarrage automatique
+exec mako
+exec waybar -c ~/.config/waybar/config-sway -s ~/.config/waybar/style.css
+exec wlsunset -t 5700 -T 5800 -l 14.71 -L -17.46 &
+
+# Services additionnels
+exec_always --no-startup-id {
+    # Redémarrer les services si ils existent déjà
+    pkill mako; mako &
+    pkill waybar; sleep 1; waybar -c ~/.config/waybar/config-sway -s ~/.config/waybar/style.css &
+}
+
+#include /etc/sway/config.d/*
+
+

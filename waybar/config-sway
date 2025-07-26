@@ -1,0 +1,146 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 50, // Augmenté pour respecter la hauteur minimale requise
+    "spacing": 4,
+    "margin-top": 8,
+    "margin-bottom": 0,
+    "margin-left": 12,
+    "margin-right": 12,
+    
+    "modules-left": ["sway/workspaces", "sway/mode", "sway/scratchpad"],
+    "modules-center": ["clock"],
+    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "battery", "tray"],
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{icon}",
+        "format-icons": {
+            "1": "󰆍",
+            "2": "󰈹",
+            "3": "󰉋",
+            "4": "󰨞",
+            "5": "󰈙",
+            "6": "󰙯",
+            "7": "󰎆",
+            "8": "󰒋",
+            "9": "󰖟",
+            "10": "󰝚",
+            "urgent": "󰀨",
+            "focused": "󰮯",
+            "default": "󰊠"
+        },
+        "persistent_workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": []
+        }
+    },
+
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+
+    "sway/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", "󰘓"],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰒳",
+            "deactivated": "󰒲"
+        }
+    },
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10
+    },
+
+    "clock": {
+        "timezone": "Africa/Dakar",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "{:%H:%M}",
+        "format-alt": "{:%A, %B %d, %Y (%R)}"
+    },
+
+    "cpu": {
+        "format": "󰻠 {usage}%",
+        "tooltip": false,
+        "on-click": "kitty -e htop"
+    },
+
+    "memory": {
+        "format": "󰍛 {}%",
+        "on-click": "kitty -e htop"
+    },
+
+    "temperature": {
+        "thermal-zone": 2,
+        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        "format-critical": "󰸁 {temperatureC}°C",
+        "format": "󰔏 {temperatureC}°C"
+    },
+
+    "backlight": {
+        "device": "intel_backlight",
+        "format": "{icon} {percent}%",
+        "format-icons": ["󰃞", "󰃟", "󰃠"],
+        "on-scroll-up": "~/.config/waybar/scripts/brightness.sh up",
+        "on-scroll-down": "~/.config/waybar/scripts/brightness.sh down"
+    },
+
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰂄 {capacity}%",
+        "format-alt": "{icon} {time}",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    },
+
+    "network": {
+        "format-wifi": "󰤨 {signalStrength}%",
+        "format-ethernet": "󰈀 Connected",
+        "tooltip-format": "󰤨 {essid} - {ifname} via {gwaddr}",
+        "format-linked": "󰤭 {ifname} (No IP)",
+        "format-disconnected": "󰤭 Disconnected",
+        "format-alt": "{ifname}: {ipaddr}/{cidr}",
+        "on-click-right": "iwgtk"
+    },
+
+    "pulseaudio": {
+        "scroll-step": 5,
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}% 󰂯",
+        "format-bluetooth-muted": "󰝟 󰂯",
+        "format-muted": "󰝟",
+        "format-source": "󰍬 {volume}%",
+        "format-source-muted": "󰍭",
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "󰋎",
+            "headset": "󰋎",
+            "phone": "󰄜",
+            "portable": "󰄜",
+            "car": "󰄋",
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "pavucontrol",
+        "on-click-right": "~/.config/waybar/scripts/volume.sh mute",
+        "on-scroll-up": "~/.config/waybar/scripts/volume.sh up",
+        "on-scroll-down": "~/.config/waybar/scripts/volume.sh down"
+    }
+}
