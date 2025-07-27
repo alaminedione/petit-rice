@@ -119,7 +119,7 @@ CATEGORIES["editors"]="code neovim zed nano vim"
 CATEGORIES["terminals"]="ghostty kitty foot"
 
 # 4. Outils de développement CLI
-CATEGORIES["dev_tools"]="github-cli glab lazygit cargo-tauri composer pnpm uv ts-node sccache bc lazydocker-bin"
+CATEGORIES["dev_tools"]="github-cli glab lazygit cargo-tauri composer pnpm uv ts-node sccache bc lazydocker-bingo rust nodejs php"
 
 # 5. Outils système et monitoring
 CATEGORIES["system_tools"]="htop fastfetch bat eza tree hyperfine onefetch cloc yazi rsync wget croc tgpt gpu-screen-recorder-gtk pipes.sh"
