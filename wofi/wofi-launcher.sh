@@ -1,39 +1,28 @@
 #!/bin/bash
-
 # Wofi Launcher Script avec thème Catppuccin Mocha
+# Compatible avec Sway et Hyprland
 # Usage: wofi-launcher.sh [drun|run|window|emoji|power]
 
 CONFIG="$HOME/.config/wofi/config"
 STYLE="$HOME/.config/wofi/style.css"
 COLORS="$HOME/.config/wofi/colors"
 
-# Couleurs Catppuccin Mocha
-ROSEWATER="f5e0dc"
-FLAMINGO="f2cdcd"
-PINK="f5c2e7"
-MAUVE="cba6f7"
-RED="f38ba8"
-MAROON="eba0ac"
-PEACH="fab387"
-YELLOW="f9e2af"
-GREEN="a6e3a1"
-TEAL="94e2d5"
-SKY="89dceb"
-SAPPHIRE="74c7ec"
-BLUE="89b4fa"
-LAVENDER="b4befe"
-TEXT="cdd6f4"
-SUBTEXT1="bac2de"
-SUBTEXT0="a6adc8"
-OVERLAY2="9399b2"
-OVERLAY1="7f849c"
-OVERLAY0="6c7086"
-SURFACE2="585b70"
-SURFACE1="45475a"
-SURFACE0="313244"
-BASE="1e1e2e"
-MANTLE="181825"
-CRUST="11111b"
+# Détection automatique du window manager
+detect_wm() {
+    if [ -n "$SWAYSOCK" ]; then
+        echo "sway"
+    elif [ -n "$HYPRLAND_INSTANCE_SIGNATURE" ]; then
+        echo "hyprland"
+    elif pgrep -x "sway" > /dev/null; then
+        echo "sway"
+    elif pgrep -x "Hyprland" > /dev/null; then
+        echo "hyprland"
+    else
+        echo "unknown"
+    fi
+}
+
+WM=$(detect_wm)
 
 case $1 in
     drun)
@@ -53,17 +42,38 @@ case $1 in
              --insensitive
         ;;
     window)
-        window=$(swaymsg -t get_tree | jq -r '.nodes[].nodes[] | select(.type=="workspace") | .nodes[] | select(.type=="con") | "\(.id): \(.name)"' | \
-                 wofi --show dmenu \
-                      --conf "${CONFIG}" \
-                      --style "${STYLE}" \
-                      --prompt='Windows' \
-                      --insensitive)
-        
-        if [ -n "$window" ]; then
-            window_id=$(echo "$window" | cut -d: -f1)
-            swaymsg "[con_id=$window_id] focus"
-        fi
+        case $WM in
+            sway)
+                window=$(swaymsg -t get_tree | jq -r '.nodes[].nodes[] | select(.type=="workspace") | .nodes[] | select(.type=="con") | "\(.id): \(.name)"' | \
+                         wofi --show dmenu \
+                              --conf "${CONFIG}" \
+                              --style "${STYLE}" \
+                              --prompt='Windows' \
+                              --insensitive)
+                
+                if [ -n "$window" ]; then
+                    window_id=$(echo "$window" | cut -d: -f1)
+                    swaymsg "[con_id=$window_id] focus"
+                fi
+                ;;
+            hyprland)
+                window=$(hyprctl clients -j | jq -r '.[] | "\(.address): \(.title)"' | \
+                         wofi --show dmenu \
+                              --conf "${CONFIG}" \
+                              --style "${STYLE}" \
+                              --prompt='Windows' \
+                              --insensitive)
+                
+                if [ -n "$window" ]; then
+                    window_address=$(echo "$window" | cut -d: -f1)
+                    hyprctl dispatch focuswindow "address:$window_address"
+                fi
+                ;;
+            *)
+                echo "Window manager non supporté ou non détecté"
+                exit 1
+                ;;
+        esac
         ;;
     emoji)
         wofi --show dmenu \
@@ -83,18 +93,42 @@ case $1 in
         
         case $chosen in
             "🔒 Lock")
-                ~/.config/swaylock/swaylock.sh
+                case $WM in
+                    sway)
+                        if [ -f ~/.config/swaylock/swaylock.sh ]; then
+                            ~/.config/swaylock/swaylock.sh
+                        else
+                            swaylock
+                        fi
+                        ;;
+                    hyprland)
+                        if command -v hyprlock > /dev/null; then
+                            hyprlock
+                        elif command -v swaylock > /dev/null; then
+                            swaylock
+                        else
+                            echo "Aucun écran de verrouillage trouvé"
+                        fi
+                        ;;
+                esac
                 ;;
             "🚪 Logout")
-                swaymsg exit
+                case $WM in
+                    sway)
+                        swaymsg exit
+                        ;;
+                    hyprland)
+                        hyprctl dispatch exit
+                        ;;
+                esac
                 ;;
-            "💤 Suspend ")
+            "💤 Suspend")
                 systemctl suspend
                 ;;
             "🔄 Reboot")
                 systemctl reboot
                 ;;
-            " ⏻ Shutdown")
+            "⏻ Shutdown")
                 shutdown now
                 ;;
         esac
@@ -103,8 +137,10 @@ case $1 in
         echo "Usage: $0 [drun|run|window|emoji|power]"
         echo "  drun    - Application launcher"
         echo "  run     - Command runner"
-        echo "  window  - Window switcher"
+        echo "  window  - Window switcher (compatible Sway/Hyprland)"
         echo "  emoji   - Emoji picker"
-        echo "  power   - Power menu"
+        echo "  power   - Power menu (compatible Sway/Hyprland)"
+        echo ""
+        echo "Window Manager détecté: $WM"
         ;;
 esac
