@@ -1,357 +1,93 @@
-# 🚀 Guide d'Installation Complet - Dotfiles Hotfiles
+# Guide d'Installation des Dotfiles
 
-Ce guide vous accompagnera dans l'installation complète et la configuration de votre environnement de développement avec les dotfiles Hotfiles.
+Ce guide explique en détail le fonctionnement du script `install.sh`, ses différentes options et comment l'exécuter pour configurer votre environnement Linux avec ces dotfiles.
 
-## 📋 Table des Matières
+## 🚀 À Propos du Script `install.sh`
 
-1. [Prérequis](#prérequis)
-2. [Vue d'ensemble](#vue-densemble)
-3. [Installation rapide](#installation-rapide)
-4. [Installation détaillée](#installation-détaillée)
-5. [Configuration des applications](#configuration-des-applications)
-6. [Thèmes disponibles](#thèmes-disponibles)
-7. [Scripts utilitaires](#scripts-utilitaires)
-8. [Dépannage](#dépannage)
-9. [Sauvegarde et restauration](#sauvegarde-et-restauration)
-10. [Personnalisation](#personnalisation)
-
----
-
-## 🔧 Prérequis
-
-### Système d'exploitation
-- **Arch Linux** (recommandé) ou distributions basées sur Arch
-- **Wayland** (Sway ou Hyprland)
+Le script `install.sh` est un outil d'automatisation conçu pour simplifier le déploiement de cette configuration de dotfiles sur votre système. Il gère la sauvegarde de vos configurations existantes, l'installation des nouvelles configurations, la gestion des dépendances logicielles, l'application du thème par défaut et l'exécution de scripts de configuration supplémentaires.
 
-### Outils requis
-```bash
-# Installation des outils de base
-sudo pacman -S --needed base-devel git
-```
+L'objectif est de fournir un processus d'installation rapide, fiable et interactif.
 
-### AUR Helper (yay)
-Si vous n'avez pas encore `yay` installé :
-```bash
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si
-cd ..
-rm -rf yay
-```
+## 🛠️ Fonctionnalités Principales
 
----
+Le script `install.sh` effectue les opérations suivantes :
 
-## 🌟 Vue d'ensemble
+1.  **Sauvegarde Globale des Configurations Existantes** :
+    *   Avant toute installation, le script vérifie la présence de configurations existantes pour les applications couvertes (foot, kitty, nvim, sway, swaylock, waybar, wofi, mako, fastfetch, hypr) ainsi que certains fichiers du répertoire `$HOME` (`.aliases.sh`, `.fdignore`, `.tgpt_aliases.sh`, `.vimrc`, `.viminfo`, `.vim`).
+    *   Si des configurations sont trouvées, une sauvegarde horodatée est créée dans `$HOME/.config-backups/backup-YYYYMMDD-HHMMSS/`. Cela garantit que vous pouvez toujours revenir à votre état précédent.
+    *   Un fichier `backup-info.txt` est inclus dans chaque sauvegarde, détaillant son contenu.
 
-Les dotfiles Hotfiles incluent des configurations pour :
+2.  **Installation des Configurations des Applications** :
+    *   Les dossiers de configuration des applications (`foot`, `kitty`, `nvim`, `sway`, `swaylock`, `waybar`, `wofi`, `mako`, `fastfetch`, `hypr`) sont copiés depuis le répertoire du dépôt vers `$HOME/.config/`.
+    *   Les configurations existantes pour ces applications sont supprimées avant la copie pour assurer une installation propre.
 
-### 🖥️ Environnements de bureau
-- **Sway** - Gestionnaire de fenêtres Wayland minimaliste
-- **Hyprland** - Compositeur Wayland moderne avec animations
+3.  **Installation des Fichiers du Répertoire `$HOME`** :
+    *   Les fichiers et dossiers contenus dans le répertoire `home/` du dépôt (ex: `.vimrc`, `.zshrc`, `.aliases.sh`, `.vim/`) sont copiés directement dans votre répertoire `$HOME`.
 
-### 🖥️ Applications configurées
-- **Terminaux** : Kitty, Foot, Ghostty
-- **Éditeurs** : Neovim (NvChad), Vim, Zed, VS Code
-- **Barres de statut** : Waybar
-- **Lanceurs** : Wofi
-- **Notifications** : Mako
-- **Verrouillage d'écran** : Swaylock, Hyprlock
-- **Informations système** : Fastfetch
+4.  **Rendre les Scripts Exécutables** :
+    *   Tous les scripts shell (`.sh`) trouvés dans le répertoire `scripts/` du dépôt sont rendus exécutables (`chmod +x`).
 
-### 🎨 Thèmes supportés
+5.  **Installation des Scripts Utilitaires** :
+    *   Les scripts du répertoire `scripts/` sont copiés dans `$HOME/.config/hotfiles-scripts/` pour les rendre facilement accessibles depuis votre système.
 
-courant: 
-   - **Catppuccin macchiato**
-   - **Rose Pine Dawn**
+6.  **Installation des Dépendances (Optionnel)** :
+    *   Le script peut exécuter `scripts/install-apps.sh` pour installer les applications et paquets nécessaires au bon fonctionnement de l'environnement. Une confirmation vous sera demandée.
 
-à venir:
-- **Catppuccin** (Mocha,  Latte, Frappe)
-- **Rose Pine** ( Moon)
-- **Gruvbox** (Dark, Light)
-- **GitHub** (Light)
-- **Flexoki** (Light)
-- **Nordic** (Dark, Light)
-- **Gruvbox** (Dark, Light)
+7.  **Application du Thème par Défaut (Optionnel)** :
+    *   Le script peut appliquer le thème `Catppuccin Mocha` en exécutant `scripts/change-theme/set-mocha.sh`. Une confirmation vous sera demandée.
 
----
+8.  **Exécution de Scripts de Configuration Supplémentaires (Optionnel)** :
+    *   Le script propose d'exécuter plusieurs scripts optionnels pour des configurations spécifiques (ex: correction des polices, configuration de Zsh, installation des curseurs, etc.). Chaque exécution nécessite une confirmation.
 
-## ⚡ Installation 
+## ⚙️ Options d'Installation
 
+Lorsque vous exécutez `./install.sh`, un menu interactif vous sera présenté avec les options suivantes :
 
-```bash
-# Cloner le repository
-git clone https://github.com/alaminedione/hotfiles.git ~/hotfiles
-cd ~/hotfiles
+1.  **Installation complète (recommandé)** :
+    *   Exécute toutes les étapes : Sauvegarde globale, installation des configurations, installation des dépendances, application du thème par défaut, et exécution des scripts supplémentaires.
+    *   C'est l'option la plus simple pour une première installation complète.
 
-# Rendre le script exécutable
-chmod +x install.sh
+2.  **Installation des configurations seulement** :
+    *   Effectue la sauvegarde globale et installe uniquement les configurations des applications et les fichiers du répertoire `$HOME`.
+    *   Utile si vous avez déjà géré les dépendances.
 
-# Lancer l'installation complète
-./install.sh
-```
+3.  **Installation des dépendances seulement** :
+    *   Exécute uniquement le script `scripts/install-apps.sh` pour installer les applications et paquets nécessaires.
+    *   Utile si vous souhaitez gérer l'installation des configurations et du thème séparément.
 
-Le script d'installation crée automatiquement une sauvegarde de vos configurations existantes dans :
-```
-~/.config-backups/backup-YYYYMMDD-HHMMSS/
-```
+4.  **Application du thème par défaut seulement** :
+    *   Exécute uniquement le script `scripts/change-theme/set-mocha.sh` pour appliquer le thème par défaut.
+    *   Utile si vous avez déjà installé les configurations et les dépendances.
 
+5.  **Quitter** :
+    *   Permet de sortir du script sans effectuer d'opérations.
 
-## Catégories d'applications disponibles :
+## 🚀 Comment Exécuter le Script
 
-lors de l'installation le script va vous permettre de choisir les applications que vous souhaitez installer:
-
-1. **Base système** : debugedit, freetype2-ubuntu, fontconfig-ubuntu, cairo-ubuntu
-2. **Éditeurs** : code, neovim, zed, nano, vim
-3. **Terminaux** : ghostty, kitty, foot
-4. **Outils développement CLI** : github-cli, glab, lazygit, cargo-tauri, composer, pnpm, uv, ts-node, sccache, bc, lazydocker-bin
-5. **Outils système** : htop, fastfetch, bat, eza, tree, hyperfine, onefetch, cloc, yazi, rsync, wget, croc, tgpt, gpu-screen-recorder-gtk, pipes.sh
-6. **Containerisation** : docker, docker-compose, podman, qemu
-7. **Apps développement graphiques** : zeal
-8. **Environnement Sway** : sway, wofi, slurp, wlsunset
-9. **Hyprland** : hyprland, hyprlock, hyprpaper, hyprsunset
-10. **Serveur X** : xorg-server, xorg-xinit, xf86-video-amdgpu, xf86-video-ati
-11. **Thèmes et apparence** : adapta-gtk-theme, orchis-theme, kvantum, lxappearance
-12. **Polices** : adobe-source-code-pro-fonts, ttf-fira-code, ttf-fira-sans, ttf-hack, ttf-jetbrains-mono-nerd, ttf-ubuntu-font-family
-13. **Multimédia** : vlc, clapper, cheese, viewnior, pavucontrol
-14. **Applications utilisateur** : firefox, telegram-desktop, galculator, atril, yt-dlp, onlyoffice-bin
-15. **Réseau et sécurité** : macchanger, wireless_tools, wpa_supplicant, iwgtk
-16. **Utilitaires divers** : yq, freedownloadmanager
-
-
-
-### Étape 5 : Scripts de configuration supplémentaires
-
-Le script d'installation propose plusieurs scripts optionnels :
-
-```bash
-# amelioration des polices 
-./scripts/fix_fonts.sh
-
-# Configuration des paramètres GNOME
-./scripts/gsettings.sh
+Pour exécuter le script `install.sh`, suivez ces étapes :
 
-# Installation des curseurs Layan
-./scripts/get-layan-cursors.sh
+1.  **Cloner le dépôt** (si ce n'est pas déjà fait) :
+    ```bash
+    git clone https://github.com/alaminedione/hotfiles.git
+    cd hotfiles
+    ```
 
-# Configuration de Zsh
-./scripts/config-zsh.sh
+2.  **Rendre le script exécutable** :
+    ```bash
+    chmod +x install.sh
+    ```
 
-# Configuration de Vim
-./scripts/config-vim.sh
+3.  **Lancer le script** :
+    ```bash
+    ./install.sh
+    ```
 
-# Configuration du swapinness
-./scripts/set-swapinness.sh
+    Le menu interactif s'affichera, vous permettant de choisir l'option d'installation souhaitée.
 
-# Création du service macspoof
-./scripts/create_macspoof_service.sh
-```
+## ⚠️ Notes Importantes
 
----
-
-## 🔧 Configuration des applications
-
-### Neovim (NvChad)
-Configuration complète avec 
-- **LSP** : Support pour de nombreux langages: C, C++, Java, JavaScript, Lua, Python, Rust, TypeScript, YAML, JSON, Go, React, HTML, Css, VueJs, Php
-- **Treesitter** : Coloration syntaxique avancée
-- **Lazy.nvim** : Gestionnaire de plugins moderne
-- **Supermaven** : Assistant IA pour le code
-- **Conform** : Formatage automatique
-- **Noice** : Interface utilisateur améliorée
-
-#### Première utilisation :
-```bash
-# Lancer Neovim
-nvim
-
-# Les plugins se téléchargent automatiquement
-
-# Redémarrer Neovim après l'installation des plugins
-
-# executer mason install all pour installer les servers lsp
-`:MasonInstallAll`
-
-```
-
-### Kitty Terminal
-Configuration avec :
-- **Polices** : JetBrains Mono Nerd Font
-- **Raccourcis clavier** personnalisés 
-- **Support des thèmes** multiples
-- **Configuration des couleurs** adaptative
-
-### Foot Terminal
-Terminal léger pour Wayland avec :
-- **Performance optimisée**
-- **Support des thèmes** Catppuccin et Rose Pine
-- **Configuration minimaliste**
-
-### Sway
-Gestionnaire de fenêtres avec :
-- **Raccourcis clavier** intuitifs
-- **Espaces de travail** configurés
-- **Intégration Waybar**
-- **Support multi-écrans**
-
-#### Raccourcis principaux :
-- `Super + Return` : Ouvrir un terminal
-- `Super + a` : Ouvrir le lanceur d'applications
-- `Super  q` : Fermer une fenêtre
-- `Super + 1-9` : Changer d'espace de travail
-
-### Hyprland
-Compositeur moderne avec :
-- **Animations fluides**
-- **Effets visuels**
-- **Configuration avancée**
-- **Support des plugins**
-
-### Waybar
-Barre de statut avec :
-- **Modules système** (CPU, RAM, réseau)
-- **Lecteur multimédia**
-
----
-
-## 🎨 Thèmes disponibles
-
-### Changer de thème
-```bash
-# Aller dans le dossier des scripts de thème
-cd ~/.config/hotfiles-scripts/change-theme
-
-# Thèmes disponibles :
-./set-mocha.sh           # Catppuccin Mocha (sombre)
-./set-rose-pine-dawn.sh  # Rose Pine Dawn (clair)
-
-# Ou depuis n'importe où :
-~/.config/hotfiles-scripts/change-theme/set-mocha.sh
-```
-
-
-### Thèmes supportés par application
-
-#### Catppuccin
-- **Macchiato** (sombre) - Thème par défaut
-- **rose-pine-dawn** (clair)
-
----
-
-## 🛠️ Scripts utilitaires
-
-Tous les scripts sont installés dans `~/.config/hotfiles-scripts/` :
-
-### Scripts de thème
-```bash
-# Changer vers Catppuccin Mocha
-~/.config/hotfiles-scripts/change-theme/set-mocha.sh
-
-# Changer vers Rose Pine Dawn
-~/.config/hotfiles-scripts/change-theme/set-rose-pine-dawn.sh
-```
-
-### Scripts système
-```bash
-# Correction des polices
-~/.config/hotfiles-scripts/fix_fonts.sh
-
-# Configuration Zsh
-~/.config/hotfiles-scripts/config-zsh.sh
-
-# Configuration Vim
-~/.config/hotfiles-scripts/config-vim.sh
-
-# Réglage du swapinness
-~/.config/hotfiles-scripts/set-swapinness.sh
-```
-
-### Scripts réseau
-```bash
-# Service macspoof
-~/.config/hotfiles-scripts/create_macspoof_service.sh
-
-# Restriction temporelle
-~/.config/hotfiles-scripts/time-restrict.sh
-```
-
----
-
-## 🔍 Dépannage
-
-### Problèmes courants
-
-#### 1. Polices manquantes
-```bash
-# Installer les polices Nerd
-yay -S ttf-jetbrains-mono-nerd
-
-# Reconstruire le cache des polices
-fc-cache -fv
-
-# Exécuter le script de correction
-~/.config/hotfiles-scripts/fix_fonts.sh
-```
-
----
-
-## 💾 Sauvegarde et restauration
-
-### Système de sauvegarde automatique
-
-Le script d'installation crée automatiquement des sauvegardes dans :
-```
-~/.config-backups/backup-YYYYMMDD-HHMMSS/
-```
-
-### Restaurer une sauvegarde
-```bash
-# Lister les sauvegardes disponibles
-ls ~/.config-backups/
-
-# Restaurer une sauvegarde spécifique
-./restore.sh 20240127-143022
-
-# Ou restaurer la plus récente
-./restore.sh latest
-```
-
-### Sauvegarde manuelle
-```bash
-# Créer une sauvegarde manuelle
-mkdir -p ~/.config-backups/manual-$(date +%Y%m%d-%H%M%S)
-cp -r ~/.config/sway ~/.config-backups/manual-$(date +%Y%m%d-%H%M%S)/
-cp -r ~/.config/kitty ~/.config-backups/manual-$(date +%Y%m%d-%H%M%S)/
-# ... autres configurations
-```
-
-### Script de restauration
-Le script `restore.sh` permet de :
-- Lister toutes les sauvegardes disponibles
-- Restaurer sélectivement des configurations
-- Créer une sauvegarde avant restauration
-- Valider l'intégrité des sauvegardes
-
----
-
-## 🎯 Personnalisation
-
-## 🆘 Support et contribution
-
-### Signaler un problème
-1. Vérifiez les [problèmes connus](#dépannage)
-2. Consultez les logs système
-3. Créez une issue avec :
-   - Description du problème
-   - Étapes pour reproduire
-   - Logs pertinents
-   - Configuration système
-
-### Contribuer
-1. Fork le repository
-2. Créez une branche pour votre fonctionnalité
-3. Testez vos modifications
-4. Soumettez une pull request
-
-
-
+*   **Exécution depuis le Répertoire du Dépôt** : Le script doit être exécuté depuis le répertoire racine du dépôt `hotfiles` (là où se trouve `install.sh`).
+*   **Redémarrage de Session** : Après une installation complète, il est fortement recommandé de redémarrer votre session (ou votre système) pour que tous les changements prennent effet correctement.
+*   **Permissions** : Assurez-vous d'avoir les permissions nécessaires pour installer des paquets et modifier les fichiers de configuration dans votre répertoire `$HOME`.
+*   **Sauvegardes** : N'oubliez pas que le script crée des sauvegardes. En cas de problème, vous pouvez utiliser `restore.sh` pour revenir à un état précédent. Référez-vous à `README-backup-restore.md` pour plus de détails sur la restauration.
 
