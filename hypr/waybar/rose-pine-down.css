@@ -1,0 +1,212 @@
+/* Palette Rose Pine Dawn */
+@define-color base   #faf4ed;
+@define-color surface #fffaf3;
+@define-color overlay #f2e9e1;
+@define-color muted   #9893a5;
+@define-color subtle  #797593;
+@define-color text    #575279;
+@define-color love    #b4637a;
+@define-color gold    #ea9d34;
+@define-color rose    #d7827e;
+@define-color pine    #286983;
+@define-color foam    #56949f;
+@define-color iris    #907aa9;
+@define-color highlight-low  #f4ede8;
+@define-color highlight-med  #dfdad9;
+@define-color highlight-high #cecacd;
+
+/* Configuration globale */
+* {
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", monospace;
+    font-size: 12px;
+    font-weight: 500;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+/* Barre principale */
+window#waybar {
+    background: rgba(250, 244, 237, 0.95);
+    border: 1px solid rgba(86, 148, 159, 0.3);
+    border-radius: 12px;
+    color: @text;
+}
+
+/* Style des boutons/modules */
+button, label {
+    background: rgba(244, 237, 232, 0.7);
+    color: @text;
+    border-radius: 6px;
+    margin: 2px 1px;
+    padding: 2px 8px;
+    border: 1px solid rgba(121, 117, 147, 0.2);
+}
+
+button:hover {
+    background: rgba(223, 218, 217, 0.8);
+    border-color: rgba(144, 122, 169, 0.5);
+}
+
+/* Workspaces */
+#workspaces {
+    background: rgba(255, 250, 243, 0.8);
+    border-radius: 8px;
+    padding: 1px;
+    margin: 2px 4px;
+    border: 1px solid rgba(121, 117, 147, 0.2);
+}
+
+#workspaces button {
+    background: transparent;
+    color: @muted;
+    border: none;
+    border-radius: 6px;
+    margin: 1px;
+    padding: 2px 6px;
+}
+
+#workspaces button.active {
+    background: @iris;
+    color: @base;
+}
+
+#workspaces button:hover {
+    background: rgba(144, 122, 169, 0.2);
+    color: @text;
+}
+
+/* Fenêtre active */
+#window {
+    background: rgba(244, 237, 232, 0.7);
+    color: @pine;
+    border-radius: 8px;
+    padding: 4px 16px;
+    margin: 4px 8px;
+    border: 1px solid rgba(40, 105, 131, 0.3);
+    font-weight: 600;
+}
+
+/* Horloge centrale */
+#clock {
+    background: @love;
+    color: @base;
+    font-weight: bold;
+    font-size: 12px;
+    border-radius: 8px;
+    padding: 3px 12px;
+    margin: 2px 4px;
+    border: 1px solid rgba(180, 99, 122, 0.3);
+}
+
+/* Modules système */
+#cpu {
+    color: @foam;
+    border-color: rgba(86, 148, 159, 0.4);
+}
+
+#memory {
+    color: @gold;
+    border-color: rgba(234, 157, 52, 0.4);
+}
+
+#temperature {
+    color: @rose;
+    border-color: rgba(215, 130, 126, 0.4);
+}
+
+#temperature.critical {
+    color: @love;
+    background: rgba(180, 99, 122, 0.15);
+    border-color: rgba(180, 99, 122, 0.6);
+}
+
+/* Batterie */
+#battery {
+    color: @foam;
+    border-color: rgba(86, 148, 159, 0.4);
+}
+
+#battery.charging {
+    color: @pine;
+    border-color: rgba(40, 105, 131, 0.4);
+}
+
+#battery.warning:not(.charging) {
+    color: @gold;
+    border-color: rgba(234, 157, 52, 0.6);
+}
+
+#battery.critical:not(.charging) {
+    color: @love;
+    background: rgba(180, 99, 122, 0.15);
+    border-color: rgba(180, 99, 122, 0.6);
+}
+
+/* Réseau */
+#network {
+    color: @pine;
+    border-color: rgba(40, 105, 131, 0.4);
+}
+
+#network.disconnected {
+    color: @love;
+    border-color: rgba(180, 99, 122, 0.4);
+}
+
+/* Audio */
+#pulseaudio {
+    color: @iris;
+    border-color: rgba(144, 122, 169, 0.4);
+}
+
+#pulseaudio.muted {
+    color: @muted;
+    border-color: rgba(152, 147, 165, 0.4);
+}
+
+/* Idle inhibitor */
+#idle_inhibitor {
+    color: @foam;
+    border-color: rgba(86, 148, 159, 0.4);
+}
+
+#idle_inhibitor.activated {
+    color: @gold;
+    background: rgba(234, 157, 52, 0.15);
+    border-color: rgba(234, 157, 52, 0.6);
+}
+
+/* Tray */
+#tray {
+    background: rgba(244, 237, 232, 0.7);
+    border-radius: 8px;
+    padding: 4px 8px;
+    margin: 4px 8px;
+    border: 1px solid rgba(121, 117, 147, 0.2);
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: rgba(180, 99, 122, 0.2);
+}
+
+/* Tooltip */
+tooltip {
+    background: rgba(250, 244, 237, 0.95);
+    border: 1px solid rgba(144, 122, 169, 0.3);
+    border-radius: 8px;
+    color: @text;
+}
+
+tooltip label {
+    background: transparent;
+    border: none;
+    color: @text;
+    margin: 0;
+    padding: 8px;
+}
