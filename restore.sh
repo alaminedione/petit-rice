@@ -133,6 +133,7 @@ Configurations sauvegardées:
 EOF
     
     local apps=("foot" "kitty" "nvim" "sway" "swaylock" "waybar" "wofi" "mako" "fastfetch" "hypr")
+    local home_files=(".aliases.sh" ".fdignore" ".tgpt_aliases.sh" ".vimrc" ".viminfo" ".vim")
     local backup_created=false
     
     # Sauvegarder les configurations actuelles
@@ -141,6 +142,17 @@ EOF
         if [ -d "$config_path" ] || [ -f "$config_path" ]; then
             cp -r "$config_path" "$safety_backup_dir/$app"
             echo "  - $app" >> "$safety_backup_dir/backup-info.txt"
+            backup_created=true
+        fi
+    done
+    
+    # Sauvegarder les fichiers home actuels
+    mkdir -p "$safety_backup_dir/home"
+    for home_file in "${home_files[@]}"; do
+        local home_path="$HOME/$home_file"
+        if [ -d "$home_path" ] || [ -f "$home_path" ]; then
+            cp -r "$home_path" "$safety_backup_dir/home/$home_file"
+            echo "  - home/$home_file" >> "$safety_backup_dir/backup-info.txt"
             backup_created=true
         fi
     done
@@ -195,6 +207,32 @@ restore_backup() {
             
             # Ignorer le fichier d'information
             if [ "$item_name" = "backup-info.txt" ]; then
+                continue
+            fi
+            
+            # Gestion spéciale pour le dossier home
+            if [ "$item_name" = "home" ] && [ -d "$item" ]; then
+                print_info "Restauration des fichiers home..."
+                
+                # Restaurer chaque fichier/dossier du home
+                for home_item in "$item"/*; do
+                    if [ -e "$home_item" ]; then
+                        local home_item_name=$(basename "$home_item")
+                        local target_path="$HOME/$home_item_name"
+                        
+                        print_info "Restauration de $home_item_name dans le home..."
+                        
+                        # Supprimer le fichier/dossier actuel s'il existe
+                        if [ -d "$target_path" ] || [ -f "$target_path" ]; then
+                            rm -rf "$target_path"
+                        fi
+                        
+                        # Copier le fichier/dossier sauvegardé
+                        cp -r "$home_item" "$target_path"
+                        
+                        print_success "✓ $home_item_name restauré dans le home"
+                    fi
+                done
                 continue
             fi
             
@@ -261,13 +299,13 @@ cleanup_old_backups() {
     
     print_info "Nombre total de sauvegardes: $backup_count"
     
-    if [ $backup_count -le 5 ]; then
-        print_info "Moins de 5 sauvegardes, aucun nettoyage nécessaire"
+    if [ $backup_count -le 10 ]; then
+        print_info "Moins de 10 sauvegardes, aucun nettoyage nécessaire"
         return 0
     fi
     
-    print_info "Sauvegardes anciennes (plus de 5):"
-    local to_delete=(${backups[@]:0:$((backup_count-5))})
+    print_info "Sauvegardes anciennes (plus de 10):"
+    local to_delete=(${backups[@]:0:$((backup_count-10))})
     
     for backup in "${to_delete[@]}"; do
         echo "  - $backup"

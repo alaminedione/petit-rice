@@ -59,6 +59,7 @@ ask_yes_no() {
 # Fonction de sauvegarde globale
 create_global_backup() {
     local apps=("foot" "kitty" "nvim" "sway" "swaylock" "waybar" "wofi" "mako" "fastfetch" "hypr")
+    local home_files=(".aliases.sh" ".fdignore" ".tgpt_aliases.sh" ".vimrc" ".viminfo" ".vim")
     local backup_needed=false
     
     print_info "Vérification des configurations existantes..."
@@ -76,6 +77,15 @@ create_global_backup() {
     if [ -d "$CONFIG_DIR/hotfiles-scripts" ]; then
         backup_needed=true
     fi
+    
+    # Vérifier les fichiers home existants
+    for home_file in "${home_files[@]}"; do
+        local home_path="$HOME/$home_file"
+        if [ -d "$home_path" ] || [ -f "$home_path" ]; then
+            backup_needed=true
+            break
+        fi
+    done
     
     if [ "$backup_needed" = true ]; then
         print_info "Création du dossier de sauvegarde global: $BACKUP_DIR"
@@ -98,6 +108,18 @@ EOF
                 cp -r "$config_path" "$BACKUP_DIR/$app"
                 echo "  - $app" >> "$BACKUP_DIR/backup-info.txt"
                 print_success "✓ $app sauvegardé"
+            fi
+        done
+        
+        # Sauvegarder les fichiers home existants
+        mkdir -p "$BACKUP_DIR/home"
+        for home_file in "${home_files[@]}"; do
+            local home_path="$HOME/$home_file"
+            if [ -d "$home_path" ] || [ -f "$home_path" ]; then
+                print_info "Sauvegarde de $home_file..."
+                cp -r "$home_path" "$BACKUP_DIR/home/$home_file"
+                echo "  - home/$home_file" >> "$BACKUP_DIR/backup-info.txt"
+                print_success "✓ $home_file sauvegardé"
             fi
         done
         
@@ -140,6 +162,43 @@ install_config() {
         print_warning "Configuration $app_name non trouvée dans $source_dir"
     fi
 }
+# Fonction d'installation des fichiers home
+install_home_files() {
+    local source_dir="$SCRIPT_DIR/home"
+    
+    if [ -d "$source_dir" ]; then
+        print_info "Installation des fichiers home..."
+        
+        # Parcourir tous les fichiers dans le dossier home
+        find "$source_dir" -type f | while read -r file; do
+            # Obtenir le chemin relatif par rapport au dossier source
+            local relative_path="${file#$source_dir/}"
+            local target_path="$HOME/$relative_path"
+            
+            # Créer le répertoire parent si nécessaire
+            mkdir -p "$(dirname "$target_path")"
+            
+            # Copier le fichier
+            cp "$file" "$target_path"
+            print_success "✓ $relative_path installé dans le home"
+        done
+        
+        # Parcourir tous les dossiers dans le dossier home
+        find "$source_dir" -type d -not -path "$source_dir" | while read -r dir; do
+            # Obtenir le chemin relatif par rapport au dossier source
+            local relative_path="${dir#$source_dir/}"
+            local target_path="$HOME/$relative_path"
+            
+            # Créer le répertoire
+            mkdir -p "$target_path"
+            print_success "✓ Dossier $relative_path créé dans le home"
+        done
+        
+        print_success "Fichiers home installés"
+    else
+        print_warning "Dossier home non trouvé dans $source_dir"
+    fi
+}
 
 # Fonction pour rendre les scripts exécutables
 make_scripts_executable() {
@@ -176,6 +235,9 @@ main_install() {
     if [ -d "$SCRIPT_DIR/hypr" ]; then
         install_config "hypr"
     fi
+    
+    # Installation des fichiers home
+    install_home_files
     
     # Rendre les scripts exécutables
     make_scripts_executable
@@ -264,6 +326,7 @@ show_summary() {
     print_warning "Actions recommandées:"
     echo "   - Redémarrez votre session pour appliquer tous les changements"
     echo "   - Vérifiez les configurations dans vos applications"
+    echo "   - Vérifiez les fichiers installés dans votre répertoire home"
     echo "   - Utilisez les scripts de changement de thème si nécessaire"
     echo ""
     print_info "Scripts de thème disponibles:"
