@@ -10,7 +10,7 @@ sudo pacman -Rns --noconfirm xorg-fonts-75dpi xorg-fonts-100dpi ttf-dejavu || tr
 
 # 2. Installer de bonnes polices modernes
 echo "[2/6] Installation de polices modernes..."
-sudo pacman -S --noconfirm ttf-liberation ttf-ubuntu-font-family ttf-fira-sans ttf-fira-code noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-jetbrains-mono-nerd 
+sudo pacman -S --needed --noconfirm ttf-liberation ttf-ubuntu-font-family ttf-fira-sans ttf-fira-code noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-jetbrains-mono-nerd adobe-source-code-pro-fonts ttf-hack ttf-cascadia-code ttf-iosevka ttf-iosevka-nerd ttf-iosevka-term nerd-fonts-complete ttf-ubuntu-mono-nerd ttf-roboto ttf-libertinus-sans ttf-libertinus-serif ttf-dejavu
 
 # 3. Installer les bibliothèques de rendu améliorées via yay
 echo "[3/6] Installation de freetype2-ubuntu, fontconfig-ubuntu, cairo-ubuntu..."
