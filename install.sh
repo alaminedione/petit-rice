@@ -16,7 +16,9 @@ NC='\033[0m' # No Color
 
 # Variables
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BACKUP_DIR="$HOME/.config-backup-$(date +%Y%m%d-%H%M%S)"
+TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
+BACKUP_BASE_DIR="$HOME/.config-backups"
+BACKUP_DIR="$BACKUP_BASE_DIR/backup-$TIMESTAMP"
 CONFIG_DIR="$HOME/.config"
 
 # Fonction d'affichage coloré
@@ -54,16 +56,63 @@ ask_yes_no() {
     done
 }
 
-# Fonction de sauvegarde
-backup_config() {
-    local config_name="$1"
-    local config_path="$CONFIG_DIR/$config_name"
+# Fonction de sauvegarde globale
+create_global_backup() {
+    local apps=("foot" "kitty" "nvim" "sway" "swaylock" "waybar" "wofi" "mako" "fastfetch" "hypr")
+    local backup_needed=false
     
-    if [ -d "$config_path" ] || [ -f "$config_path" ]; then
-        print_info "Sauvegarde de $config_name..."
+    print_info "Vérification des configurations existantes..."
+    
+    # Vérifier s'il y a des configurations à sauvegarder
+    for app in "${apps[@]}"; do
+        local config_path="$CONFIG_DIR/$app"
+        if [ -d "$config_path" ] || [ -f "$config_path" ]; then
+            backup_needed=true
+            break
+        fi
+    done
+    
+    # Vérifier les scripts hotfiles existants
+    if [ -d "$CONFIG_DIR/hotfiles-scripts" ]; then
+        backup_needed=true
+    fi
+    
+    if [ "$backup_needed" = true ]; then
+        print_info "Création du dossier de sauvegarde global: $BACKUP_DIR"
         mkdir -p "$BACKUP_DIR"
-        cp -r "$config_path" "$BACKUP_DIR/${config_name}-$(date +%Y%m%d-%H%M%S).back"
-        print_success "Sauvegarde créée: $BACKUP_DIR/${config_name}-$(date +%Y%m%d-%H%M%S).back"
+        
+        # Créer un fichier d'information sur la sauvegarde
+        cat > "$BACKUP_DIR/backup-info.txt" << EOF
+Sauvegarde créée le: $(date)
+Timestamp: $TIMESTAMP
+Script utilisé: $0
+Répertoire source: $SCRIPT_DIR
+Configurations sauvegardées:
+EOF
+        
+        # Sauvegarder chaque configuration existante
+        for app in "${apps[@]}"; do
+            local config_path="$CONFIG_DIR/$app"
+            if [ -d "$config_path" ] || [ -f "$config_path" ]; then
+                print_info "Sauvegarde de $app..."
+                cp -r "$config_path" "$BACKUP_DIR/$app"
+                echo "  - $app" >> "$BACKUP_DIR/backup-info.txt"
+                print_success "✓ $app sauvegardé"
+            fi
+        done
+        
+        # Sauvegarder les scripts hotfiles s'ils existent
+        if [ -d "$CONFIG_DIR/hotfiles-scripts" ]; then
+            print_info "Sauvegarde des scripts hotfiles..."
+            cp -r "$CONFIG_DIR/hotfiles-scripts" "$BACKUP_DIR/hotfiles-scripts"
+            echo "  - hotfiles-scripts" >> "$BACKUP_DIR/backup-info.txt"
+            print_success "✓ Scripts hotfiles sauvegardés"
+        fi
+        
+        print_success "Sauvegarde globale créée: $BACKUP_DIR"
+        echo -e "${GREEN}📁 Sauvegarde disponible pour restauration avec: ./restore.sh $TIMESTAMP${NC}"
+    else
+        print_info "Aucune configuration existante trouvée, pas de sauvegarde nécessaire"
     fi
 }
 
@@ -76,11 +125,13 @@ install_config() {
     if [ -d "$source_dir" ]; then
         print_info "Installation de la configuration $app_name..."
         
-        # Sauvegarde si la configuration existe
-        backup_config "$app_name"
-        
         # Création du répertoire cible
         mkdir -p "$(dirname "$target_dir")"
+        
+        # Suppression de l'ancienne configuration si elle existe
+        if [ -d "$target_dir" ] || [ -f "$target_dir" ]; then
+            rm -rf "$target_dir"
+        fi
         
         # Copie des fichiers
         cp -r "$source_dir" "$target_dir"
@@ -107,9 +158,11 @@ main_install() {
         exit 1
     fi
     
-    # Création du répertoire de sauvegarde
-    mkdir -p "$BACKUP_DIR"
-    print_info "Répertoire de sauvegarde: $BACKUP_DIR"
+    # Création du répertoire de sauvegarde de base
+    mkdir -p "$BACKUP_BASE_DIR"
+    
+    # Création de la sauvegarde globale AVANT l'installation
+    create_global_backup
     
     # Liste des applications à configurer
     local apps=("foot" "kitty" "nvim" "sway" "swaylock" "waybar" "wofi" "mako" "fastfetch")
@@ -202,7 +255,10 @@ show_summary() {
     echo -e "${GREEN}✅ Installation terminée avec succès !${NC}"
     echo ""
     print_info "Configurations installées dans: $CONFIG_DIR"
-    print_info "Sauvegardes créées dans: $BACKUP_DIR"
+    if [ -d "$BACKUP_DIR" ]; then
+        print_info "Sauvegarde créée dans: $BACKUP_DIR"
+        print_info "Pour restaurer cette sauvegarde: ./restore.sh $TIMESTAMP"
+    fi
     print_info "Scripts utilitaires dans: $CONFIG_DIR/hotfiles-scripts"
     echo ""
     print_warning "Actions recommandées:"
@@ -213,6 +269,11 @@ show_summary() {
     print_info "Scripts de thème disponibles:"
     if [ -d "$SCRIPT_DIR/scripts/change-theme" ]; then
         find "$SCRIPT_DIR/scripts/change-theme" -name "*.sh" -exec basename {} \; | sed 's/^/   - /'
+    fi
+    echo ""
+    print_info "Sauvegardes disponibles:"
+    if [ -d "$BACKUP_BASE_DIR" ]; then
+        ls -1 "$BACKUP_BASE_DIR" | grep "^backup-" | sed 's/^backup-/   - /' | sed 's/$/ (utilisez: .\/restore.sh <timestamp>)/'
     fi
 }
 
