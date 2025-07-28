@@ -44,7 +44,7 @@ case $1 in
     window)
         case $WM in
             sway)
-                window=$(swaymsg -t get_tree | jq -r '.nodes[].nodes[] | select(.type=="workspace") | .nodes[] | select(.type=="con") | "\(.id): \(.name)"' | \
+                window=$(swaymsg -t get_tree | jq -r '.nodes[].nodes[] | select(.type=="workspace") | .nodes[] | select(.type=="con") | " \  (.name)"' | \
                          wofi --show dmenu \
                               --conf "${CONFIG}" \
                               --style "${STYLE}" \
@@ -57,7 +57,7 @@ case $1 in
                 fi
                 ;;
             hyprland)
-                window=$(hyprctl clients -j | jq -r '.[] | "\(.address): \(.title)"' | \
+                window=$(hyprctl clients -j | jq -r '.[] | "   \(.title)"' | \
                          wofi --show dmenu \
                               --conf "${CONFIG}" \
                               --style "${STYLE}" \
