@@ -7,7 +7,7 @@ echo "include themes/rose-pine-dawn.conf" > ~/.config/kitty/colors.conf
 cp ~/.config/wofi/rose-pine-dawn.css ~/.config/wofi/style.css
 
 # waybar sway
-cp ~/.config/waybar/rose-pine-dawn.css ~/.config/waybar/style.css
+cp ~/.config/sway/waybar/rose-pine-dawn.css ~/.config/sway/waybar/style.css
 
 #waybar hyprland  
 cp ~/.config/hypr/waybar/rose-pine-down.css ~/.config/hypr/waybar/style.css

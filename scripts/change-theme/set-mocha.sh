@@ -10,7 +10,7 @@ echo "include themes/macchiato.conf" > ~/.config/kitty/colors.conf
 cp ~/.config/wofi/macchiato.css ~/.config/wofi/style.css
 
 # waybar sway
-cp ~/.config/waybar/macchiato.css ~/.config/waybar/style.css
+cp ~/.config/sway/waybar/macchiato.css ~/.config/sway/waybar/style.css
 
 # waybar hyprland
 cp ~/.config/hypr/waybar/macchiato.css ~/.config/hypr/waybar/style.css

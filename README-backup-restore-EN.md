@@ -29,7 +29,6 @@ The backup system creates a timestamped directory for each backup, containing th
 │   ├── nvim/
 │   ├── sway/
 │   ├── swaylock/
-│   ├── waybar/
 │   ├── wofi/
 │   ├── mako/
 │   ├── fastfetch/

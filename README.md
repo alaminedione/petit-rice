@@ -162,7 +162,7 @@ For each application, you'll need to create a new theme file in its respective t
 *   **kitty**: Create a `.conf` file in `kitty/themes/` (e.g., `kitty/themes/your-new-theme.conf`).
 *   **wofi**: Create a `.css` file in `wofi/` (e.g., `wofi/your-new-theme.css`).
 *   **waybar (Hyprland)**: Create a `.css` file in `hypr/waybar/` (e.g., `hypr/waybar/your-new-theme.css`).
-*   **waybar (Sway)**: Create a `.css` file in `waybar/` (e.g., `waybar/your-new-theme.css`).
+*   **waybar (Sway)**: Create a `.css` file in `sway/waybar/` (e.g., `waybar/your-new-theme.css`).
 *   **mako**: Create a configuration file in `mako/` (e.g., `mako/your-new-theme`).
 *   **sway**: Create a theme directory in `sway/themes/` containing your Sway-specific configurations (e.g., `sway/themes/your-new-theme/config`).
 *   **ghostty**: You'll need to define your theme directly in the application script (see Step 2).
@@ -189,7 +189,7 @@ echo "include themes/your-new-theme.conf" > ~/.config/kitty/colors.conf
 cp ~/.config/wofi/your-new-theme.css ~/.config/wofi/style.css
 
 # waybar sway
-cp ~/.config/waybar/your-new-theme.css ~/.config/waybar/style.css
+cp ~/.config/sway/waybar/your-new-theme.css ~/.config/sway/waybar/style.css
 
 # waybar hyprland
 cp ~/.config/hypr/waybar/your-new-theme.css ~/.config/hypr/waybar/style.css

@@ -58,7 +58,7 @@ ask_yes_no() {
 
 # Global backup function
 create_global_backup() {
-    local apps=("foot" "kitty" "nvim" "sway" "swaylock" "waybar" "wofi" "mako" "fastfetch" "hypr")
+    local apps=("foot" "kitty" "nvim" "sway" "swaylock"  "wofi" "mako" "fastfetch" "hypr")
     local home_files=(".aliases.sh" ".fdignore" ".tgpt_aliases.sh" ".vimrc" ".viminfo" ".vim")
     local backup_needed=false
     
@@ -224,7 +224,7 @@ main_install() {
     create_global_backup
     
     # List of applications to configure
-    local apps=("foot" "kitty" "nvim" "sway" "swaylock" "waybar" "wofi" "mako" "fastfetch")
+    local apps=("foot" "kitty" "nvim" "sway" "swaylock"  "wofi" "mako" "fastfetch")
     
     # Install configurations
     for app in "${apps[@]}"; do
