@@ -179,5 +179,5 @@ aide() {
 # Raccourci pour l'aide
 alias th='aide'
 
-echo "✅ Alias TGPT simples chargés"
-echo "💡 Tapez 'aide' ou 'th' pour l'aide"
+#echo "✅ Alias TGPT simples chargés"
+#echo "💡 Tapez 'aide' ou 'th' pour l'aide"
