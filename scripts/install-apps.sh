@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Script d'installation interactive des applications pour Arch Linux
-# Basé sur votre configuration existante avec des catégories
+# Interactive application installation script for Arch Linux
+# Based on your existing configuration with categories
 
 set -e
 
-# Couleurs pour l'affichage
+# Colors for display
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -14,7 +14,7 @@ PURPLE='\033[0;35m'
 CYAN='\033[0;36m'
 NC='\033[0m' # No Color
 
-# Fonction d'affichage coloré
+# Colored display function
 print_header() {
     echo -e "${CYAN}=====================================
 $1
@@ -37,55 +37,55 @@ print_info() {
     echo -e "${BLUE}ℹ️  $1${NC}"
 }
 
-# Fonction pour demander confirmation
+# Function to ask for confirmation
 ask_yes_no() {
     while true; do
         read -p "$(echo -e "${YELLOW}$1 (y/n): ${NC}")" yn
         case $yn in
             [Yy]* ) return 0;;
             [Nn]* ) return 1;;
-            * ) echo "Veuillez répondre par y (oui) ou n (non).";;
+            * ) echo "Please answer with y (yes) or n (no).";;
         esac
     done
 }
 
-# Fonction d'installation avec gestion d'erreurs
+# Installation function with error handling
 install_packages() {
     local category="$1"
     shift
     local packages=("$@")
     
     if [ ${#packages[@]} -eq 0 ]; then
-        print_warning "Aucun package à installer pour $category"
+        print_warning "No packages to install for $category"
         return
     fi
     
     print_header "Installation: $category"
-    echo "Packages à installer: ${packages[*]}"
+    echo "Packages to install: ${packages[*]}"
     
-    if ask_yes_no "Continuer l'installation de $category ?"; then
-        echo "📦 Installation en cours..."
+    if ask_yes_no "Continue with installation of $category ?"; then
+        echo "📦 Installation in progress..."
         if yay -S --needed --noconfirm "${packages[@]}"; then
-            print_success "$category installé avec succès"
+            print_success "$category installed successfully"
         else
-            print_error "Erreur lors de l'installation de $category"
-            if ask_yes_no "Continuer malgré l'erreur ?"; then
+            print_error "Error during installation of $category"
+            if ask_yes_no "Continue despite the error?"; then
                 return 0
             else
                 exit 1
             fi
         fi
     else
-        print_info "$category ignoré"
+        print_info "$category skipped"
     fi
 }
 
-# Vérification des prérequis
-print_header "Vérification des prérequis"
+# Prerequisites check
+print_header "Prerequisites check"
 
 if ! command -v yay &> /dev/null; then
-    print_error "yay n'est pas installé. Installation requise."
-    if ask_yes_no "Installer yay maintenant ?"; then
+    print_error "yay is not installed. Installation required."
+    if ask_yes_no "Install yay now?"; then
         sudo pacman -S --needed base-devel git
         git clone https://aur.archlinux.org/yay.git
         cd yay
@@ -97,108 +97,108 @@ if ! command -v yay &> /dev/null; then
     fi
 fi
 
-print_success "yay est disponible"
+print_success "yay is available"
 
-# Mise à jour du système
-if ask_yes_no "Mettre à jour le système avant l'installation ?"; then
-    print_header "Mise à jour du système"
+# System update
+if ask_yes_no "Update the system before installation?"; then
+    print_header "System update"
     yay -Syu --noconfirm
-    print_success "Système mis à jour"
+    print_success "System updated"
 fi
 
-# Définition des catégories et packages
+# Definition of categories and packages
 declare -A CATEGORIES
 
-# 1. Packages de base système
+# 1. Base system packages
 CATEGORIES["base"]="debugedit freetype2-ubuntu fontconfig-ubuntu cairo-ubuntu"
 
-# 2. Éditeurs et IDEs
+# 2. Editors and IDEs
 CATEGORIES["editors"]="code neovim zed nano vim"
 
-# 3. Terminaux
+# 3. Terminals
 CATEGORIES["terminals"]="ghostty kitty foot"
 
-# 4. Outils de développement CLI
+# 4. CLI development tools
 CATEGORIES["dev_tools"]="github-cli glab lazygit cargo-tauri composer pnpm uv ts-node sccache bc lazydocker-bingo rust nodejs php"
 
-# 5. Outils système et monitoring
+# 5. System and monitoring tools
 CATEGORIES["system_tools"]="htop fastfetch bat eza tree hyperfine onefetch cloc yazi rsync wget croc tgpt gpu-screen-recorder-gtk pipes.sh clipman"
 
-# 6. Containerisation
+# 6. Containerization
 CATEGORIES["containers"]="docker docker-compose podman qemu"
 
-# 7. Applications graphiques de développement
+# 7. Graphical development applications
 CATEGORIES["dev_apps"]="zeal"
 
-# 8. Environnement Sway/Wayland
+# 8. Sway/Wayland Environment
 CATEGORIES["sway"]="sway wofi slurp wlsunset"
 
 # 9. Hyprland
 CATEGORIES["hyprland"]="hyprland hyprlock hyprpaper hyprsunset"
 
-# 10. Serveur X (pour compatibilité)
+# 10. X Server (for compatibility)
 CATEGORIES["xorg"]="xorg-server xorg-xinit xf86-video-amdgpu xf86-video-ati"
 
-# 11. Thèmes et apparence
+# 11. Themes and appearance
 CATEGORIES["themes"]="adapta-gtk-theme orchis-theme kvantum lxappearance"
 
-# 12. Polices
+# 12. Fonts
 CATEGORIES["fonts"]="adobe-source-code-pro-fonts ttf-fira-code ttf-fira-sans ttf-hack ttf-jetbrains-mono-nerd ttf-ubuntu-font-family"
 
-# 13. Applications multimédia
+# 13. Multimedia applications
 CATEGORIES["multimedia"]="vlc clapper cheese viewnior pavucontrol"
 
-# 14. Applications utilisateur
+# 14. User applications
 CATEGORIES["user_apps"]="firefox telegram-desktop galculator atril yt-dlp   onlyoffice-bin"
 
-# 15. Outils réseau et sécurité
+# 15. Network and security tools
 CATEGORIES["network"]="macchanger wireless_tools wpa_supplicant iwgtk"
 
-# 16. Utilitaires divers
+# 16. Miscellaneous utilities
 CATEGORIES["utilities"]="yq freedownloadmanager"
 
-# 17. for me
+# 17. For me
 CATEGORIES["me"]="cloudflare-warp-bin  google-cloud-cli turso obsidian appflowy-bin thorium-browser-bin drawio-desktop megasync-bin brave-bin"
 
-# Menu principal interactif
-print_header "Script d'installation interactive Arch Linux"
-echo "Ce script installera les applications par catégories."
-echo "Vous pouvez choisir d'installer toutes les catégories ou sélectionner individuellement."
+# Interactive main menu
+print_header "Interactive Arch Linux Installation Script"
+echo "This script will install applications by categories."
+echo "You can choose to install all categories automatically or select them individually."
 echo ""
 
-if ask_yes_no "Voulez-vous installer TOUTES les catégories automatiquement ?"; then
-    # Installation automatique de tout
+if ask_yes_no "Do you want to install ALL categories automatically?"; then
+    # Automatic installation of everything
     for category in "${!CATEGORIES[@]}"; do
         IFS=' ' read -ra packages <<< "${CATEGORIES[$category]}"
         install_packages "$category" "${packages[@]}"
     done
 else
-    # Installation sélective
+    # Selective installation
     echo ""
-    print_info "Installation sélective - choisissez vos catégories:"
+    print_info "Selective installation - choose your categories:"
     echo ""
     
-    # Affichage du menu
-    echo "Catégories disponibles:"
-    echo "1.  Base système (${CATEGORIES[base]})"
-    echo "2.  Éditeurs (${CATEGORIES[editors]})"
-    echo "3.  Terminaux (${CATEGORIES[terminals]})"
-    echo "4.  Outils développement CLI (${CATEGORIES[dev_tools]})"
-    echo "5.  Outils système (${CATEGORIES[system_tools]})"
-    echo "6.  Containerisation (${CATEGORIES[containers]})"
-    echo "7.  Apps développement graphiques (${CATEGORIES[dev_apps]})"
-    echo "8.  Environnement Sway (${CATEGORIES[sway]})"
+    # Display menu
+    echo "Available categories:"
+    echo "1.  Base system (${CATEGORIES[base]})"
+    echo "2.  Editors (${CATEGORIES[editors]})"
+    echo "3.  Terminals (${CATEGORIES[terminals]})"
+    echo "4.  CLI Development Tools (${CATEGORIES[dev_tools]})"
+    echo "5.  System Tools (${CATEGORIES[system_tools]})"
+    echo "6.  Containerization (${CATEGORIES[containers]})"
+    echo "7.  Graphical Development Apps (${CATEGORIES[dev_apps]})"
+    echo "8.  Sway Environment (${CATEGORIES[sway]})"
     echo "9.  Hyprland (${CATEGORIES[hyprland]})"
-    echo "10. Serveur X (${CATEGORIES[xorg]})"
-    echo "11. Thèmes et apparence (${CATEGORIES[themes]})"
-    echo "12. Polices (${CATEGORIES[fonts]})"
-    echo "13. Multimédia (${CATEGORIES[multimedia]})"
-    echo "14. Applications utilisateur (${CATEGORIES[user_apps]})"
-    echo "15. Réseau et sécurité (${CATEGORIES[network]})"
-    echo "16. Utilitaires divers (${CATEGORIES[utilities]})"
+    echo "10. X Server (${CATEGORIES[xorg]})"
+    echo "11. Themes and Appearance (${CATEGORIES[themes]})"
+    echo "12. Fonts (${CATEGORIES[fonts]})"
+    echo "13. Multimedia (${CATEGORIES[multimedia]})"
+    echo "14. User Applications (${CATEGORIES[user_apps]})"
+    echo "15. Network and Security (${CATEGORIES[network]})"
+    echo "16. Miscellaneous Utilities (${CATEGORIES[utilities]})"
     echo ""
     
-    # Installation par catégorie
+    # Installation by category
     declare -A category_map
     category_map[1]="base"
     category_map[2]="editors"
@@ -220,26 +220,26 @@ else
     for i in {1..16}; do
         category_key="${category_map[$i]}"
         IFS=' ' read -ra packages <<< "${CATEGORIES[$category_key]}"
-        install_packages "Catégorie $i: $category_key" "${packages[@]}"
+        install_packages "Category $i: $category_key" "${packages[@]}"
     done
 fi
 
-# Configuration post-installation
-print_header "Configuration post-installation"
+# Post-installation configuration
+print_header "Post-installation configuration"
 
-if ask_yes_no "Configurer Docker pour l'utilisateur actuel ?"; then
-    print_info "Configuration de Docker..."
+if ask_yes_no "Configure Docker for the current user?"; then
+    print_info "Configuring Docker..."
     sudo usermod -aG docker $USER
-    print_success "Utilisateur ajouté au groupe docker"
-    print_warning "Redémarrez votre session pour que les changements prennent effet"
+    print_success "User added to docker group"
+    print_warning "Restart your session for changes to take effect"
 fi
 
-print_header "Installation terminée !"
-print_success "Votre environnement Arch Linux est configuré"
+print_header "Installation complete!"
+print_success "Your Arch Linux environment is configured"
 echo ""
-print_info "Notes importantes:"
-echo "   - Redémarrez votre session pour que les groupes prennent effet"
-echo "   - Configurez votre environnement Sway/Hyprland selon vos préférences"  
-echo "   - Les polices Nerd sont installées pour une meilleure expérience terminal"
+print_info "Important notes:"
+echo "   - Restart your session for groups to take effect"
+echo "   - Configure your Sway/Hyprland environment according to your preferences"  
+echo "   - Nerd fonts are installed for a better terminal experience"
 echo ""
-print_success "🎉 Installation terminée avec succès!"
+print_success "🎉 Installation completed successfully!"

@@ -46,7 +46,7 @@ cd hotfiles
 ./install.sh
 ```
 
-For a detailed explanation of the `install.sh` script, its options, and how to use it, please refer to the [Installation Guide](GUIDE_INSTALLATION.md).
+For a detailed explanation of the `install.sh` script, its options, and how to use it, please refer to the  [Installation Guide ](GUIDE_INSTALLATION_EN.md).
 
 ## ⌨️ Keybindings
 
@@ -130,7 +130,7 @@ You can also restore a specific backup directly using its timestamp:
 ./restore.sh <timestamp> # e.g., ./restore.sh 20240127-143052
 ```
 
-For more detailed information on backup and restoration, including listing, viewing details, deleting, and cleaning up old backups, please refer to the dedicated guide: [README-backup-restore.md](README-backup-restore.md).
+For more detailed information on backup and restoration, including listing, viewing details, deleting, and cleaning up old backups, please refer to the dedicated guide: [Backup and Restore Guide ](README-backup-restore-EN.md).
 
 ## 🎨 How to Change Themes
 

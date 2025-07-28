@@ -2,28 +2,28 @@
 
 set -e
 
-# Vérifier si Zsh est installé, sinon l'installer (Arch Linux)
+# Check if Zsh is installed, otherwise install it (Arch Linux)
 if ! command -v zsh &> /dev/null; then
-  echo "Zsh non trouvé, installation en cours..."
+  echo "Zsh not found, installing..."
   sudo pacman -Sy --noconfirm zsh
 else
-  echo "Zsh est déjà installé."
+  echo "Zsh is already installed."
 fi
 
-# Installer Oh My Zsh si pas déjà présent
+# Install Oh My Zsh if not already present
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  echo "Installation d'Oh My Zsh..."
+  echo "Installing Oh My Zsh..."
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 else
-  echo "Oh My Zsh est déjà installé."
+  echo "Oh My Zsh is already installed."
 fi
 
-# Définir Zsh comme shell par défaut pour l'utilisateur actuel
+# Set Zsh as default shell for the current user
 if [ "$SHELL" != "$(which zsh)" ]; then
-  echo "Définition de Zsh comme shell par défaut..."
+  echo "Setting Zsh as default shell..."
   chsh -s "$(which zsh)"
 else
-  echo "Zsh est déjà le shell par défaut."
+  echo "Zsh is already the default shell."
 fi
 
 # zsh-autosuggestions
@@ -35,20 +35,19 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/
 # zsh-completions
 git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
 
-# fzf (plugin Oh My Zsh + outil fzf)
-sudo pacman -S --needed fzf  # installe l'outil fzf sur Arch Linux
+# fzf (Oh My Zsh plugin + fzf tool)
+sudo pacman -S --needed fzf  # installs the fzf tool on Arch Linux
 git clone https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install  # installe fzf et ses bindings
+~/.fzf/install  # installs fzf and its bindings
 
-# vi-mode est inclus dans Oh My Zsh, pas besoin d’installation
+# vi-mode is included in Oh My Zsh, no installation needed
 
 # gitignore
-# Note : ce plugin est inclus dans Oh My Zsh, vous pouvez juste activer "gitignore" dans plugins
+# Note: this plugin is included in Oh My Zsh, you can just activate "gitignore" in plugins
 
-echo "Configuration terminée."
+echo "Configuration complete."
 
-echo "Pour appliquer la configuration, ouvrez un nouveau terminal ou lancez :"
+echo "To apply the configuration, open a new terminal or run:"
 echo "source ~/.zshrc"
 
-echo "Installation et configuration terminées avec succès."
-
+echo "Installation and configuration finished successfully."

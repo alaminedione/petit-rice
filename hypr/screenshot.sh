@@ -1,14 +1,14 @@
 #!/bin/bash
 
-# Script de capture d'écran avec grim et slurp - Thème Catppuccin Mocha
-# Compatible avec Sway et Wayland
+# Screenshot script with grim and slurp - Catppuccin Mocha theme
+# Compatible with Sway and Wayland
 
 SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
 mkdir -p "$SCREENSHOT_DIR"
 
 case $1 in
     full)
-        # Capture d'écran complète
+        # Full screen capture
         filename="$SCREENSHOT_DIR/screenshot-$(date +%Y%m%d-%H%M%S).png"
         grim "$filename"
         notify-send -a "screenshot" -u normal -i "camera-photo" \
@@ -16,7 +16,7 @@ case $1 in
             "Full screen saved to\n$(basename "$filename")"
         ;;
     area)
-        # Capture d'écran d'une zone sélectionnée
+        # Selected area capture
         filename="$SCREENSHOT_DIR/screenshot-area-$(date +%Y%m%d-%H%M%S).png"
         grim -g "$(slurp -d)" "$filename"
         if [ $? -eq 0 ]; then
@@ -26,7 +26,7 @@ case $1 in
         fi
         ;;
     clipboard)
-        # Capture d'écran dans le presse-papiers
+        # Capture to clipboard
         grim -g "$(slurp -d)" - | wl-copy
         if [ $? -eq 0 ]; then
             notify-send -a "screenshot" -u normal -i "camera-photo" \
@@ -35,9 +35,9 @@ case $1 in
         fi
         ;;
     window)
-        # Capture d'écran de la fenêtre active
+        # Active window capture
         filename="$SCREENSHOT_DIR/screenshot-window-$(date +%Y%m%d-%H%M%S).png"
-        # Obtenir les coordonnées de la fenêtre active
+        # Get active window coordinates
         window_geometry=$(swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"')
         grim -g "$window_geometry" "$filename"
         notify-send -a "screenshot" -u normal -i "camera-photo" \

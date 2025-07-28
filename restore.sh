@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Script de restauration des dotfiles
-# Ce script permet de restaurer une configuration sauvegardée à un moment donné
+# Dotfiles restoration script
+# This script allows restoring a saved configuration at a given time
 
 set -e
 
-# Couleurs pour l'affichage
+# Colors for display
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -19,7 +19,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKUP_BASE_DIR="$HOME/.config-backups"
 CONFIG_DIR="$HOME/.config"
 
-# Fonction d'affichage coloré
+# Function for colored output
 print_header() {
     echo -e "${CYAN}=====================================
 $1
@@ -42,35 +42,35 @@ print_info() {
     echo -e "${BLUE}ℹ️  $1${NC}"
 }
 
-# Fonction pour demander confirmation
+# Function to ask for confirmation
 ask_yes_no() {
     while true; do
         read -p "$(echo -e "${YELLOW}$1 (y/n): ${NC}")" yn
         case $yn in
             [Yy]* ) return 0;;
             [Nn]* ) return 1;;
-            * ) echo "Veuillez répondre par y (oui) ou n (non).";;
+            * ) echo "Please answer y (yes) or n (no).";;
         esac
     done
 }
 
-# Fonction pour lister les sauvegardes disponibles
+# Function to list available backups
 list_backups() {
-    print_header "Sauvegardes disponibles"
+    print_header "Available Backups"
     
     if [ ! -d "$BACKUP_BASE_DIR" ]; then
-        print_error "Aucun répertoire de sauvegarde trouvé: $BACKUP_BASE_DIR"
+        print_error "No backup directory found: $BACKUP_BASE_DIR"
         return 1
     fi
     
     local backups=($(ls -1 "$BACKUP_BASE_DIR" | grep "^backup-" | sort -r))
     
     if [ ${#backups[@]} -eq 0 ]; then
-        print_error "Aucune sauvegarde trouvée dans $BACKUP_BASE_DIR"
+        print_error "No backups found in $BACKUP_BASE_DIR"
         return 1
     fi
     
-    echo "Sauvegardes disponibles:"
+    echo "Available backups:"
     for i in "${!backups[@]}"; do
         local backup="${backups[$i]}"
         local timestamp="${backup#backup-}"
@@ -78,13 +78,13 @@ list_backups() {
         
         echo -e "${BLUE}$((i+1)). ${NC}$timestamp"
         
-        # Afficher les informations de la sauvegarde si disponibles
+        # Display backup information if available
         if [ -f "$backup_path/backup-info.txt" ]; then
-            echo -e "   ${CYAN}Date:${NC} $(grep "Sauvegarde créée le:" "$backup_path/backup-info.txt" | cut -d: -f2-)"
+            echo -e "   ${CYAN}Date:${NC} $(grep "Backup created on:" "$backup_path/backup-info.txt" | cut -d: -f2-)"
             echo -e "   ${CYAN}Configurations:${NC}"
             grep "  - " "$backup_path/backup-info.txt" | sed 's/^/     /'
         else
-            echo -e "   ${CYAN}Contenu:${NC} $(ls -1 "$backup_path" | tr '\n' ' ')"
+            echo -e "   ${CYAN}Content:${NC} $(ls -1 "$backup_path" | tr '\n' ' ')"
         fi
         echo ""
     done
@@ -92,51 +92,51 @@ list_backups() {
     return 0
 }
 
-# Fonction pour afficher les détails d'une sauvegarde
+# Function to show backup details
 show_backup_details() {
     local timestamp="$1"
     local backup_path="$BACKUP_BASE_DIR/backup-$timestamp"
     
     if [ ! -d "$backup_path" ]; then
-        print_error "Sauvegarde non trouvée: $backup_path"
+        print_error "Backup not found: $backup_path"
         return 1
     fi
     
-    print_header "Détails de la sauvegarde: $timestamp"
+    print_header "Backup Details: $timestamp"
     
     if [ -f "$backup_path/backup-info.txt" ]; then
         cat "$backup_path/backup-info.txt"
     else
-        echo "Contenu de la sauvegarde:"
+        echo "Backup content:"
         ls -la "$backup_path"
     fi
     
     echo ""
-    print_info "Taille de la sauvegarde: $(du -sh "$backup_path" | cut -f1)"
+    print_info "Backup size: $(du -sh "$backup_path" | cut -f1)"
 }
 
-# Fonction pour créer une sauvegarde de sécurité avant restauration
+# Function to create a safety backup before restoration
 create_safety_backup() {
     local safety_timestamp="$(date +%Y%m%d-%H%M%S)"
     local safety_backup_dir="$BACKUP_BASE_DIR/safety-backup-$safety_timestamp"
     
-    print_info "Création d'une sauvegarde de sécurité avant restauration..."
+    print_info "Creating a safety backup before restoration..."
     
     mkdir -p "$safety_backup_dir"
     
-    # Créer un fichier d'information
+    # Create an info file
     cat > "$safety_backup_dir/backup-info.txt" << EOF
-Sauvegarde de sécurité créée le: $(date)
+Backup created on: $(date)
 Timestamp: $safety_timestamp
-Créée avant restauration
-Configurations sauvegardées:
+Created before restoration
+Saved configurations:
 EOF
     
     local apps=("foot" "kitty" "nvim" "sway" "swaylock" "waybar" "wofi" "mako" "fastfetch" "hypr")
     local home_files=(".aliases.sh" ".fdignore" ".tgpt_aliases.sh" ".vimrc" ".viminfo" ".vim")
     local backup_created=false
     
-    # Sauvegarder les configurations actuelles
+    # Backup current configurations
     for app in "${apps[@]}"; do
         local config_path="$CONFIG_DIR/$app"
         if [ -d "$config_path" ] || [ -f "$config_path" ]; then
@@ -146,7 +146,7 @@ EOF
         fi
     done
     
-    # Sauvegarder les fichiers home actuels
+    # Backup current home files
     mkdir -p "$safety_backup_dir/home"
     for home_file in "${home_files[@]}"; do
         local home_path="$HOME/$home_file"
@@ -157,7 +157,7 @@ EOF
         fi
     done
     
-    # Sauvegarder les scripts hotfiles
+    # Backup hotfiles scripts
     if [ -d "$CONFIG_DIR/hotfiles-scripts" ]; then
         cp -r "$CONFIG_DIR/hotfiles-scripts" "$safety_backup_dir/hotfiles-scripts"
         echo "  - hotfiles-scripts" >> "$safety_backup_dir/backup-info.txt"
@@ -165,72 +165,72 @@ EOF
     fi
     
     if [ "$backup_created" = true ]; then
-        print_success "Sauvegarde de sécurité créée: $safety_backup_dir"
+        print_success "Safety backup created: $safety_backup_dir"
         echo "$safety_timestamp"
     else
         rmdir "$safety_backup_dir" 2>/dev/null || true
-        print_info "Aucune configuration actuelle à sauvegarder"
+        print_info "No current configuration to backup"
         echo ""
     fi
 }
 
-# Fonction principale de restauration
+# Main restoration function
 restore_backup() {
     local timestamp="$1"
     local backup_path="$BACKUP_BASE_DIR/backup-$timestamp"
     
     if [ ! -d "$backup_path" ]; then
-        print_error "Sauvegarde non trouvée: $backup_path"
+        print_error "Backup not found: $backup_path"
         return 1
     fi
     
-    print_header "Restauration de la sauvegarde: $timestamp"
+    print_header "Restoring backup: $timestamp"
     
-    # Afficher les détails de la sauvegarde
+    # Display backup details
     show_backup_details "$timestamp"
     
-    # Demander confirmation
-    if ! ask_yes_no "Voulez-vous vraiment restaurer cette sauvegarde ?"; then
-        print_info "Restauration annulée"
+    # Ask for confirmation
+    if ! ask_yes_no "Do you really want to restore this backup?"; then
+        print_info "Restoration cancelled"
         return 0
     fi
     
-    # Créer une sauvegarde de sécurité
+    # Create a safety backup
     local safety_backup_timestamp=$(create_safety_backup)
     
-    print_info "Début de la restauration..."
+    print_info "Starting restoration..."
     
-    # Restaurer chaque élément de la sauvegarde
+    # Restore each item from the backup
     for item in "$backup_path"/*; do
         if [ -d "$item" ] || [ -f "$item" ]; then
             local item_name=$(basename "$item")
             
-            # Ignorer le fichier d'information
+            # Ignore the info file
             if [ "$item_name" = "backup-info.txt" ]; then
                 continue
             fi
             
-            # Gestion spéciale pour le dossier home
+            # Special handling for the home folder
             if [ "$item_name" = "home" ] && [ -d "$item" ]; then
-                print_info "Restauration des fichiers home..."
+                print_info "Restoring home files..."
                 
-                # Restaurer chaque fichier/dossier du home
+                # Restore each file/folder from home
                 for home_item in "$item"/*; do
                     if [ -e "$home_item" ]; then
                         local home_item_name=$(basename "$home_item")
                         local target_path="$HOME/$home_item_name"
                         
-                        print_info "Restauration de $home_item_name dans le home..."
+                        print_info "Restoring $home_item_name to home..."
                         
-                        # Supprimer le fichier/dossier actuel s'il existe
+                        # Delete the current file/folder if it exists
                         if [ -d "$target_path" ] || [ -f "$target_path" ]; then
                             rm -rf "$target_path"
                         fi
                         
-                        # Copier le fichier/dossier sauvegardé
+                        # Copy the backed-up file/folder
                         cp -r "$home_item" "$target_path"
                         
-                        print_success "✓ $home_item_name restauré dans le home"
+                        print_success "✓ $home_item_name restored to home"
                     fi
                 done
                 continue
@@ -238,91 +238,91 @@ restore_backup() {
             
             local target_path="$CONFIG_DIR/$item_name"
             
-            print_info "Restauration de $item_name..."
+            print_info "Restoring $item_name..."
             
-            # Supprimer la configuration actuelle si elle existe
+            # Delete the current configuration if it exists
             if [ -d "$target_path" ] || [ -f "$target_path" ]; then
                 rm -rf "$target_path"
             fi
             
-            # Créer le répertoire parent si nécessaire
+            # Create parent directory if necessary
             mkdir -p "$(dirname "$target_path")"
             
-            # Copier la configuration sauvegardée
+            # Copy the backed-up configuration
             cp -r "$item" "$target_path"
             
-            print_success "✓ $item_name restauré"
+            print_success "✓ $item_name restored"
         fi
     done
     
-    print_success "Restauration terminée avec succès !"
+    print_success "Restoration completed successfully!"
     
     if [ -n "$safety_backup_timestamp" ]; then
-        print_info "Sauvegarde de sécurité disponible: $safety_backup_timestamp"
-        print_info "Pour annuler cette restauration: ./restore.sh $safety_backup_timestamp"
+        print_info "Safety backup available: $safety_backup_timestamp"
+        print_info "To undo this restoration: ./restore.sh $safety_backup_timestamp"
     fi
     
-    print_warning "Redémarrez votre session pour appliquer tous les changements"
+    print_warning "Restart your session to apply all changes"
 }
 
-# Fonction pour supprimer une sauvegarde
+# Function to delete a backup
 delete_backup() {
     local timestamp="$1"
     local backup_path="$BACKUP_BASE_DIR/backup-$timestamp"
     
     if [ ! -d "$backup_path" ]; then
-        print_error "Sauvegarde non trouvée: $backup_path"
+        print_error "Backup not found: $backup_path"
         return 1
     fi
     
     show_backup_details "$timestamp"
     
-    if ask_yes_no "Voulez-vous vraiment supprimer cette sauvegarde ? Cette action est irréversible."; then
+    if ask_yes_no "Do you really want to delete this backup? This action is irreversible."; then
         rm -rf "$backup_path"
-        print_success "Sauvegarde $timestamp supprimée"
+        print_success "Backup $timestamp deleted"
     else
-        print_info "Suppression annulée"
+        print_info "Deletion cancelled"
     fi
 }
 
-# Fonction pour nettoyer les anciennes sauvegardes
+# Function to clean up old backups
 cleanup_old_backups() {
-    print_header "Nettoyage des anciennes sauvegardes"
+    print_header "Cleaning up old backups"
     
     if [ ! -d "$BACKUP_BASE_DIR" ]; then
-        print_info "Aucun répertoire de sauvegarde trouvé"
+        print_info "No backup directory found"
         return 0
     fi
     
     local backups=($(ls -1 "$BACKUP_BASE_DIR" | grep "^backup-\|^safety-backup-" | sort))
     local backup_count=${#backups[@]}
     
-    print_info "Nombre total de sauvegardes: $backup_count"
+    print_info "Total number of backups: $backup_count"
     
     if [ $backup_count -le 10 ]; then
-        print_info "Moins de 10 sauvegardes, aucun nettoyage nécessaire"
+        print_info "Less than 10 backups, no cleanup necessary"
         return 0
     fi
     
-    print_info "Sauvegardes anciennes (plus de 10):"
+    print_info "Old backups (more than 10):"
     local to_delete=(${backups[@]:0:$((backup_count-10))})
     
     for backup in "${to_delete[@]}"; do
         echo "  - $backup"
     done
     
-    if ask_yes_no "Voulez-vous supprimer ces anciennes sauvegardes ?"; then
+    if ask_yes_no "Do you want to delete these old backups?"; then
         for backup in "${to_delete[@]}"; do
             rm -rf "$BACKUP_BASE_DIR/$backup"
-            print_success "✓ $backup supprimé"
+            print_success "✓ $backup deleted"
         done
-        print_success "Nettoyage terminé"
+        print_success "Cleanup complete"
     else
-        print_info "Nettoyage annulé"
+        print_info "Cleanup cancelled"
     fi
 }
 
-# Menu interactif de sélection
+# Interactive selection menu
 interactive_menu() {
     if ! list_backups; then
         return 1
@@ -330,47 +330,47 @@ interactive_menu() {
     
     local backups=($(ls -1 "$BACKUP_BASE_DIR" | grep "^backup-" | sort -r))
     
-    echo -e "${YELLOW}Choisissez une sauvegarde à restaurer:${NC}"
+    echo -e "${YELLOW}Choose a backup to restore:${NC}"
     for i in "${!backups[@]}"; do
         local timestamp="${backups[$i]#backup-}"
         echo "$((i+1)). $timestamp"
     done
-    echo "$((${#backups[@]}+1)). Annuler"
+    echo "$((${#backups[@]}+1)). Cancel"
     echo ""
     
-    read -p "$(echo -e "${YELLOW}Votre choix (1-$((${#backups[@]}+1))): ${NC}")" choice
+    read -p "$(echo -e "${YELLOW}Your choice (1-$((${#backups[@]}+1))): ${NC}")" choice
     
     if [[ "$choice" =~ ^[0-9]+$ ]] && [ "$choice" -ge 1 ] && [ "$choice" -le ${#backups[@]} ]; then
         local selected_backup="${backups[$((choice-1))]}"
         local timestamp="${selected_backup#backup-}"
         restore_backup "$timestamp"
     elif [ "$choice" -eq $((${#backups[@]}+1)) ]; then
-        print_info "Opération annulée"
+        print_info "Operation cancelled"
     else
-        print_error "Choix invalide"
+        print_error "Invalid choice"
     fi
 }
 
-# Fonction d'aide
+# Help function
 show_help() {
-    echo "Script de restauration des dotfiles"
+    echo "Dotfiles restoration script"
     echo ""
     echo "Usage:"
-    echo "  $0                          - Menu interactif"
-    echo "  $0 <timestamp>              - Restaurer une sauvegarde spécifique"
-    echo "  $0 list                     - Lister les sauvegardes disponibles"
-    echo "  $0 details <timestamp>      - Afficher les détails d'une sauvegarde"
-    echo "  $0 delete <timestamp>       - Supprimer une sauvegarde"
-    echo "  $0 cleanup                  - Nettoyer les anciennes sauvegardes"
-    echo "  $0 help                     - Afficher cette aide"
+    echo "  $0                          - Interactive menu"
+    echo "  $0 <timestamp>              - Restore a specific backup"
+    echo "  $0 list                     - List available backups"
+    echo "  $0 details <timestamp>      - Show details of a backup"
+    echo "  $0 delete <timestamp>       - Delete a backup"
+    echo "  $0 cleanup                  - Clean up old backups"
+    echo "  $0 help                     - Show this help message"
     echo ""
-    echo "Exemples:"
-    echo "  $0 20240127-143052          - Restaurer la sauvegarde du 27/01/2024 à 14:30:52"
-    echo "  $0 list                     - Voir toutes les sauvegardes"
-    echo "  $0 details 20240127-143052  - Voir les détails d'une sauvegarde"
+    echo "Examples:"
+    echo "  $0 20240127-143052          - Restore backup from 27/01/2024 at 14:30:52"
+    echo "  $0 list                     - See all backups"
+    echo "  $0 details 20240127-143052  - See details of a backup"
 }
 
-# Point d'entrée principal
+# Main entry point
 main() {
     case "${1:-}" in
         "list")
@@ -378,7 +378,7 @@ main() {
             ;;
         "details")
             if [ -z "$2" ]; then
-                print_error "Timestamp requis pour 'details'"
+                print_error "Timestamp required for 'details'"
                 echo "Usage: $0 details <timestamp>"
                 exit 1
             fi
@@ -386,7 +386,7 @@ main() {
             ;;
         "delete")
             if [ -z "$2" ]; then
-                print_error "Timestamp requis pour 'delete'"
+                print_error "Timestamp required for 'delete'"
                 echo "Usage: $0 delete <timestamp>"
                 exit 1
             fi
@@ -399,17 +399,17 @@ main() {
             show_help
             ;;
         "")
-            # Menu interactif si aucun argument
-            print_header "Script de restauration des dotfiles"
+            # Interactive menu if no argument
+            print_header "Dotfiles Restoration Script"
             interactive_menu
             ;;
         *)
-            # Restaurer une sauvegarde spécifique
+            # Restore a specific backup
             if [[ "$1" =~ ^[0-9]{8}-[0-9]{6}$ ]]; then
                 restore_backup "$1"
             else
-                print_error "Format de timestamp invalide: $1"
-                print_info "Format attendu: YYYYMMDD-HHMMSS (ex: 20240127-143052)"
+                print_error "Invalid timestamp format: $1"
+                print_info "Expected format: YYYYMMDD-HHMMSS (ex: 20240127-143052)"
                 show_help
                 exit 1
             fi
@@ -417,5 +417,5 @@ main() {
     esac
 }
 
-# Exécution du script principal
+# Execute the main script
 main "$@"

@@ -1,24 +1,24 @@
 #!/bin/bash
 
-# Script pour créer et activer un service systemd template macspoof@.service pour wlan0
-# Usage : sudo ./create_macspoof_service.sh
+# Script to create and enable a systemd template service macspoof@.service for wlan0
+# Usage: sudo ./create_macspoof_service.sh
 
 SERVICE_PATH="/etc/systemd/system/macspoof@.service"
 INTERFACE="wlan0"
 
-# Vérification des permissions root
+# Check for root permissions
 if [[ $EUID -ne 0 ]]; then
-  echo "❌ Ce script doit être exécuté en tant que root (sudo)." >&2
+  echo "❌ This script must be run as root (sudo)." >&2
   exit 1
 fi
 
-# Vérification que macchanger est installé
+# Check if macchanger is installed
 if ! command -v macchanger >/dev/null 2>&1; then
-  echo "❌ Erreur : macchanger n'est pas installé. Installez-le avec : apt install macchanger" >&2
+  echo "❌ Error: macchanger is not installed. Install it with: apt install macchanger" >&2
   exit 1
 fi
 
-# Contenu du fichier service
+# Service file content
 read -r -d '' SERVICE_CONTENT <<'EOF'
 [Unit]
 Description=Change MAC address on %I
@@ -35,19 +35,18 @@ ExecStart=/usr/bin/macchanger -r %I
 WantedBy=multi-user.target
 EOF
 
-echo "🛠️ Création du fichier de service systemd : $SERVICE_PATH"
+echo "🛠️ Creating systemd service file: $SERVICE_PATH"
 
-# Écrire le fichier service
+# Write the service file
 echo "$SERVICE_CONTENT" > "$SERVICE_PATH"
 
-# Recharger systemd
-echo "🔄 Rechargement du démon systemd..."
+# Reload systemd
+echo "🔄 Reloading systemd daemon..."
 systemctl daemon-reload
 
-# Activer le service pour wlan0
-echo "📡 Activation du service macspoof@wlan0.service"
+# Enable the service for wlan0
+echo "📡 Enabling macspoof@wlan0.service"
 systemctl enable macspoof@wlan0.service
 
-echo "✅ Service macspoof@wlan0.service créé et activé avec succès."
-echo "🔁 Redémarrez votre système pour appliquer automatiquement le changement d'adresse MAC au démarrage."
-
+echo "✅ macspoof@wlan0.service created and enabled successfully."
+echo "🔁 Restart your system to automatically apply the MAC address change on boot."

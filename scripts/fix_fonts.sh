@@ -2,26 +2,26 @@
 
 set -e
 
-echo "=== Optimisation du rendu des polices pour Wayland sur Arch Linux ==="
+echo "=== Font rendering optimization for Wayland on Arch Linux ==="
 
-# 1. Supprimer les polices bitmap obsolètes
-echo "[1/6] Suppression des anciennes polices..."
+# 1. Remove obsolete bitmap fonts
+echo "[1/6] Removing old fonts..."
 sudo pacman -Rns --noconfirm xorg-fonts-75dpi xorg-fonts-100dpi ttf-dejavu || true
 
-# 2. Installer de bonnes polices modernes
-echo "[2/6] Installation de polices modernes..."
+# 2. Install modern fonts
+echo "[2/6] Installing modern fonts..."
 sudo pacman -S --needed --noconfirm ttf-liberation ttf-ubuntu-font-family ttf-fira-sans ttf-fira-code noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-jetbrains-mono-nerd adobe-source-code-pro-fonts ttf-hack ttf-cascadia-code ttf-iosevka ttf-iosevka-nerd ttf-iosevka-term nerd-fonts-complete ttf-ubuntu-mono-nerd ttf-roboto ttf-libertinus-sans ttf-libertinus-serif ttf-dejavu
 
-# 3. Installer les bibliothèques de rendu améliorées via yay
-echo "[3/6] Installation de freetype2-ubuntu, fontconfig-ubuntu, cairo-ubuntu..."
+# 3. Install improved rendering libraries via yay
+echo "[3/6] Installing freetype2-ubuntu, fontconfig-ubuntu, cairo-ubuntu..."
 if ! command -v yay &> /dev/null; then
-  echo "yay non détecté. Installation..."
+  echo "yay not detected. Installing..."
   sudo pacman -S --noconfirm yay
 fi
 yay -S --noconfirm freetype2-ubuntu fontconfig-ubuntu cairo-ubuntu
 
-# 4. Configuration fontconfig
-echo "[4/6] Configuration du rendu via fontconfig..."
+# 4. Fontconfig configuration
+echo "[4/6] Configuring rendering via fontconfig..."
 mkdir -p ~/.config/fontconfig
 
 cat > ~/.config/fontconfig/fonts.conf <<EOF
@@ -38,15 +38,14 @@ cat > ~/.config/fontconfig/fonts.conf <<EOF
 </fontconfig>
 EOF
 
-# 5. Rafraîchissement du cache de polices
-echo "[5/6] Rafraîchissement du cache de polices..."
+# 5. Refresh font cache
+echo "[5/6] Refreshing font cache..."
 fc-cache -f -v
 
-# 6. (Optionnel) Installer les polices Microsoft
-read -p "Souhaitez-vous installer les polices Microsoft (Arial, Calibri, etc.) ? [y/N]: " install_ms
+# 6. (Optional) Install Microsoft fonts
+read -p "Do you want to install Microsoft fonts (Arial, Calibri, etc.)? [y/N]: " install_ms
 if [[ "$install_ms" =~ ^[Yy]$ ]]; then
   yay -S --noconfirm ttf-ms-fonts
 fi
 
-echo "✅ Terminé ! Déconnectez-vous ou redémarrez pour appliquer les changements."
-
+echo "✅ Done! Log out or restart to apply changes."

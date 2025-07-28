@@ -1,34 +1,33 @@
 #!/bin/bash
 
-# Script pour installer vim-plug et lancer PlugInstall automatiquement
+# Script to install vim-plug and automatically run PlugInstall
 
 set -e
 
-# Vérifier que curl est installé
+# Check if curl is installed
 if ! command -v curl &> /dev/null; then
-  echo "Erreur : curl n'est pas installé. Veuillez l'installer avant de continuer."
+  echo "Error: curl is not installed. Please install it before continuing."
   exit 1
 fi
 
-# Vérifier que vim est installé
+# Check if vim is installed
 if ! command -v vim &> /dev/null; then
-  echo "Erreur : vim n'est pas installé. Veuillez l'installer avant de continuer."
+  echo "Error: vim is not installed. Please install it before continuing."
   exit 1
 fi
 
-echo "Installation de vim-plug..."
+echo "Installing vim-plug..."
 
-# Télécharger plug.vim dans le dossier autoload (~/.vim/autoload)
+# Download plug.vim to the autoload folder (~/.vim/autoload)
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
      https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-echo "vim-plug installé avec succès."
+echo "vim-plug installed successfully."
 
-echo "Installation des plugins Vim via :PlugInstall..."
+echo "Installing Vim plugins via :PlugInstall..."
 
-# Lancer vim en mode batch pour installer les plugins
+# Launch vim in batch mode to install plugins
 vim +PlugInstall +qall
 
-echo "Plugins installés avec succès."
-echo "Vous pouvez maintenant utiliser Vim avec vos plugins gérés par vim-plug."
-
+echo "Plugins installed successfully."
+echo "You can now use Vim with your vim-plug managed plugins."

@@ -1,11 +1,11 @@
 #!/bin/bash
 
-# Script d'installation automatique des dotfiles
-# Ce script permet de configurer automatiquement les thèmes et configurations
+# Automatic dotfiles installation script
+# This script automatically configures themes and settings
 
 set -e
 
-# Couleurs pour l'affichage
+# Colors for display
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -21,7 +21,7 @@ BACKUP_BASE_DIR="$HOME/.config-backups"
 BACKUP_DIR="$BACKUP_BASE_DIR/backup-$TIMESTAMP"
 CONFIG_DIR="$HOME/.config"
 
-# Fonction d'affichage coloré
+# Colored display function
 print_header() {
     echo -e "${CYAN}=====================================
 $1
@@ -44,27 +44,27 @@ print_info() {
     echo -e "${BLUE}ℹ️  $1${NC}"
 }
 
-# Fonction pour demander confirmation
+# Function to ask for confirmation
 ask_yes_no() {
     while true; do
         read -p "$(echo -e "${YELLOW}$1 (y/n): ${NC}")" yn
         case $yn in
             [Yy]* ) return 0;;
             [Nn]* ) return 1;;
-            * ) echo "Veuillez répondre par y (oui) ou n (non).";;
+            * ) echo "Please answer y (yes) or n (no).";;
         esac
     done
 }
 
-# Fonction de sauvegarde globale
+# Global backup function
 create_global_backup() {
     local apps=("foot" "kitty" "nvim" "sway" "swaylock" "waybar" "wofi" "mako" "fastfetch" "hypr")
     local home_files=(".aliases.sh" ".fdignore" ".tgpt_aliases.sh" ".vimrc" ".viminfo" ".vim")
     local backup_needed=false
     
-    print_info "Vérification des configurations existantes..."
+    print_info "Checking for existing configurations..."
     
-    # Vérifier s'il y a des configurations à sauvegarder
+    # Check if there are configurations to backup
     for app in "${apps[@]}"; do
         local config_path="$CONFIG_DIR/$app"
         if [ -d "$config_path" ] || [ -f "$config_path" ]; then
@@ -73,12 +73,12 @@ create_global_backup() {
         fi
     done
     
-    # Vérifier les scripts hotfiles existants
+    # Check for existing hotfiles scripts
     if [ -d "$CONFIG_DIR/hotfiles-scripts" ]; then
         backup_needed=true
     fi
     
-    # Vérifier les fichiers home existants
+    # Check for existing home files
     for home_file in "${home_files[@]}"; do
         local home_path="$HOME/$home_file"
         if [ -d "$home_path" ] || [ -f "$home_path" ]; then
@@ -88,211 +88,211 @@ create_global_backup() {
     done
     
     if [ "$backup_needed" = true ]; then
-        print_info "Création du dossier de sauvegarde global: $BACKUP_DIR"
+        print_info "Creating global backup folder: $BACKUP_DIR"
         mkdir -p "$BACKUP_DIR"
         
-        # Créer un fichier d'information sur la sauvegarde
+        # Create a backup information file
         cat > "$BACKUP_DIR/backup-info.txt" << EOF
-Sauvegarde créée le: $(date)
+Backup created on: $(date)
 Timestamp: $TIMESTAMP
-Script utilisé: $0
-Répertoire source: $SCRIPT_DIR
-Configurations sauvegardées:
+Script used: $0
+Source directory: $SCRIPT_DIR
+Backed up configurations:
 EOF
         
-        # Sauvegarder chaque configuration existante
+        # Backup each existing configuration
         for app in "${apps[@]}"; do
             local config_path="$CONFIG_DIR/$app"
             if [ -d "$config_path" ] || [ -f "$config_path" ]; then
-                print_info "Sauvegarde de $app..."
+                print_info "Backing up $app..."
                 cp -r "$config_path" "$BACKUP_DIR/$app"
                 echo "  - $app" >> "$BACKUP_DIR/backup-info.txt"
-                print_success "✓ $app sauvegardé"
+                print_success "✓ $app backed up"
             fi
         done
         
-        # Sauvegarder les fichiers home existants
+        # Backup existing home files
         mkdir -p "$BACKUP_DIR/home"
         for home_file in "${home_files[@]}"; do
             local home_path="$HOME/$home_file"
             if [ -d "$home_path" ] || [ -f "$home_path" ]; then
-                print_info "Sauvegarde de $home_file..."
+                print_info "Backing up $home_file..."
                 cp -r "$home_path" "$BACKUP_DIR/home/$home_file"
                 echo "  - home/$home_file" >> "$BACKUP_DIR/backup-info.txt"
-                print_success "✓ $home_file sauvegardé"
+                print_success "✓ $home_file backed up"
             fi
         done
         
-        # Sauvegarder les scripts hotfiles s'ils existent
+        # Backup hotfiles scripts if they exist
         if [ -d "$CONFIG_DIR/hotfiles-scripts" ]; then
-            print_info "Sauvegarde des scripts hotfiles..."
+            print_info "Backing up hotfiles scripts..."
             cp -r "$CONFIG_DIR/hotfiles-scripts" "$BACKUP_DIR/hotfiles-scripts"
             echo "  - hotfiles-scripts" >> "$BACKUP_DIR/backup-info.txt"
-            print_success "✓ Scripts hotfiles sauvegardés"
+            print_success "✓ Hotfiles scripts backed up"
         fi
         
-        print_success "Sauvegarde globale créée: $BACKUP_DIR"
-        echo -e "${GREEN}📁 Sauvegarde disponible pour restauration avec: ./restore.sh $TIMESTAMP${NC}"
+        print_success "Global backup created: $BACKUP_DIR"
+        echo -e "${GREEN}📁 Backup available for restoration with: ./restore.sh $TIMESTAMP${NC}"
     else
-        print_info "Aucune configuration existante trouvée, pas de sauvegarde nécessaire"
+        print_info "No existing configurations found, no backup needed"
     fi
 }
 
-# Fonction d'installation des configurations
+# Configuration installation function
 install_config() {
     local app_name="$1"
     local source_dir="$SCRIPT_DIR/$app_name"
     local target_dir="$CONFIG_DIR/$app_name"
     
     if [ -d "$source_dir" ]; then
-        print_info "Installation de la configuration $app_name..."
+        print_info "Installing $app_name configuration..."
         
-        # Création du répertoire cible
+        # Create target directory
         mkdir -p "$(dirname "$target_dir")"
         
-        # Suppression de l'ancienne configuration si elle existe
+        # Remove old configuration if it exists
         if [ -d "$target_dir" ] || [ -f "$target_dir" ]; then
             rm -rf "$target_dir"
         fi
         
-        # Copie des fichiers
+        # Copy files
         cp -r "$source_dir" "$target_dir"
-        print_success "Configuration $app_name installée"
+        print_success "$app_name configuration installed"
     else
-        print_warning "Configuration $app_name non trouvée dans $source_dir"
+        print_warning "$app_name configuration not found in $source_dir"
     fi
 }
-# Fonction d'installation des fichiers home
+# Home files installation function
 install_home_files() {
     local source_dir="$SCRIPT_DIR/home"
     
     if [ -d "$source_dir" ]; then
-        print_info "Installation des fichiers home..."
+        print_info "Installing home files..."
         
-        # Parcourir tous les fichiers dans le dossier home
+        # Iterate over all files in the home directory
         find "$source_dir" -type f | while read -r file; do
-            # Obtenir le chemin relatif par rapport au dossier source
+            # Get the relative path to the source directory
             local relative_path="${file#$source_dir/}"
             local target_path="$HOME/$relative_path"
             
-            # Créer le répertoire parent si nécessaire
+            # Create parent directory if necessary
             mkdir -p "$(dirname "$target_path")"
             
-            # Copier le fichier
+            # Copy the file
             cp "$file" "$target_path"
-            print_success "✓ $relative_path installé dans le home"
+            print_success "✓ $relative_path installed in home"
         done
         
-        # Parcourir tous les dossiers dans le dossier home
+        # Iterate over all directories in the home directory
         find "$source_dir" -type d -not -path "$source_dir" | while read -r dir; do
-            # Obtenir le chemin relatif par rapport au dossier source
+            # Get the relative path to the source directory
             local relative_path="${dir#$source_dir/}"
             local target_path="$HOME/$relative_path"
             
-            # Créer le répertoire
+            # Create the directory
             mkdir -p "$target_path"
-            print_success "✓ Dossier $relative_path créé dans le home"
+            print_success "✓ Directory $relative_path created in home"
         done
         
-        print_success "Fichiers home installés"
+        print_success "Home files installed"
     else
-        print_warning "Dossier home non trouvé dans $source_dir"
+        print_warning "Home directory not found in $source_dir"
     fi
 }
 
-# Fonction pour rendre les scripts exécutables
+# Function to make scripts executable
 make_scripts_executable() {
-    print_info "Rendement des scripts exécutables..."
+    print_info "Making scripts executable..."
     find "$SCRIPT_DIR/scripts" -name "*.sh" -type f -exec chmod +x {} \;
-    print_success "Scripts rendus exécutables"
+    print_success "Scripts made executable"
 }
 
-# Fonction principale d'installation
+# Main installation function
 main_install() {
-    print_header "Installation des dotfiles"
+    print_header "Installing dotfiles"
     
-    # Vérification des prérequis
+    # Prerequisite check
     if [ ! -d "$SCRIPT_DIR" ]; then
-        print_error "Répertoire source non trouvé: $SCRIPT_DIR"
+        print_error "Source directory not found: $SCRIPT_DIR"
         exit 1
     fi
     
-    # Création du répertoire de sauvegarde de base
+    # Create base backup directory
     mkdir -p "$BACKUP_BASE_DIR"
     
-    # Création de la sauvegarde globale AVANT l'installation
+    # Create global backup BEFORE installation
     create_global_backup
     
-    # Liste des applications à configurer
+    # List of applications to configure
     local apps=("foot" "kitty" "nvim" "sway" "swaylock" "waybar" "wofi" "mako" "fastfetch")
     
-    # Installation des configurations
+    # Install configurations
     for app in "${apps[@]}"; do
         install_config "$app"
     done
     
-    # Gestion spéciale pour hypr (si présent)
+    # Special handling for hypr (if present)
     if [ -d "$SCRIPT_DIR/hypr" ]; then
         install_config "hypr"
     fi
     
-    # Installation des fichiers home
+    # Install home files
     install_home_files
     
-    # Rendre les scripts exécutables
+    # Make scripts executable
     make_scripts_executable
     
-    # Copie des scripts dans un répertoire accessible
+    # Copy scripts to an accessible directory
     if [ -d "$SCRIPT_DIR/scripts" ]; then
-        print_info "Installation des scripts utilitaires..."
+        print_info "Installing utility scripts..."
         mkdir -p "$CONFIG_DIR/hotfiles-scripts"
         cp -r "$SCRIPT_DIR/scripts"/* "$CONFIG_DIR/hotfiles-scripts/"
-        print_success "Scripts utilitaires installés dans $CONFIG_DIR/hotfiles-scripts/"
+        print_success "Utility scripts installed in $CONFIG_DIR/hotfiles-scripts/"
     fi
 }
 
-# Fonction d'installation des dépendances
+# Dependency installation function
 install_dependencies() {
-    print_header "Installation des dépendances"
+    print_header "Installing dependencies"
     
     if [ -f "$SCRIPT_DIR/scripts/install-apps.sh" ]; then
-        if ask_yes_no "Voulez-vous installer les applications nécessaires ?"; then
-            print_info "Lancement du script d'installation des applications..."
+        if ask_yes_no "Do you want to install the necessary applications?"; then
+            print_info "Launching application installation script..."
             bash "$SCRIPT_DIR/scripts/install-apps.sh"
         fi
     else
-        print_warning "Script d'installation des applications non trouvé"
+        print_warning "Application installation script not found"
     fi
 }
 
-# Fonction d'application du thème par défaut
+# Default theme application function
 apply_default_theme() {
-    print_header "Application du thème par défaut"
+    print_header "Applying default theme"
     
     if [ -f "$SCRIPT_DIR/scripts/change-theme/set-mocha.sh" ]; then
-        if ask_yes_no "Voulez-vous appliquer le thème Catppuccin Mocha (thème par défaut) ?"; then
-            print_info "Application du thème Catppuccin Mocha..."
+        if ask_yes_no "Do you want to apply the Catppuccin Mocha theme (default theme)?"; then
+            print_info "Applying Catppuccin Mocha theme..."
             bash "$SCRIPT_DIR/scripts/change-theme/set-mocha.sh"
-            print_success "Thème Catppuccin Mocha appliqué"
+            print_success "Catppuccin Mocha theme applied"
         fi
     else
-        print_warning "Script de thème par défaut non trouvé"
+        print_warning "Default theme script not found"
     fi
 }
 
-# Fonction d'exécution des scripts de configuration supplémentaires
+# Function to run additional configuration scripts
 run_additional_scripts() {
-    print_header "Scripts de configuration supplémentaires"
+    print_header "Additional configuration scripts"
     
-    # Scripts optionnels
+    # Optional scripts
     local optional_scripts=(
-        "scripts/fix_fonts.sh:Correction des polices"
-        "scripts/gsettings.sh:Configuration des paramètres GNOME"
-        "scripts/get-layan-cursors.sh:Installation des curseurs Layan"
-        "scripts/config-zsh.sh:Configuration de Zsh"
-        "scripts/config-vim.sh:Configuration de Vim"
-        "scripts/set-swapinness.sh:Configuration du swapinness"
-        "scripts/create_macspoof_service.sh:Création du service macspoof pour le spoofing de l'adresse MAC"
+        "scripts/fix_fonts.sh:Font correction"
+        "scripts/gsettings.sh:GNOME settings configuration"
+        "scripts/get-layan-cursors.sh:Layan cursors installation"
+        "scripts/config-zsh.sh:Zsh configuration"
+        "scripts/config-vim.sh:Vim configuration"
+        "scripts/set-swapinness.sh:Swapiness configuration"
+        "scripts/create_macspoof_service.sh:Creating macspoof service for MAC address spoofing"
     )
     
     for script_info in "${optional_scripts[@]}"; do
@@ -301,59 +301,59 @@ run_additional_scripts() {
         local script_desc="${SCRIPT_PARTS[1]}"
         
         if [ -f "$script_path" ]; then
-            if ask_yes_no "Exécuter: $script_desc ?"; then
-                print_info "Exécution de $script_desc..."
+            if ask_yes_no "Execute: $script_desc ?"; then
+                print_info "Executing $script_desc..."
                 bash "$script_path"
-                print_success "$script_desc terminé"
+                print_success "$script_desc completed"
             fi
         fi
     done
 }
 
-# Fonction d'affichage du résumé
+# Summary display function
 show_summary() {
-    print_header "Résumé de l'installation"
+    print_header "Installation Summary"
     
-    echo -e "${GREEN}✅ Installation terminée avec succès !${NC}"
+    echo -e "${GREEN}✅ Installation completed successfully!${NC}"
     echo ""
-    print_info "Configurations installées dans: $CONFIG_DIR"
+    print_info "Configurations installed in: $CONFIG_DIR"
     if [ -d "$BACKUP_DIR" ]; then
-        print_info "Sauvegarde créée dans: $BACKUP_DIR"
-        print_info "Pour restaurer cette sauvegarde: ./restore.sh $TIMESTAMP"
+        print_info "Backup created in: $BACKUP_DIR"
+        print_info "To restore this backup: ./restore.sh $TIMESTAMP"
     fi
-    print_info "Scripts utilitaires dans: $CONFIG_DIR/hotfiles-scripts"
+    print_info "Utility scripts in: $CONFIG_DIR/hotfiles-scripts"
     echo ""
-    print_warning "Actions recommandées:"
-    echo "   - Redémarrez votre session pour appliquer tous les changements"
-    echo "   - Vérifiez les configurations dans vos applications"
-    echo "   - Vérifiez les fichiers installés dans votre répertoire home"
-    echo "   - Utilisez les scripts de changement de thème si nécessaire"
+    print_warning "Recommended actions:"
+    echo "   - Restart your session to apply all changes"
+    echo "   - Check configurations in your applications"
+    echo "   - Check installed files in your home directory"
+    echo "   - Use theme change scripts if necessary"
     echo ""
-    print_info "Scripts de thème disponibles:"
+    print_info "Available theme scripts:"
     if [ -d "$SCRIPT_DIR/scripts/change-theme" ]; then
         find "$SCRIPT_DIR/scripts/change-theme" -name "*.sh" -exec basename {} \; | sed 's/^/   - /'
     fi
     echo ""
-    print_info "Sauvegardes disponibles:"
+    print_info "Available backups:"
     if [ -d "$BACKUP_BASE_DIR" ]; then
-        ls -1 "$BACKUP_BASE_DIR" | grep "^backup-" | sed 's/^backup-/   - /' | sed 's/$/ (utilisez: .\/restore.sh <timestamp>)/'
+        ls -1 "$BACKUP_BASE_DIR" | grep "^backup-" | sed 's/^backup-/   - /' | sed 's/$/ (use: .\/restore.sh <timestamp>)/'
     fi
 }
 
-# Menu principal
+# Main menu
 show_menu() {
-    print_header "Script d'installation des dotfiles"
-    echo "Ce script va configurer automatiquement vos dotfiles."
+    print_header "Dotfiles Installation Script"
+    echo "This script will automatically configure your dotfiles."
     echo ""
-    echo "Options disponibles:"
-    echo "1. Installation complète (recommandé)"
-    echo "2. Installation des configurations seulement"
-    echo "3. Installation des dépendances seulement"
-    echo "4. Application du thème par défaut seulement"
-    echo "5. Quitter"
+    echo "Available options:"
+    echo "1. Complete installation (recommended)"
+    echo "2. Install configurations only"
+    echo "3. Install dependencies only"
+    echo "4. Apply default theme only"
+    echo "5. Exit"
     echo ""
     
-    read -p "$(echo -e "${YELLOW}Choisissez une option (1-5): ${NC}")" choice
+    read -p "$(echo -e "${YELLOW}Choose an option (1-5): ${NC}")" choice
     
     case $choice in
         1)
@@ -374,27 +374,27 @@ show_menu() {
             apply_default_theme
             ;;
         5)
-            print_info "Installation annulée"
+            print_info "Installation cancelled"
             exit 0
             ;;
         *)
-            print_error "Option invalide"
+            print_error "Invalid option"
             show_menu
             ;;
     esac
 }
 
-# Point d'entrée principal
+# Main entry point
 main() {
-    # Vérification que le script est exécuté depuis le bon répertoire
+    # Check that the script is executed from the correct directory
     if [ ! -f "$SCRIPT_DIR/forge.yaml" ]; then
-        print_error "Ce script doit être exécuté depuis le répertoire des dotfiles"
+        print_error "This script must be executed from the dotfiles directory"
         exit 1
     fi
     
-    # Affichage du menu
+    # Display the menu
     show_menu
 }
 
-# Exécution du script principal
+# Execute the main script
 main "$@"

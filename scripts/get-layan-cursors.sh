@@ -1,20 +1,19 @@
 #!/bin/bash
 
-# Créer un répertoire temporaire
+# Create a temporary directory
 tmp_dir=$(mktemp -d)
 
-# Cloner le dépôt dans ce répertoire temporaire
+# Clone the repository into this temporary directory
 git clone https://github.com/vinceliuice/Layan-cursors.git "$tmp_dir"
 
-# Se déplacer dans le répertoire cloné
-cd "$tmp_dir" || { echo "Erreur: impossible d'accéder au répertoire temporaire"; exit 1; }
+# Navigate into the cloned directory
+cd "$tmp_dir" || { echo "Error: Unable to access temporary directory"; exit 1; }
 
-# Rendre le script install.sh exécutable (au cas où)
+# Make the install.sh script executable (just in case)
 chmod +x install.sh
 
-# Exécuter le script d'installation
+# Execute the installation script
 ./install.sh
 
-# Optionnel : supprimer le répertoire temporaire après installation
+# Optional: remove the temporary directory after installation
 rm -rf "$tmp_dir"
-

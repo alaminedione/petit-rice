@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Script de contrôle du volume amélioré avec notifications Mako
-# Auteur: Amélioré par Forge
+# Enhanced volume control script with Mako notifications
+# Author: Enhanced by Forge
 # Version: 2.0
 # Usage: volume.sh [up|down|mute|mic-mute|show|set <value>] [step]
 
@@ -11,13 +11,13 @@ MAX_VOLUME=100
 MIN_VOLUME=0
 NOTIFICATION_TIMEOUT=2000
 
-# Couleurs pour les logs
+# Colors for logs
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
-# Fonction de logging
+# Logging function
 log() {
     local level=$1
     shift
@@ -28,46 +28,46 @@ log() {
     esac
 }
 
-# Vérifier si wpctl est disponible
+# Check if wpctl is available
 check_dependencies() {
     if ! command -v wpctl &> /dev/null; then
-        log "ERROR" "wpctl (WirePlumber) n'est pas installé ou accessible"
+        log "ERROR" "wpctl (WirePlumber) is not installed or accessible"
         exit 1
     fi
     
     if ! command -v bc &> /dev/null; then
-        log "ERROR" "bc (calculatrice) n'est pas installé ou accessible"
+        log "ERROR" "bc (calculator) is not installed or accessible"
         exit 1
     fi
     
     if ! command -v notify-send &> /dev/null; then
-        log "WARN" "notify-send n'est pas disponible, les notifications sont désactivées"
+        log "WARN" "notify-send is not available, notifications are disabled"
         return 1
     fi
     return 0
 }
 
-# Obtenir le volume du périphérique de sortie
+# Get volume of output device
 get_volume() {
     local device=${1:-"@DEFAULT_AUDIO_SINK@"}
     local volume_info
     
     volume_info=$(wpctl get-volume "$device" 2>/dev/null)
     if [ $? -ne 0 ]; then
-        log "ERROR" "Impossible d'obtenir le volume pour $device"
+        log "ERROR" "Failed to get volume for $device"
         return 1
     fi
     
     echo "$volume_info" | awk '{print int($2*100)}'
 }
 
-# Vérifier si le périphérique est muet
+# Check if device is muted
 is_muted() {
     local device=${1:-"@DEFAULT_AUDIO_SINK@"}
     wpctl get-volume "$device" 2>/dev/null | grep -q "MUTED"
 }
 
-# Obtenir l'icône appropriée selon le niveau de volume
+# Get appropriate icon based on volume level
 get_volume_icon() {
     local volume=$1
     local is_muted=$2
@@ -85,7 +85,7 @@ get_volume_icon() {
     fi
 }
 
-# Obtenir l'icône pour le microphone
+# Get icon for microphone
 get_mic_icon() {
     local is_muted=$1
     
@@ -96,7 +96,7 @@ get_mic_icon() {
     fi
 }
 
-# Envoyer une notification
+# Send a notification
 send_notification() {
     local device_type=${1:-"speaker"}
     local device=""
@@ -105,30 +105,30 @@ send_notification() {
     local volume=""
     local muted=""
     
-    # Choisir le périphérique selon le type
+    # Choose device based on type
     case $device_type in
         "speaker"|"output")
             device="@DEFAULT_AUDIO_SINK@"
-            title="Volume Haut-parleurs"
+            title="Speaker Volume"
             ;;
         "mic"|"microphone"|"input")
             device="@DEFAULT_AUDIO_SOURCE@"
-            title="Volume Microphone"
+            title="Microphone Volume"
             ;;
         *)
-            log "ERROR" "Type de périphérique inconnu: $device_type"
+            log "ERROR" "Unknown device type: $device_type"
             return 1
             ;;
     esac
     
-    # Vérifier si notify-send est disponible
+    # Check if notify-send is available
     if ! command -v notify-send &> /dev/null; then
         return 0
     fi
     
     volume=$(get_volume "$device")
     if [ $? -ne 0 ]; then
-        log "ERROR" "Impossible d'obtenir le volume pour la notification"
+        log "ERROR" "Failed to get volume for notification"
         return 1
     fi
     
@@ -163,77 +163,77 @@ send_notification() {
     fi
 }
 
-# Ajuster le volume
+# Adjust volume
 adjust_volume() {
     local action=$1
     local step=${2:-$DEFAULT_STEP}
     local device="@DEFAULT_AUDIO_SINK@"
     
-    # Valider le step
+    # Validate step
     if ! [[ "$step" =~ ^[0-9]+$ ]] || [ "$step" -lt 1 ] || [ "$step" -gt 50 ]; then
-        log "ERROR" "Step invalide: $step (doit être entre 1 et 50)"
+        log "ERROR" "Invalid step: $step (must be between 1 and 50)"
         return 1
     fi
     
     case $action in
         "up")
-            # Convertir MAX_VOLUME en décimal pour wpctl
+            # Convert MAX_VOLUME to decimal for wpctl
             local max_volume_decimal=$(echo "scale=2; $MAX_VOLUME / 100" | bc 2>/dev/null)
             wpctl set-volume "$device" "${step}%+" -l "$max_volume_decimal"
             if [ $? -eq 0 ]; then
-                log "INFO" "Volume augmenté de ${step}%"
+                log "INFO" "Volume increased by ${step}%"
                 send_notification "speaker"
             else
-                log "ERROR" "Échec de l'augmentation du volume"
+                log "ERROR" "Failed to increase volume"
                 return 1
             fi
             ;;
         "down")
             wpctl set-volume "$device" "${step}%-"
             if [ $? -eq 0 ]; then
-                log "INFO" "Volume diminué de ${step}%"
+                log "INFO" "Volume decreased by ${step}%"
                 send_notification "speaker"
             else
-                log "ERROR" "Échec de la diminution du volume"
+                log "ERROR" "Failed to decrease volume"
                 return 1
             fi
             ;;
         *)
-            log "ERROR" "Action invalide: $action"
+            log "ERROR" "Invalid action: $action"
             return 1
             ;;
     esac
 }
 
-# Définir le volume à une valeur spécifique
+# Set volume to a specific value
 set_volume() {
     local volume=$1
     local device="@DEFAULT_AUDIO_SINK@"
     
-    # Valider le volume
+    # Validate volume
     if ! [[ "$volume" =~ ^[0-9]+$ ]] || [ "$volume" -lt "$MIN_VOLUME" ] || [ "$volume" -gt "$MAX_VOLUME" ]; then
-        log "ERROR" "Volume invalide: $volume (doit être entre $MIN_VOLUME et $MAX_VOLUME)"
+        log "ERROR" "Invalid volume: $volume (must be between $MIN_VOLUME and $MAX_VOLUME)"
         return 1
     fi
     
-    # Convertir en décimal pour wpctl
+    # Convert to decimal for wpctl
     local volume_decimal=$(echo "scale=2; $volume / 100" | bc 2>/dev/null)
     if [ $? -ne 0 ]; then
-        log "ERROR" "Erreur de calcul du volume"
+        log "ERROR" "Volume calculation error"
         return 1
     fi
     
     wpctl set-volume "$device" "$volume_decimal"
     if [ $? -eq 0 ]; then
-        log "INFO" "Volume défini à ${volume}%"
+        log "INFO" "Volume set to ${volume}%"
         send_notification "speaker"
     else
-        log "ERROR" "Échec de la définition du volume"
+        log "ERROR" "Failed to set volume"
         return 1
     fi
 }
 
-# Basculer le mute
+# Toggle mute
 toggle_mute() {
     local device_type=${1:-"speaker"}
     local device=""
@@ -246,29 +246,29 @@ toggle_mute() {
             device="@DEFAULT_AUDIO_SOURCE@"
             ;;
         *)
-            log "ERROR" "Type de périphérique inconnu pour mute: $device_type"
+            log "ERROR" "Unknown device type for mute: $device_type"
             return 1
             ;;
     esac
     
     wpctl set-mute "$device" toggle
     if [ $? -eq 0 ]; then
-        log "INFO" "Mute basculé pour $device_type"
+        log "INFO" "Mute toggled for $device_type"
         send_notification "$device_type"
     else
-        log "ERROR" "Échec du basculement mute pour $device_type"
+        log "ERROR" "Failed to toggle mute for $device_type"
         return 1
     fi
 }
 
-# Afficher les informations actuelles
+# Display current information
 show_status() {
-    echo "=== État Audio Actuel ==="
+    echo "=== Current Audio Status ==="
     
     local sink_volume=$(get_volume "@DEFAULT_AUDIO_SINK@")
     local source_volume=$(get_volume "@DEFAULT_AUDIO_SOURCE@")
     
-    echo -n "Haut-parleurs: ${sink_volume}%"
+    echo -n "Speakers: ${sink_volume}%"
     if is_muted "@DEFAULT_AUDIO_SINK@"; then
         echo " (MUTE)"
     else
@@ -285,49 +285,49 @@ show_status() {
     echo "========================="
 }
 
-# Afficher l'aide
+# Display help
 show_help() {
     cat << EOF
-Script de contrôle du volume amélioré v2.0
+Enhanced volume control script v2.0
 
 USAGE:
-    $0 [COMMANDE] [OPTIONS]
+    $0 [COMMAND] [OPTIONS]
 
-COMMANDES:
-    up [step]           Augmenter le volume (défaut: ${DEFAULT_STEP}%)
-    down [step]         Diminuer le volume (défaut: ${DEFAULT_STEP}%)
-    mute                Basculer mute des haut-parleurs
-    mic-mute            Basculer mute du microphone
-    set <volume>        Définir le volume à une valeur spécifique (0-${MAX_VOLUME})
-    show                Afficher l'état actuel
-    help                Afficher cette aide
+COMMANDS:
+    up [step]           Increase volume (default: ${DEFAULT_STEP}%)
+    down [step]         Decrease volume (default: ${DEFAULT_STEP}%)
+    mute                Toggle speaker mute
+    mic-mute            Toggle microphone mute
+    set <volume>        Set volume to a specific value (0-${MAX_VOLUME})
+    show                Display current status
+    help                Display this help
 
 OPTIONS:
-    step                Incrément pour up/down (1-50, défaut: ${DEFAULT_STEP})
+    step                Increment for up/down (1-50, default: ${DEFAULT_STEP})
 
-EXEMPLES:
-    $0 up               # Augmenter de ${DEFAULT_STEP}%
-    $0 up 10            # Augmenter de 10%
-    $0 down 3           # Diminuer de 3%
-    $0 set 50           # Définir à 50%
-    $0 mute             # Basculer mute haut-parleurs
-    $0 mic-mute         # Basculer mute microphone
-    $0 show             # Afficher l'état
+EXAMPLES:
+    $0 up               # Increase by ${DEFAULT_STEP}%
+    $0 up 10            # Increase by 10%
+    $0 down 3           # Decrease by 3%
+    $0 set 50           # Set to 50%
+    $0 mute             # Toggle speaker mute
+    $0 mic-mute         # Toggle microphone mute
+    $0 show             # Display status
 
-DÉPENDANCES:
+DEPENDENCIES:
     - wpctl (WirePlumber)
-    - notify-send (optionnel, pour les notifications)
-    - bc (pour les calculs)
+    - notify-send (optional, for notifications)
+    - bc (for calculations)
 
 EOF
 }
 
-# Point d'entrée principal
+# Main entry point
 main() {
-    # Vérifier les dépendances
+    # Check dependencies
     check_dependencies
     
-    # Analyser les arguments
+    # Parse arguments
     case ${1:-"help"} in
         "up")
             adjust_volume "up" "$2"
@@ -343,7 +343,7 @@ main() {
             ;;
         "set")
             if [ -z "$2" ]; then
-                log "ERROR" "Volume requis pour la commande 'set'"
+                log "ERROR" "Volume required for 'set' command"
                 show_help
                 exit 1
             fi
@@ -356,14 +356,14 @@ main() {
             show_help
             ;;
         *)
-            log "ERROR" "Commande inconnue: $1"
+            log "ERROR" "Unknown command: $1"
             show_help
             exit 1
             ;;
     esac
 }
 
-# Exécuter le script si appelé directement
+# Execute the script if called directly
 if [ "${BASH_SOURCE[0]}" == "${0}" ]; then
     main "$@"
 fi
