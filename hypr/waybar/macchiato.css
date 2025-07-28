@@ -32,196 +32,197 @@
 
 /* Configuration globale */
 * {
-    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", monospace;
-    font-size: 12px;
-    font-weight: 500;
-    border: none;
-    border-radius: 0;
-    min-height: 0;
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", monospace;
+  font-size: 12px;
+  font-weight: 900;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
 }
 
 /* Barre principale */
 window#waybar {
-    background: rgba(30, 30, 46, 0.85);
-    border: 1px solid rgba(116, 199, 236, 0.3);
-    border-radius: 12px;
-    color: @text;
+  background: rgba(30, 30, 46, 0.7);
+  border: 1px solid rgba(116, 199, 236, 0.3);
+  border-radius: 12px;
+  color: @text;
 }
 
 /* Style des boutons/modules */
-button, label {
-    background: rgba(49, 50, 68, 0.6);
-    color: @text;
-    border-radius: 6px;
-    margin: 2px 1px;
-    padding: 2px 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+button,
+label {
+  background: rgba(49, 50, 68, 0.6);
+  color: @text;
+  border-radius: 6px;
+  margin: 2px 1px;
+  padding: 2px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-button:hover {
-    background: rgba(69, 71, 90, 0.8);
-    border-color: rgba(137, 180, 250, 0.5);
+label:hover {
+  background: rgba(69, 71, 90, 0.8);
+  border-color: rgba(137, 180, 250, 0.5);
 }
 
 /* Workspaces */
 #workspaces {
-    background: rgba(24, 24, 37, 0.7);
-    border-radius: 8px;
-    padding: 1px;
-    margin: 2px 4px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(24, 24, 37, 0.7);
+  border-radius: 8px;
+  padding: 1px;
+  margin: 2px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #workspaces button {
-    background: transparent;
-    color: @overlay1;
-    border: none;
-    border-radius: 6px;
-    margin: 1px;
-    padding: 2px 6px;
+  background: transparent;
+  color: @overlay1;
+  border: none;
+  border-radius: 6px;
+  margin: 1px;
+  padding: 2px 6px;
 }
 
 #workspaces button.active {
-    background: @blue;
-    color: @base;
+  background: @blue;
+  color: @base;
 }
 
 #workspaces button:hover {
-    background: rgba(137, 180, 250, 0.3);
-    color: @text;
+  background: rgba(137, 180, 250, 0.3);
+  color: @text;
 }
 
 /* Fenêtre active */
 #window {
-    background: rgba(49, 50, 68, 0.6);
-    color: @blue;
-    border-radius: 8px;
-    padding: 4px 16px;
-    margin: 4px 8px;
-    border: 1px solid rgba(137, 180, 250, 0.3);
-    font-weight: 600;
+  background: rgba(49, 50, 68, 0.6);
+  color: @blue;
+  border-radius: 8px;
+  padding: 4px 16px;
+  margin: 4px 8px;
+  border: 1px solid rgba(137, 180, 250, 0.3);
+  font-weight: 600;
 }
 
 /* Horloge centrale */
 #clock {
-    background: @mauve;
-    color: @base;
-    font-weight: bold;
-    font-size: 12px;
-    border-radius: 8px;
-    padding: 3px 12px;
-    margin: 2px 4px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+  background: @subtext1;
+  color: @base;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 8px;
+  padding: 3px 12px;
+  margin: 2px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Modules système */
 #cpu {
-    color: @green;
-    border-color: rgba(166, 227, 161, 0.3);
+  color: @green;
+  border-color: rgba(166, 227, 161, 0.3);
 }
 
 #memory {
-    color: @yellow;
-    border-color: rgba(249, 226, 175, 0.3);
+  color: @yellow;
+  border-color: rgba(249, 226, 175, 0.3);
 }
 
 #temperature {
-    color: @peach;
-    border-color: rgba(250, 179, 135, 0.3);
+  color: @peach;
+  border-color: rgba(250, 179, 135, 0.3);
 }
 
 #temperature.critical {
-    color: @red;
-    background: rgba(243, 139, 168, 0.2);
-    border-color: rgba(243, 139, 168, 0.5);
+  color: @red;
+  background: rgba(243, 139, 168, 0.2);
+  border-color: rgba(243, 139, 168, 0.5);
 }
 
 /* Batterie */
 #battery {
-    color: @green;
-    border-color: rgba(166, 227, 161, 0.3);
+  color: @green;
+  border-color: rgba(166, 227, 161, 0.3);
 }
 
 #battery.charging {
-    color: @blue;
-    border-color: rgba(137, 180, 250, 0.3);
+  color: @blue;
+  border-color: rgba(137, 180, 250, 0.3);
 }
 
 #battery.warning:not(.charging) {
-    color: @yellow;
-    border-color: rgba(249, 226, 175, 0.5);
+  color: @yellow;
+  border-color: rgba(249, 226, 175, 0.5);
 }
 
 #battery.critical:not(.charging) {
-    color: @red;
-    background: rgba(243, 139, 168, 0.2);
-    border-color: rgba(243, 139, 168, 0.5);
+  color: @red;
+  background: rgba(243, 139, 168, 0.2);
+  border-color: rgba(243, 139, 168, 0.5);
 }
 
 /* Réseau */
 #network {
-    color: @sapphire;
-    border-color: rgba(116, 199, 236, 0.3);
+  color: @sapphire;
+  border-color: rgba(116, 199, 236, 0.3);
 }
 
 #network.disconnected {
-    color: @red;
-    border-color: rgba(243, 139, 168, 0.3);
+  color: @red;
+  border-color: rgba(243, 139, 168, 0.3);
 }
 
 /* Audio */
 #pulseaudio {
-    color: @lavender;
-    border-color: rgba(180, 190, 254, 0.3);
+  color: @lavender;
+  border-color: rgba(180, 190, 254, 0.3);
 }
 
 #pulseaudio.muted {
-    color: @overlay1;
-    border-color: rgba(108, 112, 134, 0.3);
+  color: @overlay1;
+  border-color: rgba(108, 112, 134, 0.3);
 }
 
 /* Idle inhibitor */
 #idle_inhibitor {
-    color: @sky;
-    border-color: rgba(137, 220, 235, 0.3);
+  color: @sky;
+  border-color: rgba(137, 220, 235, 0.3);
 }
 
 #idle_inhibitor.activated {
-    color: @yellow;
-    background: rgba(249, 226, 175, 0.2);
-    border-color: rgba(249, 226, 175, 0.5);
+  color: @yellow;
+  background: rgba(249, 226, 175, 0.2);
+  border-color: rgba(249, 226, 175, 0.5);
 }
 
 /* Tray */
 #tray {
-    background: rgba(49, 50, 68, 0.6);
-    border-radius: 8px;
-    padding: 4px 8px;
-    margin: 4px 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(49, 50, 68, 0.6);
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin: 4px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #tray > .passive {
-    -gtk-icon-effect: dim;
+  -gtk-icon-effect: dim;
 }
 
 #tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: rgba(243, 139, 168, 0.3);
+  -gtk-icon-effect: highlight;
+  background-color: rgba(243, 139, 168, 0.3);
 }
 
 /* Tooltip */
 tooltip {
-    background: rgba(30, 30, 46, 0.9);
-    border: 1px solid rgba(137, 180, 250, 0.3);
-    border-radius: 8px;
-    color: @text;
+  background: rgba(30, 30, 46, 0.9);
+  border: 1px solid rgba(137, 180, 250, 0.3);
+  border-radius: 8px;
+  color: @text;
 }
 
 tooltip label {
-    background: transparent;
-    border: none;
-    color: @text;
-    margin: 0;
-    padding: 8px;
+  background: transparent;
+  border: none;
+  color: @text;
+  margin: 0;
+  padding: 8px;
 }
