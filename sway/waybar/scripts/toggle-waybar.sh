@@ -10,7 +10,7 @@ if pgrep -x "waybar" > /dev/null; then
                "Waybar" "Hidden"
 else
     # Waybar n'est pas en cours d'exécution, le démarrer
-    waybar -c ~/.config/waybar/config-sway -s ~/.config/waybar/style.css &
+    waybar -c ~/.config/sway/waybar/config-sway -s ~/.config/sway/waybar/style.css &
     notify-send -a "waybar" -u normal -i "view-visible" \
                "Waybar" "Visible"
 fi
