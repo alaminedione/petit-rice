@@ -1,125 +1,138 @@
 {
-    "layer": "top",
-    "position": "top",
-    "height": 30,
-    "spacing": 2,
-    "margin-top": 8,
-    "margin-left": 12,
-    "margin-right": 12,
-    
-    // Modules de gauche à droite
-    "modules-left": ["hyprland/workspaces", "hyprland/window"],
-    "modules-center": ["clock"],
-    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "battery", "tray"],
-
-    // Configuration des modules
-    "hyprland/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "format": "{icon}",
-        "format-icons": {
-            "1": "󰆍",
-            "2": "󰈹",
-            "3": "󰉋",
-            "4": "󰨞",
-            "5": "󰈙",
-            "6": "󰙯",
-            "7": "󰎆",
-            "8": "󰒋",
-            "9": "󰖟",
-            "10": "󰝚",
-            "urgent": "󰀨",
-            "focused": "󰮯",
-            "default": "󰊠"
-        },
-        "persistent-workspaces": {
-            "*": 5
-        }
-    },
-
-    "hyprland/window": {
-        "format": "{}",
-        "max-length": 50,
-        "separate-outputs": true
-    },
-
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "󰒳",
-            "deactivated": "󰒲"
-        }
-    },
-
-    "tray": {
-        "spacing": 10
-    },
-
-    "clock": {
-        "timezone": "Europe/Paris",
-        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "{:%H:%M}",
-        "format-alt": "{:%Y-%m-%d}"
-    },
-
-    "cpu": {
-        "format": "󰍛 {usage}%",
-        "tooltip": false,
-        "interval": 2
-    },
-
-    "memory": {
-        "format": "󰾆 {}%",
-        "tooltip-format": "RAM: {used:0.1f}G/{total:0.1f}G ({percentage}%)\nSwap: {swapUsed:0.1f}G/{swapTotal:0.1f}G ({swapPercentage}%)"
-    },
-
-    "temperature": {
-        "thermal-zone": 2,
-        "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
-        "critical-threshold": 80,
-        "format-critical": "󰸁 {temperatureC}°C",
-        "format": "󰔏 {temperatureC}°C"
-    },
-
-    "battery": {
-        "states": {
-            "warning": 30,
-            "critical": 15
-        },
-        "format": "{icon} {capacity}%",
-        "format-charging": "󰂄 {capacity}%",
-        "format-plugged": "󰂄 {capacity}%",
-        "format-alt": "{icon} {time}",
-        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
-    },
-
-    "network": {
-        "format-wifi": "󰤨 {signalStrength}%",
-        "format-ethernet": "󰈀 Connected",
-        "tooltip-format": "{ifname} via {gwaddr}",
-        "format-linked": "󰈀 {ifname} (No IP)",
-        "format-disconnected": "󰤭 Disconnected",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}",
-        "on-click-right": "nm-connection-editor"
-    },
-
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-bluetooth": "{icon}󰂯 {volume}%",
-        "format-bluetooth-muted": "󰝟󰂯",
-        "format-muted": "󰝟",
-        "format-source": "󰍬 {volume}%",
-        "format-source-muted": "󰍭",
-        "format-icons": {
-            "headphone": "󰋋",
-            "hands-free": "󰋎",
-            "headset": "󰋎",
-            "phone": "󰄜",
-            "portable": "󰄜",
-            "car": "󰄋",
-            "default": ["󰕿", "󰖀", "󰕾"]
-        },
-        "on-click": "pavucontrol",
-        "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+  "layer": "top",
+  "position": "top",
+  "height": 30,
+  "spacing": 3,
+  "margin-top": 7,
+  "margin-left": 7,
+  "margin-right": 9,
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "idle_inhibitor",
+    "pulseaudio",
+    "network",
+    "cpu",
+    "memory",
+    "temperature",
+    "battery",
+    "tray"
+  ],
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "󰆍",
+      "2": "󰈹",
+      "3": "󰉋",
+      "4": "󰨞",
+      "5": "󰈙",
+      "6": "󰙯",
+      "7": "󰎆",
+      "8": "󰒋",
+      "9": "󰖟",
+      "10": "󰝚",
+      "urgent": "󰀨",
+      "focused": "󰮯",
+      "default": "󰊠"
     }
+  },
+  "hyprland/window": {
+    "format": "{}",
+    "max-length": 50,
+    "separate-outputs": true
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰒳",
+      "deactivated": "󰒲"
+    }
+  },
+  "tray": {
+    "spacing": 10
+  },
+  "clock": {
+    "timezone": "Africa/Dakar",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "{:%H:%M}",
+    "format-alt": "{:%Y-%m-%d}"
+  },
+  "cpu": {
+    "format": "󰍛 {usage}%",
+    "tooltip": false,
+    "interval": 2
+  },
+  "memory": {
+    "format": "󰾆 {}%",
+    "tooltip-format": "RAM: {used:0.1f}G/{total:0.1f}G ({percentage}%)\nSwap: {swapUsed:0.1f}G/{swapTotal:0.1f}G ({swapPercentage}%)"
+  },
+  "temperature": {
+    "thermal-zone": 2,
+    "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "critical-threshold": 80,
+    "format-critical": "󰸁 {temperatureC}°C",
+    "format": "󰔏 {temperatureC}°C"
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-plugged": "󰂄 {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-icons": [
+      "󰂎",
+      "󰁺",
+      "󰁻",
+      "󰁼",
+      "󰁽",
+      "󰁾",
+      "󰁿",
+      "󰂀",
+      "󰂁",
+      "󰂂",
+      "󰁹"
+    ]
+  },
+  "network": {
+    "format-wifi": "󰤨 {signalStrength}%",
+    "format-ethernet": "󰈀 Connected",
+    "tooltip-format": "{ifname} via {gwaddr}",
+    "format-linked": "󰈀 {ifname} (No IP)",
+    "format-disconnected": "󰤭 Disconnected",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "on-click-right": "iwgtk"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon}󰂯 {volume}%",
+    "format-bluetooth-muted": "󰝟󰂯",
+    "format-muted": "󰝟",
+    "format-source": "󰍬 {volume}%",
+    "format-source-muted": "󰍭",
+    "format-icons": {
+      "headphone": "󰋋",
+      "hands-free": "󰋎",
+      "headset": "󰋎",
+      "phone": "󰄜",
+      "portable": "󰄜",
+      "car": "󰄋",
+      "default": [
+        "󰕿",
+        "󰖀",
+        "󰕾"
+      ]
+    },
+    "on-click": "pavucontrol",
+    "on-click-right": "pactl set-sink-mute @DEFAULT_SINK@ toggle"
+  }
 }
