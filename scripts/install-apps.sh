@@ -173,7 +173,7 @@ PACKAGES["dev_essential"]="github-cli  nodejs pnpm npm python python-pip cargo r
 PACKAGES["multimedia"]="pavucontrol clapper viewnior gst-plugin-bad gst-plugin-ugly gst-libav"
 
 # Development extras
-PACKAGES["dev_extras"]="docker docker-compose podman composer uv ts-node sccache lazydocker-bin croc"
+PACKAGES["dev_extras"]="docker docker-compose podman composer uv ts-node sccache lazydocker-bin croc ccache"
 
 
 # Personal tools
