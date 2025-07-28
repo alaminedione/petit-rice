@@ -30,121 +30,122 @@
 
 /* Main window */
 window {
-    margin: 0px;
-    border: 2px solid @lavender;
-    background-color: @base;
-    border-radius: 12px;
-    font-family: "JetBrainsMono Nerd Font", sans-serif;
-    font-size: 14px;
+  margin: 0px;
+  /* border: 2px solid @lavender; */
+  background-color: @base;
+  /* border-radius: 12px; */
+  font-family: "JetBrainsMono Nerd Font", sans-serif;
+  font-size: 14px;
 }
 
 /* Input field */
 #input {
-    all: unset;
-    min-height: 36px;
-    padding: 4px 10px;
-    margin: 4px;
-    border: none;
-    color: @text;
-    font-weight: bold;
-    background-color: @surface0;
-    border-radius: 8px;
-    border: 2px solid @surface1;
+  all: unset;
+  min-height: 36px;
+  padding: 4px 10px;
+  margin: 4px;
+  border: none;
+  color: @text;
+  font-weight: bold;
+  background-color: @surface0;
+  border-radius: 8px;
+  border: 2px solid @surface1;
 }
 
 #input:focus {
-    border: 2px solid @lavender;
-    margin: 4px;
-    outline: none;
+  border: 2px solid @lavender;
+  margin: 4px;
+  outline: none;
 }
 
 /* Inner box */
 #inner-box {
-    margin: 4px;
-    border: none;
-    background-color: @base;
-    border-radius: 8px;
+  margin: 4px;
+  border: none;
+  background-color: @base;
+  border-radius: 8px;
 }
 
 /* Outer box */
 #outer-box {
-    margin: 0px;
-    border: none;
-    background-color: @base;
-    border-radius: 12px;
+  margin: 0px;
+  border: none;
+  background-color: @base;
+  border-radius: 12px;
 }
 
 /* Scroll area */
 #scroll {
-    margin-top: 5px;
-    border: none;
-    border-radius: 8px;
-    margin-bottom: 5px;
+  margin-top: 5px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 5px;
 }
 
 /* Text styling */
 #text:selected {
-    color: @base;
-    margin: 0px 0px;
-    border: none;
-    border-radius: 8px;
+  color: @base;
+  margin: 0px 0px;
+  border: none;
+  border-radius: 8px;
 }
 
 #text {
-    margin: 0px 0px;
-    border: none;
-    color: @text;
-    animation: none;
+  margin: 0px 0px;
+  border: none;
+  color: @text;
+  animation: none;
 }
 
 /* Entry styling */
 #entry {
-    background-color: transparent;
-    margin: 0px 0px;
-    border: none;
-    border-radius: 8px;
-    animation: none;
+  background-color: transparent;
+  margin: 0px 0px;
+  border: none;
+  border-radius: 8px;
+  animation: none;
 }
 
 #entry:selected {
-    background-color: @lavender;
-    margin: 0px 0px;
-    border: none;
-    border-radius: 8px;
-    animation: none;
+  background-color: @lavender;
+  margin: 0px 0px;
+  border: none;
+  border-radius: 8px;
+  animation: none;
 }
 
 #entry:selected #text {
-    color: @base;
+  color: @base;
 }
 
 #entry:hover {
-    background-color: @surface0;
-    margin: 0px 0px;
-    border: none;
-    border-radius: 8px;
-    animation: none;
+  background-color: @surface0;
+  margin: 0px 0px;
+  border: none;
+  border-radius: 8px;
+  animation: none;
 }
 
 /* Image styling */
 #img {
-    margin: 0px 0px;
-    border: none;
-    border-radius: 8px;
-    animation: none;
+  margin: 0px 0px;
+  border: none;
+  border-radius: 8px;
+  animation: none;
 }
 
 /* Unselected text */
 #unselected {
-    color: @text;
+  color: @text;
 }
 
 /* Selected text */
 #selected {
-    color: @base;
+  color: @base;
 }
 
 /* Input placeholder */
 #input:placeholder {
-    color: @overlay1;
+  color: @overlay1;
 }
+
