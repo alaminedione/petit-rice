@@ -13,14 +13,44 @@ font-size = 11.4
 
 
 
-# ===== KEYBINDINGS =====
-# Tabulations
-keybind = alt+n=new_tab
-keybind = alt+q=close_tab
-keybind = alt+right=next_tab
-keybind = alt+left=previous_tab
-
 
 
 # ===== COPIER/COLLER =====
 #copy-on-select = clipboard
+
+# ===== KEYBINDINGS =====
+# Onglets
+keybind = alt+n=new_tab
+keybind = alt+x=close_tab
+keybind = alt+right=next_tab
+keybind = alt+left=previous_tab
+keybind = alt+shift+right=move_tab:1
+keybind = alt+shift+left=move_tab:-1
+
+# Fenêtres/Splits
+keybind = alt+enter=new_split:right
+keybind = alt+v=new_split:down
+keybind = alt+q=close_surface
+keybind = alt+right_bracket=goto_split:next
+keybind = alt+left_bracket=goto_split:previous
+
+# Taille de police
+keybind = alt+equal=increase_font_size:1
+keybind = alt+minus=decrease_font_size:1
+keybind = alt+0=reset_font_size
+
+# Navigation rapide vers les onglets
+keybind = alt+1=goto_tab:1
+keybind = alt+2=goto_tab:2
+keybind = alt+3=goto_tab:3
+keybind = alt+4=goto_tab:4
+keybind = alt+5=goto_tab:5
+keybind = alt+6=goto_tab:6
+keybind = alt+7=goto_tab:7
+keybind = alt+8=goto_tab:8
+keybind = alt+9=goto_tab:9
+
+gtk-wide-tabs=false
+#gtk-tabs-location=hidden
+adw-toolbar-style=flat
+window-theme=ghostty
