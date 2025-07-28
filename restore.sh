@@ -255,6 +255,10 @@ restore_backup() {
         fi
     done
     
+    # install the vim plugins
+    print_infos "Installing vim plugins..."
+    bash "$SCRIPT_DIR/scripts/config-vim.sh"
+   
     print_success "Restoration completed successfully!"
     
     if [ -n "$safety_backup_timestamp" ]; then

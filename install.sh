@@ -238,6 +238,11 @@ main_install() {
     
     # Install home files
     install_home_files
+
+    # install the vim plugins
+    print_info "Installing vim plugins..."
+    bash "$SCRIPT_DIR/scripts/config-vim.sh"
+
     
     # Make scripts executable
     make_scripts_executable
