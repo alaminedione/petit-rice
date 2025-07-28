@@ -7,6 +7,7 @@ ZSH_THEME="cypher"
 
 
 export SCCACHE_DIR=~/.cache/sccache
+export PATH="/usr/lib/ccache/bin:$PATH"
 
 export ZSH="$HOME/.oh-my-zsh"
 # CASE_SENSITIVE="true"
