@@ -218,7 +218,7 @@ main_install() {
     fi
     
     # backup the current Dotfiles
-    print_info "Backing up current Dotfiles to $BACKUP_DIR in 3 seconds"
+    print_info "Backing up current Dotfiles to $BACKUP_BASE_DIR in 3 seconds"
     sleep 3
 
     # Create base backup directory
@@ -230,6 +230,7 @@ main_install() {
     print_info "Creating global backup BEFORE installation..."
     sleep 2
     create_global_backup
+    sleep 2
     
     # List of applications to configure
     local apps=("foot" "kitty" "nvim" "sway" "swaylock"  "wofi" "mako" "fastfetch")
