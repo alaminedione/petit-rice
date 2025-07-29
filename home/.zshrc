@@ -88,7 +88,7 @@ eval "$(zoxide init zsh)"
 
 
 source ~/.aliases.sh
-source ~/.env
+[ -f ~/.env ] && source ~/.env
 
 
 # Turso

@@ -287,7 +287,7 @@ apply_default_theme() {
     print_header "Applying default theme"
     
     if [ -f "$SCRIPT_DIR/scripts/change-theme/set-mocha.sh" ]; then
-        if ask_yes_no "Do you want to apply the Catppuccin Mocha theme (default theme)?"; then
+      if ask_yes_no "Do you want to apply the Catppuccin Mocha theme (default theme)? (recommended)"; then
             print_info "Applying Catppuccin Mocha theme..."
             bash "$SCRIPT_DIR/scripts/change-theme/set-mocha.sh"
             print_success "Catppuccin Mocha theme applied"
@@ -300,14 +300,17 @@ apply_default_theme() {
 # Function to run additional configuration scripts
 run_additional_scripts() {
     print_header "Additional configuration scripts"
+
+
+    bash "$SCRIPT_DIR/scripts/change-theme/set-mocha.sh"
+    bash "$SCRIPT_DIR/scripts/config-vim.sh"
+    bash "$SCRIPT_DIR/scripts/config-zsh.sh"
+    bash "$SCRIPT_DIR/scripts/gsettings.sh"
+    bash "$SCRIPT_DIR/scripts/get-layan-cursors.sh"
     
     # Optional scripts
     local optional_scripts=(
         "scripts/fix_fonts.sh:Font correction"
-        "scripts/gsettings.sh:gtk settings configuration"
-        "scripts/get-layan-cursors.sh:Layan cursors installation"
-        "scripts/config-zsh.sh:Zsh configuration"
-        "scripts/config-vim.sh:Vim configuration"
         "scripts/set-swapinness.sh:Swapiness configuration"
         "scripts/create_macspoof_service.sh:Creating macspoof service for MAC address spoofing"
     )
@@ -378,7 +381,6 @@ show_menu() {
         1)
             main_install
             install_dependencies
-            apply_default_theme
             run_additional_scripts
             show_summary
             ;;
