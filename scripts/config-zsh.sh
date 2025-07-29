@@ -26,19 +26,40 @@ else
   echo "Zsh is already the default shell."
 fi
 
+
 # zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+if [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions" ]; then
+  echo "zsh-autosuggestions is already installed."
+else
+  echo "Cloning zsh-autosuggestions..."
+  git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+fi
 
 # zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+if [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting" ]; then
+  echo "zsh-syntax-highlighting is already installed."
+else
+  echo "Cloning zsh-syntax-highlighting..."
+  git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+fi
 
 # zsh-completions
-git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+if [ -d "$HOME/.oh-my-zsh/custom/plugins/zsh-completions" ]; then
+  echo "zsh-completions is already installed."
+else
+  echo "Cloning zsh-completions..."
+  git clone https://github.com/zsh-users/zsh-completions ~/.oh-my-zsh/custom/plugins/zsh-completions
+fi
 
 # fzf (Oh My Zsh plugin + fzf tool)
-sudo pacman -S --needed fzf  # installs the fzf tool on Arch Linux
-git clone https://github.com/junegunn/fzf.git ~/.fzf
-~/.fzf/install  # installs fzf and its bindings
+if [ -d "$HOME/.fzf" ]; then
+  echo "fzf repository is already cloned."
+else
+  echo "Cloning fzf..."
+  git clone https://github.com/junegunn/fzf.git ~/.fzf
+  ~/.fzf/install
+fi
+rm -rf ~/.fzf/
 
 # vi-mode is included in Oh My Zsh, no installation needed
 
