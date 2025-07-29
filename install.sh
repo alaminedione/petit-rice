@@ -58,7 +58,7 @@ ask_yes_no() {
 
 # Global backup function
 create_global_backup() {
-    local apps=("foot" "kitty" "nvim" "sway" "swaylock"  "wofi" "mako" "fastfetch" "hypr")
+    local apps=("foot" "kitty" "nvim" "sway" "swaylock"  "wofi" "mako" "fastfetch" "hypr" "ghostty")
     local home_files=(".aliases.sh" ".fdignore" ".tgpt_aliases.sh" ".vimrc" ".viminfo" ".vim" ".zshrc")
     local backup_needed=false
     
@@ -218,8 +218,8 @@ main_install() {
     fi
     
     # backup the current Dotfiles
-    print_info "Backing up current Dotfiles to $BACKUP_BASE_DIR in 3 seconds"
-    sleep 3
+    print_info "Backing up current Dotfiles to $BACKUP_BASE_DIR ..."
+    sleep 2
 
     # Create base backup directory
     print_info "Creating backup directory: $BACKUP_BASE_DIR"
@@ -232,25 +232,28 @@ main_install() {
     create_global_backup
     sleep 2
     
+    print_info "Installing dotfiles..."
+    sleep 2
     # List of applications to configure
-    local apps=("foot" "kitty" "nvim" "sway" "swaylock"  "wofi" "mako" "fastfetch")
+    local apps=("foot" "kitty" "nvim" "sway" "hypr" "swaylock" "wofi" "mako" "fastfetch" "ghostty")
     
     # Install configurations
     for app in "${apps[@]}"; do
         install_config "$app"
     done
     
-    # Special handling for hypr (if present)
-    if [ -d "$SCRIPT_DIR/hypr" ]; then
-        install_config "hypr"
-    fi
-    
     # Install home files
     install_home_files
 
     # install the vim plugins
     print_info "Installing vim plugins..."
+    sleep 2
     bash "$SCRIPT_DIR/scripts/config-vim.sh"
+
+    #create gtk-3.0 and gtk-4.0 folders
+    mkdir -p ~/.config/gtk-3.0/
+    mkdir -p ~/.config/gtk-4.0/
+
 
     
     # Make scripts executable

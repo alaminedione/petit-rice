@@ -10,7 +10,7 @@ sudo pacman -Rns --noconfirm xorg-fonts-75dpi xorg-fonts-100dpi ttf-dejavu || tr
 
 # 2. Install modern fonts
 echo "[2/6] Installing modern fonts..."
-sudo yay -S --needed --noconfirm ttf-liberation ttf-ubuntu-font-family ttf-fira-sans ttf-fira-code noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-jetbrains-mono-nerd adobe-source-code-pro-fonts ttf-hack ttf-cascadia-code ttf-iosevka ttf-iosevka-nerd ttf-iosevka-term nerd-fonts-complete ttf-ubuntu-mono-nerd ttf-roboto ttf-libertinus-sans ttf-libertinus-serif ttf-dejavu
+yay -S --needed --noconfirm ttf-liberation ttf-ubuntu-font-family ttf-fira-sans ttf-fira-code noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-jetbrains-mono-nerd adobe-source-code-pro-fonts ttf-hack ttf-cascadia-code ttf-iosevka ttf-iosevka-nerd ttf-iosevka-term nerd-fonts-complete ttf-ubuntu-mono-nerd ttf-roboto ttf-libertinus-sans ttf-libertinus-serif ttf-dejavu
 
 # 3. Install improved rendering libraries via yay
 echo "[3/6] Installing freetype2-ubuntu, fontconfig-ubuntu, cairo-ubuntu..."
