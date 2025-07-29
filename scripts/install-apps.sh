@@ -73,12 +73,12 @@ check_developer_profile() {
         print_success "Developer profile detected - dev tools will be included"
     else
         IS_DEVELOPER=false
-        print_info "Standard user profile - focusing on essential packages"
+        print_info "Focusing on essential packages"
     fi
     echo ""
 }
 
-# Installation function with improved error handling
+# Installation function 
 install_packages() {
     local category="$1"
     local description="$2"
@@ -100,17 +100,49 @@ install_packages() {
         # Progress indicator
         local total=${#packages[@]}
         local current=0
+        local failed_packages=()
         
         for package in "${packages[@]}"; do
             current=$((current + 1))
             echo -e "${BLUE}[$current/$total]${NC} Installing $package..."
             
-            if ! yay -S --needed --noconfirm "$package" 2>/dev/null; then
-                print_warning "Failed to install $package, continuing..."
+            # Try installation without suppressing stderr for better debugging
+            if ! yay -S --needed --noconfirm "$package"; then
+                print_error "Initial installation of $package failed."
+                local retry_attempt=1
+                local max_retries=10
+                local install_success=false
+                
+                while [ $retry_attempt -le $max_retries ]; do
+                    if ask_yes_no "Do you want to try reinstalling $package? (Attempt $retry_attempt/$max_retries)"; then
+                        echo -e "${BLUE}[$current/$total]${NC} Retrying installation of $package... (Attempt $retry_attempt)"
+                        if yay -S --needed --noconfirm "$package"; then
+                            print_success "$package reinstalled successfully."
+                            install_success=true
+                            break
+                        else
+                            print_warning "Attempt $retry_attempt to install $package failed."
+                            retry_attempt=$((retry_attempt + 1))
+                        fi
+                    else
+                        print_info "Skipping $package as requested, continuing..."
+                        break
+                    fi
+                done
+                
+                if [ "$install_success" = false ]; then
+                    failed_packages+=("$package")
+                    print_error "Failed to install $package after all attempts, continuing..."
+                fi
             fi
         done
         
-        print_success "$description installed successfully"
+        # Summary
+        if [ ${#failed_packages[@]} -eq 0 ]; then
+            print_success "$description installed successfully"
+        else
+            print_warning "$description partially installed. Failed packages: ${failed_packages[*]}"
+        fi
     else
         print_info "$description skipped"
     fi
@@ -161,25 +193,18 @@ check_prerequisites() {
 declare -A PACKAGES
 
 # Essential packages for rice functionality
-PACKAGES["essential"]="sway swaybg swaylock-effects swayidle hyprland hyprpaper hyprlock hypridle hyprsunset waybar wofi mako fastfetch foot kitty ghostty neovim git curl vim rsync bc libnotify brightnessctl playerctl htop bat eza tree yazi galculator clipman tgpt yt-dlp hyperfine slurp grim wl-clipboard adapta-gtk-theme orchis-theme kvantum lxappearance ttf-jetbrains-mono-nerd ttf-fira-code adobe-source-code-pro-fonts
-"
+PACKAGES["essential"]="sway swaybg swaylock-effects swayidle hyprland hyprpaper hyprlock hypridle hyprsunset waybar wofi mako fastfetch foot kitty ghostty neovim git curl vim rsync bc libnotify brightnessctl playerctl htop bat eza tree yazi galculator clipman tgpt yt-dlp hyperfine slurp grim wl-clipboard adapta-gtk-theme orchis-theme kvantum lxappearance ttf-jetbrains-mono-nerd ttf-fira-code adobe-source-code-pro-fonts yq wireplumber pavucontrol"
 
 # Developer essentials (if developer profile)
-PACKAGES["dev_essential"]="github-cli  nodejs pnpm npm python python-pip cargo rust go onefetch cloc typescript lazygit "
-
-# Multimedia and appearance
-PACKAGES["multimedia"]="pavucontrol clapper viewnior gst-plugin-bad gst-plugin-ugly gst-libav"
-
-# Development extras
-PACKAGES["dev_extras"]="docker docker-compose podman composer uv ts-node sccache lazydocker-bin croc ccache"
+PACKAGES["dev"]="github-cli  nodejs pnpm npm python python-pip cargo rust go onefetch cloc typescript lazygit sccache ccache uv ts-node lazydocker-bin croc php composer"
 
 
-# Personal tools
-PACKAGES["personal"]="cloudflare-warp-bin google-cloud-cli obsidian thorium-browser-bin drawio-desktop brave-bin telegram-desktop yq appflowy-bin  macchanger megasync-bin turso"
+# Personal tools 
+PACKAGES["personal"]="cloudflare-warp-bin google-cloud-cli obsidian thorium-browser-bin drawio-desktop brave-bin telegram-desktop  appflowy-bin  macchanger megasync-bin turso docker docker-compose podman"
 
 
 # All remaining packages
-PACKAGES["extras"]="freedownloadmanager firefox gpu-screen-recorder-gtk pipes.sh onlyoffice-bin atril cheese qemu meld"
+PACKAGES["extras"]="freedownloadmanager firefox gpu-screen-recorder-gtk pipes.sh onlyoffice-bin atril cheese qemu meld clapper viewnior gst-plugin-bad gst-plugin-ugly gst-libav"
 
 # Installation profiles
 install_minimum() {
@@ -192,29 +217,22 @@ install_minimum() {
     
     # Add developer tools if developer profile
     if [ "$IS_DEVELOPER" = true ]; then
-        IFS=' ' read -ra dev_packages <<< "${PACKAGES[dev_essential]}"
-        install_packages "dev_essential" "Essential Developer Tools" "${dev_packages[@]}"
+        IFS=' ' read -ra dev_packages <<< "${PACKAGES[dev]}"
+        install_packages "dev" "Essential Developer Tools" "${dev_packages[@]}"
     fi
-    
-    # Basic multimedia
-    IFS=' ' read -ra multimedia_packages <<< "${PACKAGES[multimedia]}"
-    install_packages "multimedia" "Basic Multimedia Tools" "${multimedia_packages[@]}"
 }
 
 install_all() {
-    print_header "COMPLETE INSTALLATION"
+    print_header "COMPLETE INSTALLATION: categories: essential, dev, extras"
     print_info "Installing all available packages"
     
-    for category in essential dev_essential rice_theme  multimedia  dev_extras personal  extras; do
+    for category in essential dev extras; do
         if [[ -v PACKAGES[$category] ]]; then
             IFS=' ' read -ra packages <<< "${PACKAGES[$category]}"
             # Create readable category names
             case $category in
                 essential) description="Essential Rice Packages" ;;
-                dev_essential) description="Essential Developer Tools" ;;
-                multimedia) description="Multimedia Applications" ;;
-                dev_extras) description="Development Tools" ;;
-                personal) description="Personal Tools" ;;
+                dev) description="Essential Developer Tools" ;;
                 extras) description="Extra Utilities" ;;
             esac
             install_packages "$category" "$description" "${packages[@]}"
@@ -229,31 +247,25 @@ install_by_category() {
     
     echo "Available categories:"
     echo "1.  Essential Rice Packages (${PACKAGES[essential]})"
-    echo "2.  Essential Developer Tools (${PACKAGES[dev_essential]})"
-    echo "3.  Multimedia Applications (${PACKAGES[multimedia]})"
-    echo "4.  Development Tools (${PACKAGES[dev_extras]})"
-    echo "5.  Personal Tools (${PACKAGES[personal]})"
-    echo "6.  Extra Utilities (${PACKAGES[extras]})"
+    echo "2.  Essential Developer Tools (${PACKAGES[dev]})"
+    echo "3.  Extra Utilities (${PACKAGES[extras]})"
+    echo "4.  Personal Tools (${PACKAGES[personal]})"
     echo ""
     
     declare -A category_map
     category_map[1]="essential"
-    category_map[2]="dev_essential"
-    category_map[3]="multimedia"
-    category_map[4]="dev_extras"
-    category_map[5]="personal"
-    category_map[6]="extras"
+    category_map[2]="dev"
+    category_map[3]="extras"
+    category_map[4]="personal"
     
     declare -A category_descriptions
     category_descriptions["essential"]="Essential Rice Packages"
-    category_descriptions["dev_essential"]="Essential Developer Tools"
-    category_descriptions["multimedia"]="Multimedia Applications"
-    category_descriptions["dev_extras"]="Development Tools"
-    category_descriptions["personal"]="Personal Tools"
+    category_descriptions["dev"]="Development tools"
     category_descriptions["extras"]="Extra Utilities"
+    category_descriptions["personal"]="Personal Tools"
     
     while true; do
-        read -p "$(echo -e "${YELLOW}Enter category numbers (e.g., 1 3 5), 'all' for everything, or 'done' to finish: ${NC}")" selected
+        read -p "$(echo -e "${YELLOW}Enter category numbers (e.g., 1 2 3), 'all' for everything, or 'done' to finish: ${NC}")" selected
         
         if [[ "$selected" == "done" ]]; then
             break
@@ -298,7 +310,7 @@ main() {
     print_logo
     
     print_info "Welcome to the Arch Linux Rice Installation Script"
-    print_info "This script will install packages optimized for Sway/Hyprland rice"
+    print_info "This script will install packages for Sway/Hyprland rice"
     echo ""
     
     check_prerequisites
@@ -306,13 +318,18 @@ main() {
     
     while true; do
         print_header "Installation Options"
-        echo "1. 🟢 Install Minimum Dependencies (Essential rice packages)"
+        print_info "Available Categories: essential, dev, personal, extras"
+        echo "1. 🟢 Install Minimum Dependencies:"
+        echo "   - Core packages for this Sway/Hyprland desktop rice (window managers, bar, launcher, terminal, basic utilities)."
         if [ "$IS_DEVELOPER" = true ]; then
-            echo "   └── Includes developer tools (detected developer profile)"
+            echo "   - Includes essential developer tools as developer profile was detected."
         fi
-        echo "2. 🔵 Install All Packages (Complete installation)"
-        echo "3. 🟡 Install by Category (Selective installation)"
-        echo "4. ❌ Cancel"
+        echo "2. 🔵 Install All Packages (excluding category: personal):"
+        echo "   - A complete installation including essential, developer, and extra utility packages (general-purpose tools: browser, media player, document reader...)."
+        echo "3. 🟡 Install by Category:"
+        echo "   - Allows you to selectively choose which groups of packages (essential, dev, personal, extras) to install."
+        echo "4. ❌ Cancel Installation:"
+        echo "   - Exit the script without installing any packages."
         echo ""
         
         read -p "$(echo -e "${YELLOW}Choose an option (1-4): ${NC}")" choice

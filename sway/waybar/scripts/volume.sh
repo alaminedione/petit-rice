@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Enhanced volume control script with Mako notifications
-# Author: Enhanced by Forge
 # Version: 2.0
 # Usage: volume.sh [up|down|mute|mic-mute|show|set <value>] [step]
 
