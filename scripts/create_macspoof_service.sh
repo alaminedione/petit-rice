@@ -1,16 +1,10 @@
 #!/bin/bash
 
 # Script to create and enable a systemd template service macspoof@.service for wlan0
-# Usage: sudo ./create_macspoof_service.sh
+# Usage: ./create_macspoof_service.sh
 
 SERVICE_PATH="/etc/systemd/system/macspoof@.service"
 INTERFACE="wlan0"
-
-# Check for root permissions
-if [[ $EUID -ne 0 ]]; then
-  echo "❌ This script must be run as root (sudo)." >&2
-  exit 1
-fi
 
 # Check if macchanger is installed
 if ! command -v macchanger >/dev/null 2>&1; then
@@ -38,15 +32,15 @@ EOF
 echo "🛠️ Creating systemd service file: $SERVICE_PATH"
 
 # Write the service file
-echo "$SERVICE_CONTENT" > "$SERVICE_PATH"
+echo "$SERVICE_CONTENT" | sudo tee "$SERVICE_PATH" > /dev/null
 
 # Reload systemd
 echo "🔄 Reloading systemd daemon..."
-systemctl daemon-reload
+sudo systemctl daemon-reload
 
 # Enable the service for wlan0
 echo "📡 Enabling macspoof@wlan0.service"
-systemctl enable macspoof@wlan0.service
+sudo systemctl enable macspoof@wlan0.service
 
 echo "✅ macspoof@wlan0.service created and enabled successfully."
 echo "🔁 Restart your system to automatically apply the MAC address change on boot."
