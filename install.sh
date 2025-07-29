@@ -217,10 +217,18 @@ main_install() {
         exit 1
     fi
     
+    # backup the current Dotfiles
+    print_info "Backing up current Dotfiles to $BACKUP_DIR in 3 seconds"
+    sleep 3
+
     # Create base backup directory
+    print_info "Creating backup directory: $BACKUP_BASE_DIR"
     mkdir -p "$BACKUP_BASE_DIR"
+    sleep 1
     
     # Create global backup BEFORE installation
+    print_info "Creating global backup BEFORE installation..."
+    sleep 2
     create_global_backup
     
     # List of applications to configure
