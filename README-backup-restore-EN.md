@@ -34,6 +34,7 @@ The backup system creates a timestamped directory for each backup, containing th
 │   ├── fastfetch/
 │   ├── hypr/
 │   ├── home/
+│   │   ├── .zshrc
 │   │   ├── .aliases.sh
 │   │   ├── .fdignore
 │   │   ├── .tgpt_aliases.sh

@@ -90,20 +90,6 @@ Here's a summary of the most common keybindings:
 | `Print`                | Full screenshot                         |
 | `$mod + s`             | Area screenshot                         |
 
-### Media & Brightness Controls
-
-| Keybinding             | Action                                  |
-| :--------------------- | :-------------------------------------- |
-| `XF86AudioMute`        | Toggle audio mute                       |
-| `XF86AudioLowerVolume` | Decrease volume                         |
-| `XF86AudioRaiseVolume` | Increase volume                         |
-| `XF86AudioMicMute`     | Toggle microphone mute                  |
-| `XF86AudioPlay`        | Play/Pause media                        |
-| `XF86AudioNext`        | Next media track                        |
-| `XF86AudioPrev`        | Previous media track                    |
-| `XF86MonBrightnessDown`| Decrease screen brightness              |
-| `XF86MonBrightnessUp`  | Increase screen brightness              |
-
 ### Additional Function Key Bindings
 
 | Keybinding             | Action                                  |

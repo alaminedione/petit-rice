@@ -133,7 +133,7 @@ Saved configurations:
 EOF
     
     local apps=("foot" "kitty" "nvim" "sway" "swaylock"  "wofi" "mako" "fastfetch" "hypr")
-    local home_files=(".aliases.sh" ".fdignore" ".tgpt_aliases.sh" ".vimrc" ".viminfo" ".vim")
+    local home_files=(".aliases.sh" ".fdignore" ".tgpt_aliases.sh" ".vimrc" ".viminfo" ".vim" ".zshrc")
     local backup_created=false
     
     # Backup current configurations
@@ -256,7 +256,7 @@ restore_backup() {
     done
     
     # install the vim plugins
-    print_infos "Installing vim plugins..."
+    print_info "Installing vim plugins..."
     bash "$SCRIPT_DIR/scripts/config-vim.sh"
    
     print_success "Restoration completed successfully!"

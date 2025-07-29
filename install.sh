@@ -59,7 +59,7 @@ ask_yes_no() {
 # Global backup function
 create_global_backup() {
     local apps=("foot" "kitty" "nvim" "sway" "swaylock"  "wofi" "mako" "fastfetch" "hypr")
-    local home_files=(".aliases.sh" ".fdignore" ".tgpt_aliases.sh" ".vimrc" ".viminfo" ".vim")
+    local home_files=(".aliases.sh" ".fdignore" ".tgpt_aliases.sh" ".vimrc" ".viminfo" ".vim" ".zshrc")
     local backup_needed=false
     
     print_info "Checking for existing configurations..."
@@ -391,11 +391,7 @@ show_menu() {
 
 # Main entry point
 main() {
-    # Check that the script is executed from the correct directory
-    if [ ! -f "$SCRIPT_DIR/forge.yaml" ]; then
-        print_error "This script must be executed from the dotfiles directory"
-        exit 1
-    fi
+    #TODO: Check that the script is executed from the correct directory
     
     # Display the menu
     show_menu
