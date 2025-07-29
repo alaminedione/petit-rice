@@ -193,7 +193,7 @@ check_prerequisites() {
 declare -A PACKAGES
 
 # Essential packages for rice functionality
-PACKAGES["essential"]="sway swaybg swaylock-effects swayidle hyprland hyprpaper hyprlock hypridle hyprsunset waybar wofi mako fastfetch foot kitty ghostty neovim git curl vim rsync bc libnotify brightnessctl playerctl htop bat eza tree yazi galculator clipman tgpt yt-dlp hyperfine slurp grim wl-clipboard adapta-gtk-theme orchis-theme kvantum lxappearance ttf-jetbrains-mono-nerd ttf-fira-code adobe-source-code-pro-fonts yq wireplumber pavucontrol"
+PACKAGES["essential"]="sway swaybg swaylock-effects swayidle hyprland hyprpaper hyprlock hypridle hyprsunset waybar wofi mako fastfetch foot kitty ghostty neovim git curl vim rsync bc libnotify brightnessctl playerctl htop bat eza tree yazi zoxide galculator clipman tgpt yt-dlp hyperfine slurp grim wl-clipboard adapta-gtk-theme orchis-theme kvantum lxappearance ttf-jetbrains-mono-nerd ttf-fira-code adobe-source-code-pro-fonts yq wireplumber pavucontrol"
 
 # Developer essentials (if developer profile)
 PACKAGES["dev"]="github-cli  nodejs pnpm npm python python-pip cargo rust go onefetch cloc typescript lazygit sccache ccache uv ts-node lazydocker-bin croc php composer"
