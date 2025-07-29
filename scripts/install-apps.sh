@@ -161,10 +161,8 @@ check_prerequisites() {
 declare -A PACKAGES
 
 # Essential packages for rice functionality
-PACKAGES["essential"]="sway swaybg swaylock-effects swayidle hyprland hyprpaper hyprlock hypridle hyprsunset waybar wofi mako fastfetch foot kitty ghostty neovim git curl vim rsync bc libnotify brightnessctl playerctl htop bat eza tree yazi galculator clipman tgpt yt-dlp hyperfine slurp grim wl-clipboard"
-
-# Themes and fonts for rice
-PACKAGES["rice_theme"]="adapta-gtk-theme orchis-theme kvantum lxappearance ttf-jetbrains-mono-nerd ttf-fira-code adobe-source-code-pro-fonts"
+PACKAGES["essential"]="sway swaybg swaylock-effects swayidle hyprland hyprpaper hyprlock hypridle hyprsunset waybar wofi mako fastfetch foot kitty ghostty neovim git curl vim rsync bc libnotify brightnessctl playerctl htop bat eza tree yazi galculator clipman tgpt yt-dlp hyperfine slurp grim wl-clipboard adapta-gtk-theme orchis-theme kvantum lxappearance ttf-jetbrains-mono-nerd ttf-fira-code adobe-source-code-pro-fonts
+"
 
 # Developer essentials (if developer profile)
 PACKAGES["dev_essential"]="github-cli  nodejs pnpm npm python python-pip cargo rust go onefetch cloc typescript lazygit "
@@ -198,11 +196,6 @@ install_minimum() {
         install_packages "dev_essential" "Essential Developer Tools" "${dev_packages[@]}"
     fi
     
-    # Rice theming
-    IFS=' ' read -ra theme_packages <<< "${PACKAGES[rice_theme]}"
-    install_packages "rice_theme" "Rice Themes and Fonts" "${theme_packages[@]}"
-    
-    
     # Basic multimedia
     IFS=' ' read -ra multimedia_packages <<< "${PACKAGES[multimedia]}"
     install_packages "multimedia" "Basic Multimedia Tools" "${multimedia_packages[@]}"
@@ -219,7 +212,6 @@ install_all() {
             case $category in
                 essential) description="Essential Rice Packages" ;;
                 dev_essential) description="Essential Developer Tools" ;;
-                rice_theme) description="Rice Themes and Fonts" ;;
                 multimedia) description="Multimedia Applications" ;;
                 dev_extras) description="Development Tools" ;;
                 personal) description="Personal Tools" ;;
@@ -238,26 +230,23 @@ install_by_category() {
     echo "Available categories:"
     echo "1.  Essential Rice Packages (${PACKAGES[essential]})"
     echo "2.  Essential Developer Tools (${PACKAGES[dev_essential]})"
-    echo "3.  Rice Themes and Fonts (${PACKAGES[rice_theme]})"
-    echo "4.  Multimedia Applications (${PACKAGES[multimedia]})"
-    echo "5.  Development Tools (${PACKAGES[dev_extras]})"
-    echo "6.  Personal Tools (${PACKAGES[personal]})"
-    echo "7.  Extra Utilities (${PACKAGES[extras]})"
+    echo "3.  Multimedia Applications (${PACKAGES[multimedia]})"
+    echo "4.  Development Tools (${PACKAGES[dev_extras]})"
+    echo "5.  Personal Tools (${PACKAGES[personal]})"
+    echo "6.  Extra Utilities (${PACKAGES[extras]})"
     echo ""
     
     declare -A category_map
     category_map[1]="essential"
     category_map[2]="dev_essential"
-    category_map[3]="rice_theme"
-    category_map[4]="multimedia"
-    category_map[5]="dev_extras"
-    category_map[6]="personal"
-    category_map[7]="extras"
+    category_map[3]="multimedia"
+    category_map[4]="dev_extras"
+    category_map[5]="personal"
+    category_map[6]="extras"
     
     declare -A category_descriptions
     category_descriptions["essential"]="Essential Rice Packages"
     category_descriptions["dev_essential"]="Essential Developer Tools"
-    category_descriptions["rice_theme"]="Rice Themes and Fonts"
     category_descriptions["multimedia"]="Multimedia Applications"
     category_descriptions["dev_extras"]="Development Tools"
     category_descriptions["personal"]="Personal Tools"
@@ -298,14 +287,6 @@ post_installation() {
             print_warning "Log out and back in for docker group changes to take effect"
         fi
     fi
-    
-    # Enable services
-    print_info "Enabling essential services..."
-    if command -v NetworkManager &> /dev/null; then
-        sudo systemctl enable NetworkManager
-        print_success "NetworkManager enabled"
-    fi
-    
     
     print_header "Installation Summary"
     echo -e "🎉 All packages installed successfully! \n"
