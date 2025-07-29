@@ -292,7 +292,7 @@ run_additional_scripts() {
     # Optional scripts
     local optional_scripts=(
         "scripts/fix_fonts.sh:Font correction"
-        "scripts/gsettings.sh:GNOME settings configuration"
+        "scripts/gsettings.sh:gtk settings configuration"
         "scripts/get-layan-cursors.sh:Layan cursors installation"
         "scripts/config-zsh.sh:Zsh configuration"
         "scripts/config-vim.sh:Vim configuration"
@@ -343,6 +343,8 @@ show_summary() {
     if [ -d "$BACKUP_BASE_DIR" ]; then
         ls -1 "$BACKUP_BASE_DIR" | grep "^backup-" | sed 's/^backup-/   - /' | sed 's/$/ (use: .\/restore.sh <timestamp>)/'
     fi
+    # afficher un messa de felicitation
+    echo -e "${GREEN}✅ Installation completed successfully!${NC}"
 }
 
 # Main menu

@@ -312,7 +312,7 @@ main() {
         fi
         echo "2. 🔵 Install All Packages (Complete installation)"
         echo "3. 🟡 Install by Category (Selective installation)"
-        echo "4. ❌ Exit"
+        echo "4. ❌ Cancel"
         echo ""
         
         read -p "$(echo -e "${YELLOW}Choose an option (1-4): ${NC}")" choice
