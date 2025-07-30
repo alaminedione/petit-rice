@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 50, // Augmenté pour respecter la hauteur minimale requise
+    "height": 30,
     "spacing": 4,
     "margin-top": 8,
     "margin-bottom": 0,

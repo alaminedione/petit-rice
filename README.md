@@ -51,13 +51,13 @@ I've created a script (`install.sh`) that allows for a quick installation of my 
 Currently supported themes:
 *   `catppuccin-macchiato` (dark)
 *   `rose-pine-dawn` (light)
+*   `gruvbox-dark`
 
 Themes under development:
 *   `catppuccin-mocha`
 *   `catppuccin-latte`
 *   `catppuccin-frappe`
 *   `rose-pine-moon` (dark)
-*   `gruvbox-dark`
 *   `gruvbox-light`
 *   `nord`
 

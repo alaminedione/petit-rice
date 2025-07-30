@@ -34,28 +34,18 @@ Here's a template you can adapt:
 # foot
 sed -i "s|^include=~/.config/foot/themes/.*|include=~/.config/foot/themes/your-new-theme.ini|" ~/.config/foot/foot.ini
 
-# kitty
-echo "include themes/your-new-theme.conf" > ~/.config/kitty/colors.conf
-
 # wofi
 cp ~/.config/wofi/your-new-theme.css ~/.config/wofi/style.css
 
 # waybar sway
 cp ~/.config/sway/waybar/your-new-theme.css ~/.config/sway/waybar/style.css
+sed -i 's/"position": ".*"/"position": "your_position"/' ~/.config/sway/waybar/config-sway
+sed -i 's/"height": .*/"height": your_height/' ~/.config/sway/waybar/config-sway
 
 # waybar hyprland
 cp ~/.config/hypr/waybar/your-new-theme.css ~/.config/hypr/waybar/style.css
-
-# vim
-sed -i "s|^set background=light|set background=dark|" ~/.vimrc # Adjust 'dark' or 'light' as needed
-sed -i "s|^colorscheme .*|colorscheme your_vim_colorscheme|" ~/.vimrc
-
-# nvim
-sed -i "s|theme = .*|theme = \"your_nvim_theme\",|" ~/.config/nvim/lua/chadrc.lua
-nvim --headless +'lua require("base46").load_all_highlights()' +qa # Reload nvim theme
-
-# sway
-sed -i "s|^include=./themes/.*|include=./themes/your-new-theme|" ~/.config/sway/config
+sed -i 's/"position": ".*"/"position": "your_position"/' ~/.config/hypr/waybar/config.json
+sed -i 's/"height": .*/"height": your_height/' ~/.config/hypr/waybar/config.json
 
 # mako
 cp ~/.config/mako/your-new-theme ~/.config/mako/config
@@ -63,29 +53,9 @@ cp ~/.config/mako/your-new-theme ~/.config/mako/config
 # ghostty
 sed -i "s|theme=.*|theme=your-new-theme|" ~/.config/ghostty/config
 
-# gsettings (adjust values as per your theme's light/dark preference and fonts)
-gsettings set org.gnome.desktop.interface icon-theme 'YourIconTheme'
-gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark' # or 'prefer-light'
-gsettings set org.gnome.desktop.interface gtk-theme "YourGtkTheme"
-gsettings set org.gnome.desktop.wm.preferences theme "YourGtkTheme"
-gsettings set org.gnome.desktop.interface font-name 'YourFontName 10.4'
-gsettings set org.gnome.desktop.interface document-font-name 'YourFontName 10.4'
-gsettings set org.gnome.desktop.interface monospace-font-name 'YourMonoFontName 10.4'
-gsettings set org.gnome.desktop.interface cursor-theme 'YourCursorTheme'
-
-# GTK settings for dark/light preference, make sure that you have a settings.ini file in your ~/.config/gtk-3.0/ and ~/.config/gtk-4.0/ folders
-# if your're using a light theme do this :
-echo -e "[Settings] \n gtk-application-prefer-dark-theme=1" > ~/.config/gtk-3.0/settings.ini  
-# if your're using a dark theme do this instead:
-echo "" >~/.config/gtk-3.0/settings.ini 
-echo "" >~/.config/gtk-4.0/settings.ini
-
-# kvantum
-sed -i "s|theme=.*|theme=YourKvantumTheme|" ~/.config/Kvantum/kvantum.kvconfig
-
-# Wallpaper
-sed -i "s|output \* bg .*|output * bg ~/.wallpaper/your-wallpaper fill|" ~/.config/sway/config
-sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/your-wallpaper|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/your-wallpaper|" ~/.config/hypr/hyprpaper.conf
+# nvim
+sed -i "s|theme = .*|theme = \"your_nvim_theme\",|" ~/.config/nvim/lua/chadrc.lua
+nvim --headless +'lua require("base46").load_all_highlights()' +qa # Reload nvim theme
 
 echo "Your New Theme applied successfully!"
 echo "Restart your applications to see the changes."

@@ -1,0 +1,37 @@
+* {
+    background-color: #282828;
+    text-color: #ebdbb2;
+}
+
+#window {
+    background-color: #282828;
+    border: 2px solid #ebdbb2;
+    border-radius: 5px;
+}
+
+#input {
+    background-color: #3c3836;
+    border: 2px solid #ebdbb2;
+    border-radius: 5px;
+    color: #ebdbb2;
+}
+
+#inner-box {
+    background-color: #282828;
+}
+
+#outer-box {
+    background-color: #282828;
+}
+
+#scroll {
+    background-color: #282828;
+}
+
+#text {
+    color: #ebdbb2;
+}
+
+#entry:selected {
+    background-color: #458588;
+}

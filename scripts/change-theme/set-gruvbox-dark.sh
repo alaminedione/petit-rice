@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# foot
+sed -i "s|^include=~/.config/foot/themes/.*|include=~/.config/foot/themes/gruvbox-dark.ini|" ~/.config/foot/foot.ini
+
+# wofi
+cp ~/.config/wofi/gruvbox-dark.css ~/.config/wofi/style.css
+
+# waybar sway
+cp ~/.config/sway/waybar/gruvbox-dark.css ~/.config/sway/waybar/style.css
+sed -i 's/"position": ".*"/"position": "left"/' ~/.config/sway/waybar/config-sway
+sed -i 's/"height": .*/"height": 0/' ~/.config/sway/waybar/config-sway
+
+# waybar hyprland
+cp ~/.config/hypr/waybar/gruvbox-dark.css ~/.config/hypr/waybar/style.css
+sed -i 's/"position": ".*"/"position": "left"/' ~/.config/hypr/waybar/config.json
+sed -i 's/"height": .*/"height": 0/' ~/.config/hypr/waybar/config.json
+
+# mako
+cp ~/.config/mako/gruvbox-dark ~/.config/mako/config
+
+# ghostty
+sed -i "s|theme=.*|theme=gruvbox-dark|" ~/.config/ghostty/config
+
+# vim
+sed -i "s|^set background=.*|set background=dark|" ~/.vimrc
+sed -i "s|^colorscheme .*|colorscheme gruvbox|" ~/.vimrc
+
+# nvim
+sed -i "s|theme = .*|theme = \"gruvbox\",|" ~/.config/nvim/lua/chadrc.lua
+nvim --headless +'lua require("base46").load_all_highlights())' +qa # Reload nvim theme
+
+# Wallpaper
+sed -i "s|output \* bg .*|output * bg ~/.wallpaper/lofi-anime-girl2.png fill|" ~/.config/sway/config
+sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/lofi-anime-girl2.png|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/lofi-anime-girl2.png|" ~/.config/hypr/hyprpaper.conf
+
+
+# gsettings
+gsettings set org.gnome.desktop.interface icon-theme 'Luv'
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+gsettings set org.gnome.desktop.interface gtk-theme "Gruvbox-Dark"
+gsettings set org.gnome.desktop.wm.preferences theme "Gruvbox-Dark"
+gsettings set org.gnome.desktop.interface font-name 'JetBrains Mono 10.4'
+gsettings set org.gnome.desktop.interface document-font-name 'JetBrains Mono 10.4'
+gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrains Mono 10.4'
+gsettings set org.gnome.desktop.interface text-scaling-factor 1.0
+gsettings set org.gnome.desktop.interface cursor-theme 'Layan-white Cursors'
+gsettings set org.gnome.desktop.interface cursor-size 24
+
+echo -e "[Settings] \n gtk-application-prefer-dark-theme=1" > ~/.config/gtk-3.0/settings.ini
+echo -e "[Settings] \n gtk-application-prefer-dark-theme=1" > ~/.config/gtk-4.0/settings.ini
+
+#  kvantum 
+sed -i "s|theme=.*|theme=KvArcDark|" ~/.config/Kvantum/kvantum.kvconfig
+
+echo "Gruvbox Dark theme applied successfully!"
+echo "Restart your applications to see the changes."

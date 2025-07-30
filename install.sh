@@ -307,6 +307,7 @@ run_additional_scripts() {
     bash "$SCRIPT_DIR/scripts/config-zsh.sh"
     bash "$SCRIPT_DIR/scripts/gsettings.sh"
     bash "$SCRIPT_DIR/scripts/get-layan-cursors.sh"
+    bash "$SCRIPT_DIR/scripts/get-gruvbox-gtk.sh"
     
     # Optional scripts
     local optional_scripts=(

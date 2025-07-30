@@ -80,6 +80,7 @@ Plug 'preservim/nerdtree'
 Plug 'junegunn/goyo.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'rose-pine/vim'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 
