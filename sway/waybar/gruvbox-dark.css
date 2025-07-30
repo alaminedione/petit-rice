@@ -1,36 +1,247 @@
+/* Palette Gruvbox Material */
+@define-color bg0     #282828;
+@define-color bg0_h   #1d2021;
+@define-color bg0_s   #32302f;
+@define-color bg1     #3c3836;
+@define-color bg2     #504945;
+@define-color bg3     #665c54;
+@define-color bg4     #7c6f64;
+
+@define-color fg0     #fbf1c7;
+@define-color fg1     #ebdbb2;
+@define-color fg2     #d5c4a1;
+@define-color fg3     #bdae93;
+@define-color fg4     #a89984;
+
+@define-color red     #ea6962;
+@define-color green   #a9b665;
+@define-color yellow  #d8a657;
+@define-color blue    #7daea3;
+@define-color purple  #d3869b;
+@define-color aqua    #89b482;
+@define-color orange  #e78a4e;
+@define-color gray    #928374;
+
+/* Configuration globale */
 * {
-    border: none;
-    border-radius: 0;
-    font-family: "JetBrainsMono Nerd Font";
-    font-size: 14px;
-    min-height: 0;
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", monospace;
+  font-size: 12px;
+  font-weight: 900;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
 }
 
+/* Barre principale */
 window#waybar {
-    background: #282828;
-    color: #ebdbb2;
+  background: rgba(40, 40, 40, 0.9);
+  border: 1px solid rgba(168, 153, 132, 0.2);
+  border-radius: 10px;
+  color: @fg1;
 }
 
+/* Style des boutons/modules */
+button,
+label {
+  background: rgba(60, 56, 54, 0.7);
+  color: @fg1;
+  border-radius: 6px;
+  margin: 2px 1px;
+  padding: 2px 8px;
+  border: 1px solid rgba(80, 73, 69, 0.5);
+}
+
+label:hover {
+  background: rgba(80, 73, 69, 0.8);
+  border-color: rgba(168, 153, 132, 0.4);
+}
+
+/* Workspaces */
 #workspaces {
-    margin: 0 5px;
+  background: rgba(29, 32, 33, 0.8);
+  border-radius: 8px;
+  padding: 1px;
+  margin: 2px 4px;
+  border: 1px solid rgba(80, 73, 69, 0.4);
 }
 
 #workspaces button {
-    padding: 0 5px;
-    color: #ebdbb2;
+  background: transparent;
+  color: @gray;
+  border: none;
+  border-radius: 6px;
+  margin: 1px;
+  padding: 2px 6px;
 }
 
 #workspaces button.active {
-    color: #458588;
+  background: @aqua;
+  color: @bg0;
 }
 
 #workspaces button:hover {
-    background: #458588;
-    color: #282828;
+  background: rgba(137, 180, 130, 0.3);
+  color: @fg0;
 }
 
-#mode, #clock, #battery, #pulseaudio, #network, #tray {
-    padding: 0 10px;
-    margin: 0 5px;
-    color: #ebdbb2;
+/* Fenêtre active */
+#window {
+  background: rgba(60, 56, 54, 0.7);
+  color: @aqua;
+  border-radius: 8px;
+  padding: 4px 16px;
+  margin: 4px 8px;
+  border: 1px solid rgba(137, 180, 130, 0.3);
+  font-weight: 600;
 }
+
+/* Horloge centrale */
+#clock {
+  background: @fg3;
+  color: @bg0;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 8px;
+  padding: 3px 12px;
+  margin: 2px 4px;
+  border: 1px solid rgba(189, 174, 147, 0.3);
+}
+
+/* Modules système */
+#cpu {
+  color: @green;
+  border-color: rgba(169, 182, 101, 0.3);
+}
+
+#memory {
+  color: @yellow;
+  border-color: rgba(216, 166, 87, 0.3);
+}
+
+#temperature {
+  color: @orange;
+  border-color: rgba(231, 138, 78, 0.3);
+}
+
+#temperature.critical {
+  color: @red;
+  background: rgba(234, 105, 98, 0.2);
+  border-color: rgba(234, 105, 98, 0.5);
+}
+
+/* Batterie */
+#battery {
+  color: @green;
+  border-color: rgba(169, 182, 101, 0.3);
+}
+
+#battery.charging {
+  color: @blue;
+  border-color: rgba(125, 174, 163, 0.3);
+}
+
+#battery.warning:not(.charging) {
+  color: @yellow;
+  border-color: rgba(216, 166, 87, 0.5);
+}
+
+#battery.critical:not(.charging) {
+  color: @red;
+  background: rgba(234, 105, 98, 0.2);
+  border-color: rgba(234, 105, 98, 0.5);
+}
+
+/* Réseau */
+#network {
+  color: @blue;
+  border-color: rgba(125, 174, 163, 0.3);
+}
+
+#network.disconnected {
+  color: @red;
+  border-color: rgba(234, 105, 98, 0.3);
+}
+
+/* Audio */
+#pulseaudio {
+  color: @purple;
+  border-color: rgba(211, 134, 155, 0.3);
+}
+
+#pulseaudio.muted {
+  color: @gray;
+  border-color: rgba(146, 131, 116, 0.3);
+}
+
+/* Idle inhibitor */
+#idle_inhibitor {
+  color: @aqua;
+  border-color: rgba(137, 180, 130, 0.3);
+}
+
+#idle_inhibitor.activated {
+  color: @yellow;
+  background: rgba(216, 166, 87, 0.2);
+  border-color: rgba(216, 166, 87, 0.5);
+}
+
+/* Tray */
+#tray {
+  background: rgba(60, 56, 54, 0.7);
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin: 4px 8px;
+  border: 1px solid rgba(80, 73, 69, 0.4);
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: rgba(234, 105, 98, 0.3);
+}
+
+/* Tooltip */
+tooltip {
+  background: rgba(40, 40, 40, 0.95);
+  border: 1px solid rgba(137, 180, 130, 0.3);
+  border-radius: 8px;
+  color: @fg1;
+}
+
+tooltip label {
+  background: transparent;
+  border: none;
+  color: @fg1;
+  margin: 0;
+  padding: 8px;
+}
+
+/* Modules personnalisés */
+#custom-launcher {
+  color: @orange;
+  border-color: rgba(231, 138, 78, 0.3);
+}
+
+#custom-power {
+  color: @red;
+  border-color: rgba(234, 105, 98, 0.3);
+}
+
+#custom-media {
+  color: @purple;
+  border-color: rgba(211, 134, 155, 0.3);
+}
+
+/* Animations subtiles */
+button,
+label {
+  transition: all 0.2s ease-in-out;
+}
+
+#workspaces button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+

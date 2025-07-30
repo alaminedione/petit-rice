@@ -8,13 +8,9 @@ cp ~/.config/wofi/rose-pine-dawn.css ~/.config/wofi/style.css
 
 # waybar sway
 cp ~/.config/sway/waybar/rose-pine-dawn.css ~/.config/sway/waybar/style.css
-sed -i 's/"position": ".*"/"position": "top"/' ~/.config/sway/waybar/config-sway
-sed -i 's/"height": .*/"height": 30/' ~/.config/sway/waybar/config-sway
 
-#waybar hyprland  
+# waybar hyprland  
 cp ~/.config/hypr/waybar/rose-pine-down.css ~/.config/hypr/waybar/style.css
-sed -i 's/"position": ".*"/"position": "top"/' ~/.config/hypr/waybar/config.json
-sed -i 's/"height": .*/"height": 30/' ~/.config/hypr/waybar/config.json
 
 # changer le theme de vim a macchiato
 sed -i "s|^set background=light|set background=dark|" ~/.vimrc
@@ -59,5 +55,5 @@ sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/lofi-anime-girl2.p
 
 
 
-echo "Thème rose-pine-dawn appliqué avec succès !"
-echo "Redémarrez vos applications pour voir les changements."
+echo "Rose-pine-dawn theme applied successfully!"
+echo "Restart your applications to see the changes."

@@ -11,13 +11,9 @@ cp ~/.config/wofi/macchiato.css ~/.config/wofi/style.css
 
 # waybar sway
 cp ~/.config/sway/waybar/macchiato.css ~/.config/sway/waybar/style.css
-sed -i 's/"position": ".*"/"position": "top"/' ~/.config/sway/waybar/config-sway
-sed -i 's/"height": .*/"height": 30/' ~/.config/sway/waybar/config-sway
 
 # waybar hyprland
 cp ~/.config/hypr/waybar/macchiato.css ~/.config/hypr/waybar/style.css
-sed -i 's/"position": ".*"/"position": "top"/' ~/.config/hypr/waybar/config.json
-sed -i 's/"height": .*/"height": 30/' ~/.config/hypr/waybar/config.json
 
 # vim
 sed -i "s|^set background=light|set background=dark|" ~/.vimrc
@@ -35,7 +31,6 @@ sed -i "s|^include=./themes/.*|include=./themes/catppuccin-mocha|" ~/.config/swa
 cp ~/.config/mako/macchiato ~/.config/mako/config
 
 # ghostty
-# sed -i "s|^theme=.*|theme=catppuccin-macchiato|" ~/.config/ghostty/config
 sed -i "/^theme=/s|.*|theme=catppuccin-macchiato|" ~/.config/ghostty/config
 
 # gsettings

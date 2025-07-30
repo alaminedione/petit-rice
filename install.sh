@@ -387,6 +387,7 @@ show_menu() {
             ;;
         2)
             main_install
+            apply_default_theme
             show_summary
             ;;
         3)

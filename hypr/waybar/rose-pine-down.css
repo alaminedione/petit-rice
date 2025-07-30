@@ -27,7 +27,7 @@
 
 /* Barre principale */
 window#waybar {
-  background: rgba(250, 244, 237, 0.7);
+  background: rgba(250, 244, 237, 0.85);
   border: 1px solid rgba(86, 148, 159, 0.3);
   border-radius: 12px;
   color: @text;

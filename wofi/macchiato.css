@@ -31,9 +31,7 @@
 /* Main window */
 window {
   margin: 0px;
-  /* border: 2px solid @lavender; */
   background-color: @base;
-  /* border-radius: 12px; */
   font-family: "JetBrainsMono Nerd Font", sans-serif;
   font-size: 14px;
 }
@@ -148,4 +146,3 @@ window {
 #input:placeholder {
   color: @overlay1;
 }
-

@@ -1,37 +1,144 @@
-* {
-    background-color: #282828;
-    text-color: #ebdbb2;
+/* Gruvbox Material Theme for Wofi */
+
+/* Define Gruvbox Material colors */
+@define-color bg0 #282828;
+@define-color bg0_h #1d2021;
+@define-color bg0_s #32302f;
+@define-color bg1 #3c3836;
+@define-color bg2 #504945;
+@define-color bg3 #665c54;
+@define-color bg4 #7c6f64;
+@define-color bg5 #928374;
+@define-color fg0 #fbf1c7;
+@define-color fg1 #ebdbb2;
+@define-color fg2 #d5c4a1;
+@define-color fg3 #bdae93;
+@define-color fg4 #a89984;
+@define-color red #fb4934;
+@define-color green #b8bb26;
+@define-color yellow #fabd2f;
+@define-color blue #83a598;
+@define-color purple #d3869b;
+@define-color aqua #8ec07c;
+@define-color orange #fe8019;
+@define-color gray #928374;
+
+/* Main window */
+window {
+  margin: 0px;
+  background-color: @bg0;
+  font-family: "JetBrainsMono Nerd Font", sans-serif;
+  font-size: 14px;
 }
 
-#window {
-    background-color: #282828;
-    border: 2px solid #ebdbb2;
-    border-radius: 5px;
-}
-
+/* Input field */
 #input {
-    background-color: #3c3836;
-    border: 2px solid #ebdbb2;
-    border-radius: 5px;
-    color: #ebdbb2;
+  all: unset;
+  min-height: 36px;
+  padding: 4px 10px;
+  margin: 4px;
+  border: none;
+  color: @fg1;
+  font-weight: bold;
+  background-color: @bg1;
+  border-radius: 8px;
+  border: 2px solid @bg2;
 }
 
+#input:focus {
+  border: 2px solid @green;
+  margin: 4px;
+  outline: none;
+}
+
+/* Inner box */
 #inner-box {
-    background-color: #282828;
+  margin: 4px;
+  border: none;
+  background-color: @bg0;
+  border-radius: 8px;
 }
 
+/* Outer box */
 #outer-box {
-    background-color: #282828;
+  margin: 0px;
+  border: none;
+  background-color: @bg0;
+  border-radius: 12px;
 }
 
+/* Scroll area */
 #scroll {
-    background-color: #282828;
+  margin-top: 5px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 5px;
+}
+
+/* Text styling */
+#text:selected {
+  color: @bg0;
+  margin: 0px 0px;
+  border: none;
+  border-radius: 8px;
 }
 
 #text {
-    color: #ebdbb2;
+  margin: 0px 0px;
+  border: none;
+  color: @fg1;
+  animation: none;
+}
+
+/* Entry styling */
+#entry {
+  background-color: transparent;
+  margin: 0px 0px;
+  border: none;
+  border-radius: 8px;
+  animation: none;
 }
 
 #entry:selected {
-    background-color: #458588;
+  background-color: @green;
+  margin: 0px 0px;
+  border: none;
+  border-radius: 8px;
+  animation: none;
 }
+
+#entry:selected #text {
+  color: @bg0;
+}
+
+#entry:hover {
+  background-color: @bg1;
+  margin: 0px 0px;
+  border: none;
+  border-radius: 8px;
+  animation: none;
+}
+
+/* Image styling */
+#img {
+  margin: 0px 0px;
+  border: none;
+  border-radius: 8px;
+  animation: none;
+}
+
+/* Unselected text */
+#unselected {
+  color: @fg1;
+}
+
+/* Selected text */
+#selected {
+  color: @bg0;
+}
+
+/* Input placeholder */
+#input:placeholder {
+  color: @bg5;
+}
+
