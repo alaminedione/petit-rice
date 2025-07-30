@@ -25,7 +25,6 @@ The backup system creates a timestamped directory for each backup, containing th
 ├── backup-YYYYMMDD-HHMMSS/
 │   ├── backup-info.txt
 │   ├── foot/
-│   ├── kitty/
 │   ├── nvim/
 │   ├── sway/
 │   ├── swaylock/
@@ -40,7 +39,6 @@ The backup system creates a timestamped directory for each backup, containing th
 │   │   ├── .tgpt_aliases.sh
 │   │   ├── .wallpaper 
 │   │   ├── .vimrc
-│   │   ├── .viminfo
 │   │   └── .vim/
 │   └── hotfiles-scripts/
 ├── backup-YYYYMMDD-HHMMSS/
@@ -124,12 +122,11 @@ Before each restoration, the script automatically creates a safety backup of you
 
 The system automatically backs up and restores:
 
-- **Terminal Applications**: foot, kitty
+- **Terminal Applications**: foot,  ghostty
 - **Editors**: nvim
 - **Window Managers**: sway, hypr
 - **Status Bars**: waybar
 - **Launchers**: wofi
-- **Security**: swaylock
 - **Notifications**: mako
 - **System**: fastfetch
 - **Utility Scripts**: hotfiles-scripts

@@ -64,19 +64,27 @@ Themes under development:
 ## 🚀 Covered Applications
 
 This configuration covers the following applications:
-*   **Terminal Emulators**: `kitty`, `foot`, `ghostty`
+*   **Terminal Emulators**: `foot`, `ghostty`
 *   **Bar**: `waybar`
 *   **Notifications**: `mako`
 *   **Application Launcher**: `wofi`
 *   **Text Editors**: `nvim`, `vim`
 *   **System Info**: `fastfetch`
+*   **utilitary**: `yazi`, `onefetch`, `hyprlock`, `swaylock-effects`, `slurp`
+
+yazi : yazi is a simple and fast terminal file manager.
+onefetch : command-line git information tool.
+hyprlock : hyprland lockscreen .
+swaylock-effects : a simple lockscreen for sway.
+slurp :  simple screenshot tool by selecting a region.
+
 
 ## ⚙️ Installation
 
 To get started, clone the repository and run the installation script:
 
 ```bash
-git clone https://github.com/alaminedione/hotfiles.git
+git clone --depth 1 https://github.com/alaminedione/hotfiles.git
 cd hotfiles
 ./install.sh
 ```
@@ -107,7 +115,6 @@ Here's a summary of the most common keybindings:
 | Keybinding             | Action                                  |
 | :--------------------- | :-------------------------------------- |
 | `$mod + Left/Right/Up/Down` | Move focus to adjacent window           |
-| `$mod + Shift + Left/Right/Up/Down` | Move active window                      |
 | `$mod + space`         | Toggle floating mode for active window  |
 | `$mod + Tab`           | Switch to previously focused workspace  |
 

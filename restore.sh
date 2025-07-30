@@ -132,8 +132,8 @@ Created before restoration
 Saved configurations:
 EOF
     
-    local apps=("foot" "kitty" "nvim" "sway" "swaylock"  "wofi" "mako" "fastfetch" "hypr")
-    local home_files=(".aliases.sh" ".fdignore" ".tgpt_aliases.sh" ".vimrc" ".viminfo" ".vim" ".zshrc")
+    local apps=("foot" "nvim" "sway" "swaylock"  "wofi" "mako" "fastfetch" "hypr" "ghostty")
+    local home_files=(".aliases.sh" ".wallpaper" ".fdignore" ".tgpt_aliases.sh" ".vimrc"  ".vim" ".zshrc")
     local backup_created=false
     
     # Backup current configurations
