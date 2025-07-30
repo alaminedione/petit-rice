@@ -8,9 +8,10 @@ INTERFACE="wlan0"
 
 # Check if macchanger is installed
 if ! command -v macchanger >/dev/null 2>&1; then
-  echo "❌ Error: macchanger is not installed. Install it with: apt install macchanger" >&2
-  exit 1
+  echo "macchanger is not installed. Installing..."
+  sudo pacman -S --noconfirm macchanger
 fi
+
 
 # Service file content
 read -r -d '' SERVICE_CONTENT <<'EOF'
