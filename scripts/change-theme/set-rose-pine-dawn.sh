@@ -48,6 +48,12 @@ echo  "" > ~/.config/gtk-4.0/settings.ini
 # changer le theme kvantum 
 sed -i "s|theme=.*|theme=KvArc|" ~/.config/Kvantum/kvantum.kvconfig
 
+# Wallpaper
+sed -i "s|output \* bg .*|output * bg ~/.wallpaper/sasha.jpg fill|" ~/.config/sway/config
+sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/sasha.jpg|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/sasha.jpg|" ~/.config/hypr/hyprpaper.conf
+
+
+
 
 echo "Thème rose-pine-dawn appliqué avec succès !"
 echo "Redémarrez vos applications pour voir les changements."

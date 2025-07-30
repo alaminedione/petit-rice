@@ -151,10 +151,12 @@ For each application, you'll need to create a new theme file in its respective t
 *   **waybar (Sway)**: Create a `.css` file in `sway/waybar/` (e.g., `waybar/your-new-theme.css`).
 *   **mako**: Create a configuration file in `mako/` (e.g., `mako/your-new-theme`).
 *   **sway**: Create a theme directory in `sway/themes/` containing your Sway-specific configurations (e.g., `sway/themes/your-new-theme/config`).
-*   **ghostty**: You'll need to define your theme directly in the application script (see Step 2).
-*   **vim/nvim**: You'll need to define your theme directly in the application script (see Step 2).
-*   **gsettings**: You'll need to define your theme directly in the application script (see Step 2).
-*   **kvantum**: You'll need to define your theme directly in the application script (see Step 2).
+*   **ghostty**: ghostty support already a lot of themes `ghostty +list-themes`.
+*   **vim**: You'll need to install a theme with vimp-plug.
+*   **nvim**: NvChad support a lot of themes `<leader>th` in nvim.to see all themes.
+*   **gsettings**: You'll need to install a theme (cursors, icons, themes).
+*   **kvantum**: open Kvantum and add your theme. 
+*   **wallpaper**: put your wallpaper in `~/.wallpaper/` .
 
 ### Step 2: Create a Theme Application Script
 
@@ -216,6 +218,10 @@ echo "" >~/.config/gtk-4.0/settings.ini
 
 # kvantum
 sed -i "s|theme=.*|theme=YourKvantumTheme|" ~/.config/Kvantum/kvantum.kvconfig
+
+# Wallpaper
+sed -i "s|output * bg .*|output * bg ~/.wallpaper/your-wallpaper fill|" ~/.config/sway/config
+sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/your-wallpaper|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/your-wallpaper|" ~/.config/hypr/hyprpaper.conf
 
 echo "Your New Theme applied successfully!"
 echo "Restart your applications to see the changes."

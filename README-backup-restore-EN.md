@@ -38,6 +38,7 @@ The backup system creates a timestamped directory for each backup, containing th
 │   │   ├── .aliases.sh
 │   │   ├── .fdignore
 │   │   ├── .tgpt_aliases.sh
+│   │   ├── .wallpaper 
 │   │   ├── .vimrc
 │   │   ├── .viminfo
 │   │   └── .vim/

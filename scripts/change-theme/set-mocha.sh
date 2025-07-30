@@ -52,6 +52,10 @@ echo -e "[Settings] \n gtk-application-prefer-dark-theme=1" > ~/.config/gtk-4.0/
 #  kvantum 
 sed -i "s|theme=.*|theme=KvArcDark|" ~/.config/Kvantum/kvantum.kvconfig
 
+# Wallpaper
+sed -i "s|output \* bg .*|output * bg ~/.wallpaper/sasha.jpg fill|" ~/.config/sway/config
+sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/sasha.jpg|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/sasha.jpg|" ~/.config/hypr/hyprpaper.conf
+
 # Fin
 echo "Thème Catppuccin Macchiato appliqué avec succès !"
 echo "Redémarrez vos applications pour voir les changements."

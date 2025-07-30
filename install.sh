@@ -59,7 +59,7 @@ ask_yes_no() {
 # Global backup function
 create_global_backup() {
     local apps=("foot" "kitty" "nvim" "sway" "swaylock"  "wofi" "mako" "fastfetch" "hypr" "ghostty")
-    local home_files=(".aliases.sh" ".fdignore" ".tgpt_aliases.sh" ".vimrc" ".viminfo" ".vim" ".zshrc")
+    local home_files=(".aliases.sh" ".fdignore" ".tgpt_aliases.sh" ".vimrc" ".viminfo" ".vim" ".zshrc" ".wallpaper")
     local backup_needed=false
     
     print_info "Checking for existing configurations..."
