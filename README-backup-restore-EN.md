@@ -111,9 +111,8 @@ Automatically deletes the oldest backups (keeps the 10 most recent).
 ./restore.sh help
 ```
 
-## 🛡️ Security
+## Safety Backup
 
-### Safety Backup
 Before each restoration, the script automatically creates a safety backup of your current configurations. This backup is named `safety-backup-<timestamp>` and can be used to undo a restoration.
 
 ### Security Flow Example
@@ -150,11 +149,11 @@ Each backup contains a `backup-info.txt` file with:
 
 2. **Timestamp Format**: Timestamps follow the `YYYYMMDD-HHMMSS` format (e.g., `20240127-143052`).
 
-3. **Disk Space**: Backups can take up space. Use `./restore.sh cleanup` regularly.
+3.  Use `./restore.sh cleanup` to delete old backups.
 
 4. **Permissions**: Ensure that the scripts are executable (`chmod +x install.sh restore.sh`).
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Problem: "Backup not found"
 - Verify that the timestamp is correct with `./restore.sh list`
@@ -163,11 +162,6 @@ Each backup contains a `backup-info.txt` file with:
 ### Problem: "Permission denied"
 - Make the scripts executable: `chmod +x install.sh restore.sh`
 
-## 📞 Support
+##  Support
 
 To report a problem or suggest an improvement, create an issue in the project's GitHub repository.
-
----
-
-**Version** : 2.0  
-**Last updated** : January 2024

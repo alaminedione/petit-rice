@@ -1,4 +1,18 @@
-# My Linux Configuration (Hyprland + Sway)
+<div align="center">
+    <h1>【 hotfiles 】</h1>
+    <h3></h3>
+</div>
+
+
+<div align="center"> 
+
+![](https://img.shields.io/github/last-commit/alaminedione/hotfiles?&style=for-the-badge&color=8ad7eb&logo=git&logoColor=D9E0EE&labelColor=1E202B)
+![](https://img.shields.io/github/stars/alaminedione/hotfiles?style=for-the-badge&logo=andela&color=86dbd7&logoColor=D9E0EE&labelColor=1E202B)
+![](https://img.shields.io/github/repo-size/alaminedione/hotfiles?color=86dbce&label=SIZE&logo=protondrive&style=for-the-badge&logoColor=D9E0EE&labelColor=26230e)
+</div>
+
+
+
 
 This repository contains my personal Linux configuration for Hyprland and Sway. My goal for this configuration is to provide a modern, beautiful, productive, and simple workflow with extensive theme support, making it very easy to configure your own themes.
 
@@ -90,11 +104,6 @@ Here's a summary of the most common keybindings:
 | `Print`                | Full screenshot                         |
 | `$mod + s`             | Area screenshot                         |
 
-### Additional Function Key Bindings
-
-| Keybinding             | Action                                  |
-| :--------------------- | :-------------------------------------- |
-|                        |                                         |
 
 For a complete and up-to-date list of keybindings, please refer to the configuration files:
 *   `~/.config/hypr/hyprland.conf`
