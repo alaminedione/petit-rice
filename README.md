@@ -18,6 +18,27 @@ This repository contains my personal Linux configuration for Hyprland and Sway. 
 
 I've created a script (`install.sh`) that allows for a quick installation of my work environment, as well as backup and restoration capabilities.
 
+## 📸 Screenshots
+
+<div align="center">
+
+### Desktop Overview
+![Desktop Screenshot](screenshoot/screenshot-20250730-045141.png)
+
+### Terminal
+![Application Launcher](screenshoot/screenshot-20250730-045152.png)
+
+### File Manager
+![Terminal View](screenshoot/screenshot-20250730-045203.png)
+
+### Application Launcher
+![Workspace](screenshoot/screenshot-20250730-045210.png)
+
+### Neovim
+![System Info](screenshoot/screenshot-20250730-045343.png)
+
+</div>
+
 ## ✨ Features
 
 *   **Modern Workflow**: Designed for a smooth and efficient user experience.
@@ -251,10 +272,6 @@ Run your newly created script:
 ```
 
 Then, restart your applications (or your session) to see the changes take effect.
-
-### Step 4: Update `README.md` (Optional but Recommended)
-
-Once your theme is working, consider adding it to the "Supported Themes" list in this `README.md` file.
 
 
 ## ⚠️ Important Notes
