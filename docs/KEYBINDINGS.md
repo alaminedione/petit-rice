@@ -43,3 +43,23 @@ Here's a summary of the most common keybindings:
 For a complete and up-to-date list of keybindings, please refer to the configuration files:
 *   `~/.config/hypr/hyprland.conf`
 *   `~/.config/sway/config`
+
+### Ghostty (Terminal)
+
+| Keybinding             | Action                                  |
+| :--------------------- | :-------------------------------------- |
+| `Alt + n`              | New tab                                 |
+| `Alt + x`              | Close tab                               |
+| `Alt + Right`          | Next tab                                |
+| `Alt + Left`           | Previous tab                            |
+| `Alt + Shift + Right`  | Move tab right                          |
+| `Alt + Shift + Left`   | Move tab left                           |
+| `Alt + [1-9]`          | Go to tab `[1-9]`                       |
+| `Alt + Enter`          | New split right                         |
+| `Alt + v`              | New split down                          |
+| `Alt + q`              | Close split                             |
+| `Alt + ]`              | Next split                              |
+| `Alt + [`              | Previous split                          |
+| `Alt + =`              | Increase font size                      |
+| `Alt + -`              | Decrease font size                      |
+| `Alt + 0`              | Reset font size                         |
