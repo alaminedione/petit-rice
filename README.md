@@ -1,6 +1,6 @@
 <div align="center">
-    <h1>【 petit-rice (hyprland + sway) 】</h1>
-    <h3></h3>
+    <h1>【 petit-rice 】</h1>
+    <h3> for Arch-based distributions only (hyprland and sway)</h3>
 </div>
 
 
@@ -69,14 +69,12 @@ This configuration covers the following applications:
 *   **Notifications**: `mako`
 *   **Application Launcher**: `wofi`
 *   **Text Editors**: `nvim`, `vim`
+*   **File Manager**: `yazi`, `Thunar`
+*   **Archive Manager**: `file-roller`
 *   **System Info**: `fastfetch`
-*   **utilitary**: `yazi`, `onefetch`, `hyprlock`, `swaylock-effects`, `slurp`
 
-yazi : yazi is a simple and fast terminal file manager.
-onefetch : command-line git information tool.
-hyprlock : hyprland lockscreen .
-swaylock-effects : a simple lockscreen for sway.
-slurp :  simple screenshot tool by selecting a region.
+
+Neovim (Nvchad + AI) : A highly optimized configuration providing full-featured development environments for JavaScript/TypeScript, React, VueJS, Html, Css,  Lua, Python, Go, Rust, Java, C, C++, and other languages, including Language Server Protocol (LSP) integration, debugging, linting, and auto-completion.
 
 
 ## ⚙️ Installation
