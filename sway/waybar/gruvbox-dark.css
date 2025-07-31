@@ -1,197 +1,247 @@
-/* Palette Gruvbox Material */
-@define-color bg0     #282828;
-@define-color bg0_h   #1d2021;
-@define-color bg0_s   #32302f;
-@define-color bg1     #3c3836;
-@define-color bg2     #504945;
-@define-color bg3     #665c54;
-@define-color bg4     #7c6f64;
+/* Gruvbox Material Theme for Waybar */
 
-@define-color fg0     #fbf1c7;
-@define-color fg1     #ebdbb2;
-@define-color fg2     #d5c4a1;
-@define-color fg3     #bdae93;
-@define-color fg4     #a89984;
+/* Gruvbox Material Colors */
+@define-color bg0 #282828;
+@define-color bg0_h #1d2021;
+@define-color bg0_s #32302f;
+@define-color bg1 #3c3836;
+@define-color bg2 #504945;
+@define-color bg3 #665c54;
+@define-color bg4 #7c6f64;
+@define-color bg5 #928374;
+@define-color fg0 #fbf1c7;
+@define-color fg1 #ebdbb2;
+@define-color fg2 #d5c4a1;
+@define-color fg3 #bdae93;
+@define-color fg4 #a89984;
+@define-color red #ea6962;
+@define-color green #a9b665;
+@define-color yellow #d8a657;
+@define-color blue #7daea3;
+@define-color purple #d3869b;
+@define-color aqua #89b482;
+@define-color orange #e78a4e;
+@define-color gray #928374;
 
-@define-color red     #ea6962;
-@define-color green   #a9b665;
-@define-color yellow  #d8a657;
-@define-color blue    #7daea3;
-@define-color purple  #d3869b;
-@define-color aqua    #89b482;
-@define-color orange  #e78a4e;
-@define-color gray    #928374;
-
-/* Configuration globale */
+/* Reset styles */
 * {
-  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", monospace;
-  font-size: 12px;
-  font-weight: 900;
   border: none;
   border-radius: 0;
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
+  font-weight: bold;
+  font-size: 14px;
   min-height: 0;
 }
 
-/* Barre principale */
+/* Main window */
 window#waybar {
-  background: rgba(40, 40, 40, 0.9);
-  border: 1px solid rgba(168, 153, 132, 0.2);
-  border-radius: 10px;
+  background: alpha(@bg0, 0.95);
+  border-radius: 0;
   color: @fg1;
+  transition-property: background-color;
+  transition-duration: 0.5s;
 }
 
-/* Style des boutons/modules */
-button,
-label {
-  background: rgba(60, 56, 54, 0.7);
-  color: @fg1;
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/* Tooltips */
+tooltip {
+  background: @bg1;
   border-radius: 6px;
-  margin: 2px 1px;
-  padding: 2px 8px;
-  border: 1px solid rgba(80, 73, 69, 0.5);
+  border: 2px solid @bg3;
+  color: @fg1;
 }
 
-label:hover {
-  background: rgba(80, 73, 69, 0.8);
-  border-color: rgba(168, 153, 132, 0.4);
+tooltip label {
+  color: @fg1;
 }
 
 /* Workspaces */
 #workspaces {
-  background: rgba(29, 32, 33, 0.8);
-  border-radius: 8px;
-  padding: 1px;
-  margin: 2px 4px;
-  border: 1px solid rgba(80, 73, 69, 0.4);
+  background: @bg1;
+  margin: 4px;
+  padding: 0px 4px;
+  border-radius: 6px;
 }
 
 #workspaces button {
+  padding: 4px 8px;
+  margin: 2px 2px;
+  border-radius: 4px;
+  color: @fg3;
   background: transparent;
-  color: @gray;
-  border: none;
-  border-radius: 6px;
-  margin: 1px;
-  padding: 2px 6px;
+  transition: all 0.3s ease-in-out;
 }
 
 #workspaces button.active {
-  background: @aqua;
   color: @bg0;
+  background: @green;
+  border-radius: 4px;
+}
+
+#workspaces button.focused {
+  color: @bg0;
+  background: @blue;
+  border-radius: 4px;
+}
+
+#workspaces button.urgent {
+  color: @bg0;
+  background: @red;
+  border-radius: 4px;
 }
 
 #workspaces button:hover {
-  background: rgba(137, 180, 130, 0.3);
-  color: @fg0;
+  background: @bg2;
+  color: @fg1;
+  border-radius: 4px;
 }
 
-/* Fenêtre active */
-#window {
-  background: rgba(60, 56, 54, 0.7);
-  color: @aqua;
-  border-radius: 8px;
-  padding: 4px 16px;
-  margin: 4px 8px;
-  border: 1px solid rgba(137, 180, 130, 0.3);
-  font-weight: 600;
-}
-
-/* Horloge centrale */
-#clock {
-  background: @fg3;
+/* Mode */
+#mode {
+  background: @red;
   color: @bg0;
-  font-weight: bold;
-  font-size: 12px;
-  border-radius: 8px;
-  padding: 3px 12px;
-  margin: 2px 4px;
-  border: 1px solid rgba(189, 174, 147, 0.3);
+  padding: 4px 8px;
+  margin: 4px 0px 4px 4px;
+  border-radius: 6px;
 }
 
-/* Modules système */
+/* Scratchpad */
+#scratchpad {
+  background: @bg1;
+  color: @fg1;
+  padding: 4px 8px;
+  margin: 4px;
+  border-radius: 6px;
+}
+
+#scratchpad.empty {
+  background: transparent;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Clock */
+#clock {
+  background: @bg1;
+  color: @fg1;
+  padding: 4px 12px;
+  margin: 4px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+/* System modules */
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#battery,
+#network,
+#pulseaudio,
+#idle_inhibitor,
+#tray {
+  background: @bg1;
+  color: @fg1;
+  padding: 4px 8px;
+  margin: 4px 2px;
+  border-radius: 6px;
+  transition: all 0.3s ease-in-out;
+}
+
+/* CPU */
 #cpu {
   color: @green;
-  border-color: rgba(169, 182, 101, 0.3);
 }
 
+#cpu:hover {
+  background: alpha(@green, 0.2);
+}
+
+/* Memory */
 #memory {
   color: @yellow;
-  border-color: rgba(216, 166, 87, 0.3);
 }
 
+#memory:hover {
+  background: alpha(@yellow, 0.2);
+}
+
+/* Temperature */
 #temperature {
-  color: @orange;
-  border-color: rgba(231, 138, 78, 0.3);
+  color: @blue;
 }
 
 #temperature.critical {
   color: @red;
-  background: rgba(234, 105, 98, 0.2);
-  border-color: rgba(234, 105, 98, 0.5);
+  background: alpha(@red, 0.2);
 }
 
-/* Batterie */
+/* Backlight */
+#backlight {
+  color: @orange;
+}
+
+/* Battery */
 #battery {
   color: @green;
-  border-color: rgba(169, 182, 101, 0.3);
 }
 
 #battery.charging {
-  color: @blue;
-  border-color: rgba(125, 174, 163, 0.3);
+  color: @green;
 }
 
 #battery.warning:not(.charging) {
   color: @yellow;
-  border-color: rgba(216, 166, 87, 0.5);
+  background: alpha(@yellow, 0.1);
 }
 
 #battery.critical:not(.charging) {
   color: @red;
-  background: rgba(234, 105, 98, 0.2);
-  border-color: rgba(234, 105, 98, 0.5);
+  background: alpha(@red, 0.2);
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
-/* Réseau */
+/* Network */
 #network {
-  color: @blue;
-  border-color: rgba(125, 174, 163, 0.3);
+  color: @aqua;
 }
 
 #network.disconnected {
   color: @red;
-  border-color: rgba(234, 105, 98, 0.3);
+  background: alpha(@red, 0.1);
 }
 
 /* Audio */
 #pulseaudio {
   color: @purple;
-  border-color: rgba(211, 134, 155, 0.3);
 }
 
 #pulseaudio.muted {
   color: @gray;
-  border-color: rgba(146, 131, 116, 0.3);
 }
 
 /* Idle inhibitor */
 #idle_inhibitor {
-  color: @aqua;
-  border-color: rgba(137, 180, 130, 0.3);
+  color: @blue;
 }
 
 #idle_inhibitor.activated {
-  color: @yellow;
-  background: rgba(216, 166, 87, 0.2);
-  border-color: rgba(216, 166, 87, 0.5);
+  color: @green;
+  background: alpha(@green, 0.1);
 }
 
 /* Tray */
 #tray {
-  background: rgba(60, 56, 54, 0.7);
-  border-radius: 8px;
-  padding: 4px 8px;
-  margin: 4px 8px;
-  border: 1px solid rgba(80, 73, 69, 0.4);
+  padding: 4px 4px;
 }
 
 #tray > .passive {
@@ -200,48 +250,41 @@ label:hover {
 
 #tray > .needs-attention {
   -gtk-icon-effect: highlight;
-  background-color: rgba(234, 105, 98, 0.3);
+  background-color: @red;
 }
 
-/* Tooltip */
-tooltip {
-  background: rgba(40, 40, 40, 0.95);
-  border: 1px solid rgba(137, 180, 130, 0.3);
-  border-radius: 8px;
-  color: @fg1;
+/* Animations */
+@keyframes blink {
+  to {
+    background-color: alpha(@red, 0.5);
+    color: @bg0;
+  }
 }
 
-tooltip label {
-  background: transparent;
-  border: none;
-  color: @fg1;
-  margin: 0;
-  padding: 8px;
+/* Hover effects */
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#backlight:hover,
+#battery:hover,
+#network:hover,
+#pulseaudio:hover,
+#idle_inhibitor:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Modules personnalisés */
-#custom-launcher {
-  color: @orange;
-  border-color: rgba(231, 138, 78, 0.3);
+/* Additional styling for better visual hierarchy */
+.modules-left {
+  margin-left: 8px;
 }
 
-#custom-power {
-  color: @red;
-  border-color: rgba(234, 105, 98, 0.3);
+.modules-right {
+  margin-right: 8px;
 }
 
-#custom-media {
-  color: @purple;
-  border-color: rgba(211, 134, 155, 0.3);
+/* Custom separator style */
+#custom-separator {
+  color: @bg3;
+  padding: 0 4px;
+  font-size: 16px;
 }
-
-/* Animations subtiles */
-button,
-label {
-  transition: all 0.2s ease-in-out;
-}
-
-#workspaces button {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-

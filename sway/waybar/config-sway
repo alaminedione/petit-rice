@@ -75,12 +75,12 @@
     "cpu": {
         "format": "󰻠 {usage}%",
         "tooltip": false,
-        "on-click": "kitty -e htop"
+        "on-click": "foot -e htop"
     },
 
     "memory": {
         "format": "󰍛 {}%",
-        "on-click": "kitty -e htop"
+        "on-click": "foot -e htop"
     },
 
     "temperature": {
