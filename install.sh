@@ -308,6 +308,7 @@ run_additional_scripts() {
     bash "$SCRIPT_DIR/scripts/gsettings.sh"
     bash "$SCRIPT_DIR/scripts/get-layan-cursors.sh"
     bash "$SCRIPT_DIR/scripts/get-gruvbox-gtk.sh"
+    bash "$SCRIPT_DIR/scripts/get-luv-icons.sh"
     
     # Optional scripts
     local optional_scripts=(
@@ -383,6 +384,7 @@ show_menu() {
             main_install
             install_dependencies
             run_additional_scripts
+            apply_default_theme
             show_summary
             ;;
         2)
