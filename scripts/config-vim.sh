@@ -6,15 +6,9 @@ set -e
 
 # Check if curl is installed
 if ! command -v curl &> /dev/null; then
-  echo "Error: curl is not installed. Please install it before continuing."
-  exit 1
+  sudo pacman -S curl
 fi
 
-# Check if vim is installed
-if ! command -v vim &> /dev/null; then
-  echo "Error: vim is not installed. Please install it before continuing."
-  exit 1
-fi
 
 echo "Installing vim-plug..."
 

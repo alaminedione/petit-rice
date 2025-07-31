@@ -52,15 +52,35 @@ else
 fi
 
 # fzf (Oh My Zsh plugin + fzf tool)
-if [ -d "$HOME/.fzf" ]; then
-  echo "fzf repository is already cloned."
-else
-  echo "Cloning fzf..."
-  git clone https://github.com/junegunn/fzf.git ~/.fzf
-  ~/.fzf/install
-fi
-rm -rf ~/.fzf/
+# Vérifie si fzf est déjà installé
 
+if command -v fzf &> /dev/null; then
+  echo "fzf is already installed."
+else
+  # Vérifie si le dépôt est déjà cloné
+  REPO_PATH="$HOME/.fzf"
+  SHOULD_CLEAN=false
+  
+  if [ -d "$REPO_PATH" ]; then
+    echo "fzf repository is already cloned."
+  else
+    echo "Cloning fzf..."
+    git clone --depth 1 https://github.com/junegunn/fzf.git "$REPO_PATH"
+    SHOULD_CLEAN=true
+  fi
+  
+  # Exécute l'installation
+  echo "Installing fzf..."
+  yes | "$REPO_PATH/install" --all
+  
+  # Nettoie le dépôt seulement si nous l'avons cloné
+  if [ "$SHOULD_CLEAN" = true ] && command -v fzf &> /dev/null; then
+    echo "Cleaning up repository..."
+    rm -rf "$REPO_PATH"
+  fi
+fi
+
+echo "fzf installation completed."
 # vi-mode is included in Oh My Zsh, no installation needed
 
 # gitignore
