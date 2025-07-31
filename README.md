@@ -1,5 +1,5 @@
 <div align="center">
-    <h1>【 petit-rice 】</h1>
+    <h1>【 petit-rice (hyprland + sway) 】</h1>
     <h3></h3>
 </div>
 
