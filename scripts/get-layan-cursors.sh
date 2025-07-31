@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# verify that the cursors are not already installed
+if [ -d "$HOME/.local/share/icons/Layan-cursors/" ]; then
+	echo "Layan cursors are already installed. Skipping..."
+	exit 0
+fi
+
 # Create a temporary directory
 tmp_dir=$(mktemp -d)
 

@@ -5,6 +5,18 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# Vérifie que le thème n'est pas déjà installé
+THEME_NAME="Gruvbox-Dark"
+INSTALL_PATHS=( "$HOME/.themes" "/usr/share/themes" )
+
+for path in "${INSTALL_PATHS[@]}"; do
+    if [ -d "$path/$THEME_NAME" ]; then
+        echo "Le thème $THEME_NAME est déjà installé dans $path. Abandon."
+        exit 0
+    fi
+done
+
+
 echo "Clonage et installation du thème Gruvbox GTK..."
 
 # Crée un répertoire temporaire, assure sa suppression même si le script plante

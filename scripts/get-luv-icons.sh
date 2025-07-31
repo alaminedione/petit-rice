@@ -2,7 +2,15 @@
 
 # Automatic installation of Luv Icon Theme in the user's directory
 
+# verify that the icon theme is not already installed
+if [ -d "$HOME/.icons/Luv/" ]; then
+	echo "Luv icon theme is already installed. Skipping..."
+	exit 0
+fi
+
+
 set -e
+
 
 # Variables
 REPO_URL="https://github.com/Nitrux/luv-icon-theme.git"

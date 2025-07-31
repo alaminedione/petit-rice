@@ -302,10 +302,8 @@ run_additional_scripts() {
     print_header "Additional configuration scripts"
 
 
-    bash "$SCRIPT_DIR/scripts/change-theme/set-mocha.sh"
     bash "$SCRIPT_DIR/scripts/config-vim.sh"
     bash "$SCRIPT_DIR/scripts/config-zsh.sh"
-    bash "$SCRIPT_DIR/scripts/gsettings.sh"
     bash "$SCRIPT_DIR/scripts/get-layan-cursors.sh"
     bash "$SCRIPT_DIR/scripts/get-gruvbox-gtk.sh"
     bash "$SCRIPT_DIR/scripts/get-luv-icons.sh"

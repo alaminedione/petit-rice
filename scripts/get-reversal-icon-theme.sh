@@ -2,6 +2,8 @@
 
 set -e  # Arrête le script en cas d'erreur
 
+#TODO:verify that the icon theme is not already installed
+
 REPO_URL="https://github.com/yeyushengfan258/Reversal-icon-theme"
 REPO_NAME="Reversal-icon-theme"
 
