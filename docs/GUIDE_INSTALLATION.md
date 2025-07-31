@@ -68,8 +68,8 @@ To execute the `install.sh` script, follow these steps:
 
 1.  **Clone the repository** (if you haven't already):
     ```bash
-    git clone https://github.com/alaminedione/hotfiles.git
-    cd hotfiles
+    git clone https://github.com/alaminedione/petit-rice.git
+    cd petit-rice
     ```
 
 2.  **Make the script executable**:
@@ -86,7 +86,7 @@ To execute the `install.sh` script, follow these steps:
 
 ## ⚠️ Important Notes
 
-*   **Execution from Repository Directory**: The script must be executed from the root directory of the `hotfiles` repository (where `install.sh` is located).
+*   **Execution from Repository Directory**: The script must be executed from the root directory of the `petit-rice` repository (where `install.sh` is located).
 *   **Session Restart**: After a complete installation, it is highly recommended to restart your session (or your system) for all changes to take effect correctly.
 *   **Permissions**: Ensure you have the necessary permissions to install packages and modify configuration files in your `$HOME` directory.
 *   **Backups**: Remember that the script creates backups. In case of problems, you can use `restore.sh` to revert to a previous state. Refer to `README-backup-restore.md` for more details on restoration.

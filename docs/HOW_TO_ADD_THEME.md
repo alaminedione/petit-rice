@@ -16,7 +16,7 @@ For each application, you'll need to create a new theme file in its respective t
 *   **mako**: Create a configuration file in `mako/` (e.g., `mako/your-new-theme`).
 *   **sway**: Create a theme directory in `sway/themes/` containing your Sway-specific configurations (e.g., `sway/themes/your-new-theme/config`).
 *   **ghostty**: ghostty support already a lot of themes `ghostty +list-themes`.
-*   **vim**: You'll need to install a theme with vimp-plug.
+*   **vim**: You'll need to install a theme with vim-plug.
 *   **nvim**: NvChad support a lot of themes `<leader>th` in nvim.to see all themes.
 *   **gsettings**: You'll need to install a theme (cursors, icons, themes).
 *   **kvantum**: open Kvantum and add your theme. 
@@ -39,13 +39,9 @@ cp ~/.config/wofi/your-new-theme.css ~/.config/wofi/style.css
 
 # waybar sway
 cp ~/.config/sway/waybar/your-new-theme.css ~/.config/sway/waybar/style.css
-sed -i 's/"position": ".*"/"position": "your_position"/' ~/.config/sway/waybar/config-sway
-sed -i 's/"height": .*/"height": your_height/' ~/.config/sway/waybar/config-sway
 
 # waybar hyprland
 cp ~/.config/hypr/waybar/your-new-theme.css ~/.config/hypr/waybar/style.css
-sed -i 's/"position": ".*"/"position": "your_position"/' ~/.config/hypr/waybar/config.json
-sed -i 's/"height": .*/"height": your_height/' ~/.config/hypr/waybar/config.json
 
 # mako
 cp ~/.config/mako/your-new-theme ~/.config/mako/config
