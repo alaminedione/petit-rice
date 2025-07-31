@@ -40,7 +40,7 @@ The backup system creates a timestamped directory for each backup, containing th
 │   │   ├── .wallpaper 
 │   │   ├── .vimrc
 │   │   └── .vim/
-│   └── hotfiles-scripts/
+│   └── petit-rice-scripts/
 ├── backup-YYYYMMDD-HHMMSS/
 │   └── ...
 └── safety-backup-YYYYMMDD-HHMMSS/
@@ -129,7 +129,7 @@ The system automatically backs up and restores:
 - **Launchers**: wofi
 - **Notifications**: mako
 - **System**: fastfetch
-- **Utility Scripts**: hotfiles-scripts
+- **Utility Scripts**: petit-rice-scripts
 
 ## 🔍 Backup Information
 

@@ -73,8 +73,8 @@ create_global_backup() {
         fi
     done
     
-    # Check for existing hotfiles scripts
-    if [ -d "$CONFIG_DIR/hotfiles-scripts" ]; then
+    # Check for existing petit-rice scripts
+    if [ -d "$CONFIG_DIR/petit-rice-scripts" ]; then
         backup_needed=true
     fi
     
@@ -123,12 +123,12 @@ EOF
             fi
         done
         
-        # Backup hotfiles scripts if they exist
-        if [ -d "$CONFIG_DIR/hotfiles-scripts" ]; then
-            print_info "Backing up hotfiles scripts..."
-            cp -r "$CONFIG_DIR/hotfiles-scripts" "$BACKUP_DIR/hotfiles-scripts"
-            echo "  - hotfiles-scripts" >> "$BACKUP_DIR/backup-info.txt"
-            print_success "✓ Hotfiles scripts backed up"
+        # Backup petit-rice scripts if they exist
+        if [ -d "$CONFIG_DIR/petit-rice-scripts" ]; then
+            print_info "Backing up petit-rice scripts..."
+            cp -r "$CONFIG_DIR/petit-rice-scripts" "$BACKUP_DIR/petit-rice-scripts"
+            echo "  - petit-rice-scripts" >> "$BACKUP_DIR/backup-info.txt"
+            print_success "✓ petit-rice scripts backed up"
         fi
         
         print_success "Global backup created: $BACKUP_DIR"
@@ -262,9 +262,9 @@ main_install() {
     # Copy scripts to an accessible directory
     if [ -d "$SCRIPT_DIR/scripts" ]; then
         print_info "Installing utility scripts..."
-        mkdir -p "$CONFIG_DIR/hotfiles-scripts"
-        cp -r "$SCRIPT_DIR/scripts"/* "$CONFIG_DIR/hotfiles-scripts/"
-        print_success "Utility scripts installed in $CONFIG_DIR/hotfiles-scripts/"
+        mkdir -p "$CONFIG_DIR/petit-rice-scripts"
+        cp -r "$SCRIPT_DIR/scripts"/* "$CONFIG_DIR/petit-rice-scripts/"
+        print_success "Utility scripts installed in $CONFIG_DIR/petit-rice-scripts/"
     fi
 }
 
@@ -342,7 +342,7 @@ show_summary() {
         print_info "Backup created in: $BACKUP_DIR"
         print_info "To restore this backup: ./restore.sh $TIMESTAMP"
     fi
-    print_info "Utility scripts in: $CONFIG_DIR/hotfiles-scripts"
+    print_info "Utility scripts in: $CONFIG_DIR/petit-rice-scripts"
     echo ""
     print_warning "Recommended actions:"
     echo "   - Restart your session to apply all changes"

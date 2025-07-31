@@ -28,7 +28,7 @@ The `install.sh` script performs the following operations:
     *   All shell scripts (`.sh`) found in the `scripts/` directory of the repository are made executable (`chmod +x`).
 
 5.  **Installation of Utility Scripts**:
-    *   Scripts from the `scripts/` directory are copied to `$HOME/.config/hotfiles-scripts/` to make them easily accessible from your system.
+    *   Scripts from the `scripts/` directory are copied to `$HOME/.config/petit-rice-scripts/` to make them easily accessible from your system.
 
 6.  **Dependency Installation (Optional)**:
     *   The script can execute `scripts/install-apps.sh` to install the necessary applications and packages for the environment to function correctly. You will be prompted for confirmation.

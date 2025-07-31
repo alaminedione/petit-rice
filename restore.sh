@@ -157,10 +157,10 @@ EOF
         fi
     done
     
-    # Backup hotfiles scripts
-    if [ -d "$CONFIG_DIR/hotfiles-scripts" ]; then
-        cp -r "$CONFIG_DIR/hotfiles-scripts" "$safety_backup_dir/hotfiles-scripts"
-        echo "  - hotfiles-scripts" >> "$safety_backup_dir/backup-info.txt"
+    # Backup petit-rice scripts
+    if [ -d "$CONFIG_DIR/petit-rice-scripts" ]; then
+        cp -r "$CONFIG_DIR/petit-rice-scripts" "$safety_backup_dir/petit-rice-scripts"
+        echo "  - petit-rice-scripts" >> "$safety_backup_dir/backup-info.txt"
         backup_created=true
     fi
     
