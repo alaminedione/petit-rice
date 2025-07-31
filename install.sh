@@ -17,7 +17,7 @@ NC='\033[0m' # No Color
 # Variables
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
-BACKUP_BASE_DIR="$HOME/.config-backups"
+BACKUP_BASE_DIR="$HOME/.petit-rice-backups"
 BACKUP_DIR="$BACKUP_BASE_DIR/backup-$TIMESTAMP"
 CONFIG_DIR="$HOME/.config"
 

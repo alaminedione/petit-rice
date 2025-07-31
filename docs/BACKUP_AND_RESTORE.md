@@ -21,7 +21,7 @@ This system offers a complete solution for backing up and restoring your dotfile
 The backup system creates a timestamped directory for each backup, containing the configurations of all managed applications and relevant home directory files.
 
 ```
-~/.config-backups/
+~/.petit-rice-backups/
 ├── backup-YYYYMMDD-HHMMSS/
 │   ├── backup-info.txt
 │   ├── foot/
@@ -154,7 +154,7 @@ Each backup contains a `backup-info.txt` file with:
 
 ### Problem: "Backup not found"
 - Verify that the timestamp is correct with `./restore.sh list`
-- Make sure the `~/.config-backups` directory exists
+- Make sure the `~/.petit-rice-backups` directory exists
 
 ### Problem: "Permission denied"
 - Make the scripts executable: `chmod +x install.sh restore.sh`

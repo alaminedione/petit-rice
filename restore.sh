@@ -16,7 +16,7 @@ NC='\033[0m' # No Color
 
 # Variables
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BACKUP_BASE_DIR="$HOME/.config-backups"
+BACKUP_BASE_DIR="$HOME/.petit-rice-backups"
 CONFIG_DIR="$HOME/.config"
 
 # Function for colored output
