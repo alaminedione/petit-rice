@@ -3,9 +3,6 @@
 # foot
 sed -i "s|^include=~/.config/foot/themes/.*|include=~/.config/foot/themes/catppuccin-macchiato.ini|" ~/.config/foot/foot.ini
 
-# kitty
-echo "include themes/macchiato.conf" > ~/.config/kitty/colors.conf
-
 # wofi
 cp ~/.config/wofi/macchiato.css ~/.config/wofi/style.css
 
@@ -16,7 +13,7 @@ cp ~/.config/sway/waybar/macchiato.css ~/.config/sway/waybar/style.css
 cp ~/.config/hypr/waybar/macchiato.css ~/.config/hypr/waybar/style.css
 
 # vim
-sed -i "s|^set background=light|set background=dark|" ~/.vimrc
+sed -i "s|^set background=.*|set background=dark|" ~/.vimrc
 sed -i "s|^colorscheme .*|colorscheme catppuccin_macchiato|" ~/.vimrc
 
 # nvim
@@ -56,8 +53,8 @@ sed -i "s|output \* bg .*|output * bg ~/.wallpaper/lofi-anime-girl2.png fill|" ~
 sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/lofi-anime-girl2.png|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/lofi-anime-girl2.png|" ~/.config/hypr/hyprpaper.conf
 
 # Fin
-echo "Thème Catppuccin Macchiato appliqué avec succès !"
-echo "Redémarrez vos applications pour voir les changements."
+echo "Catppuccin Macchiato theme applied successfully!"
+echo "Restart your applications to see the changes."
 
 # reload the configuration
 bash "$HOME/petit-rice/scripts/reload-config.sh"

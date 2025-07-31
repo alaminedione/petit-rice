@@ -1,7 +1,5 @@
 # changer le theme du terminal foot a catppuccin macchiato
 sed -i "s|^include=~/.config/foot/themes/.*|include=~/.config/foot/themes/rose-pine-dawn.ini|" ~/.config/foot/foot.ini
-# changer le theme du terminal kitty a catppuccin mocha 
-echo "include themes/rose-pine-dawn.conf" > ~/.config/kitty/colors.conf
 
 # changer le theme de wofi a catppuccin macchiato
 cp ~/.config/wofi/rose-pine-dawn.css ~/.config/wofi/style.css
@@ -13,7 +11,7 @@ cp ~/.config/sway/waybar/rose-pine-dawn.css ~/.config/sway/waybar/style.css
 cp ~/.config/hypr/waybar/rose-pine-down.css ~/.config/hypr/waybar/style.css
 
 # changer le theme de vim a macchiato
-sed -i "s|^set background=light|set background=dark|" ~/.vimrc
+sed -i "s|^set background=.*|set background=dark|" ~/.vimrc
 sed -i "s|^colorscheme .*|colorscheme rosepine_dawn|" ~/.vimrc
 
 # changer le theme de nvim a catppuccin_macchiato 
@@ -27,7 +25,6 @@ sed -i "s|^include=./themes/.*|include=./themes/rose-pine-dawn|" ~/.config/sway/
 cp ~/.config/mako/rose-pine-dawn ~/.config/mako/config
 
 # ghostty
-# sed -i "s|theme=.*|theme=rose-pine-dawn|" ~/.config/ghostty/config
 sed -i "/^theme=/s|.*|theme=rose-pine-dawn|" ~/.config/ghostty/config
 
 # gsettings

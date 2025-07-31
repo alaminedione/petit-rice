@@ -4,9 +4,11 @@ include ./themes/catppuccin-mocha
 
 
 
-exec mako
-exec = ~/.config/sway/waybar/scripts/toggle-waybar.sh
+exec_always mako
+exec_always = ~/.config/sway/waybar/scripts/toggle-waybar.sh
 exec = wl-paste -t text --watch clipman store --no-persist
+exec wlsunset -t 5700 -T 5800 -l 14.71 -L -17.46 &
+
 
 for_window [app_id=".*"] focus
 gaps inner 1
@@ -265,10 +267,6 @@ for_window [app_id="pavucontrol"] floating enable, focus
 for_window [app_id="nm-connection-editor"] floating enable, focus
 for_window [app_id="galculator"] floating enable, focus
 
-### Démarrage automatique
-exec mako
-exec waybar -c ~/.config/sway/waybar/config-sway -s ~/.config/sway/waybar/style.css
-exec wlsunset -t 5700 -T 5800 -l 14.71 -L -17.46 &
 
 
 
