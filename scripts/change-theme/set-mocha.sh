@@ -58,3 +58,6 @@ sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/lofi-anime-girl2.p
 # Fin
 echo "Thème Catppuccin Macchiato appliqué avec succès !"
 echo "Redémarrez vos applications pour voir les changements."
+
+# reload the configuration
+bash "$HOME/petit-rice/scripts/reload-config.sh"

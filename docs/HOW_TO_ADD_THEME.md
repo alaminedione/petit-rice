@@ -55,6 +55,9 @@ nvim --headless +'lua require("base46").load_all_highlights()' +qa # Reload nvim
 
 echo "Your New Theme applied successfully!"
 echo "Restart your applications to see the changes."
+
+# reload the configuration
+bash "$HOME/petit-rice/scripts/reload-config.sh"
 ```
 
 Remember to make the new script executable:

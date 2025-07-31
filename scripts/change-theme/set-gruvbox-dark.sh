@@ -51,3 +51,6 @@ sed -i "s|theme=.*|theme=KvArcDark|" ~/.config/Kvantum/kvantum.kvconfig
 
 echo "Gruvbox Dark theme applied successfully!"
 echo "Restart your applications to see the changes."
+
+# reload the configuration
+bash "$HOME/petit-rice/scripts/reload-config.sh"
