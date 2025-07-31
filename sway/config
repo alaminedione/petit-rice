@@ -93,13 +93,14 @@ bindsym $mod+Shift+t exec foot
 bindsym $mod+q kill
 
 # Wofi - Lanceurs d'applications et utilitaires
-bindsym $mod+a exec ~/.config/wofi/wofi-launcher.sh drun     # Liste des applications
+bindsym $mod+a exec ~/.config/wofi/wofi-launcher.sh drun     # applications
 bindsym $mod+r exec ~/.config/wofi/wofi-launcher.sh run      # Commandes
-bindsym $mod+w exec ~/.config/wofi/wofi-launcher.sh window   # Fenêtres ouvertes
-bindsym $mod+e exec ~/.config/wofi/wofi-launcher.sh emoji    # Sélecteur d'emojis
+bindsym $mod+w exec ~/.config/wofi/wofi-launcher.sh window   # windows opened
+bindsym $mod+e exec ~/.config/wofi/wofi-launcher.sh emoji    # emoji selector
 bindsym $mod+x exec ~/.config/wofi/wofi-launcher.sh power    # Menu power
 bindsym $mod+d exec ~/.config/wofi/wofi-launcher.sh drun     # Applications (alias)
-bindsym $mod+c exec galculator                               # Calculatrice
+bindsym $mod+c exec galculator                               # Calculator
+bindsym $mod+t exec ~/.config/wofi/wofi-launcher.sh terminal # Theme selector
 
 # Utilitaires système
 bindsym $mod+n exec iwgtk
@@ -108,10 +109,10 @@ bindsym $mod+ctrl+l exec ~/.config/swaylock/swaylock.sh
 bindsym $mod+b exec ~/.config/sway/waybar/scripts/toggle-waybar.sh 
 
 # Screenshots avec grim et slurp
-bindsym Print exec ~/.config/sway/scripts/screenshot.sh full          # Capture complète
-bindsym $mod+s exec ~/.config/sway/scripts/screenshot.sh area         # Capture zone sélectionnée
-bindsym $mod+Print exec ~/.config/sway/scripts/screenshot.sh clipboard # Capture vers presse-papiers
-bindsym $mod+Shift+s exec ~/.config/sway/waybar/scripts/screenshot.sh window  # Capture fenêtre active
+bindsym Print exec ~/.config/sway/scripts/screenshot.sh full          # full screenshot
+bindsym $mod+s exec ~/.config/sway/scripts/screenshot.sh area         # screenshot area
+bindsym $mod+Print exec ~/.config/sway/scripts/screenshot.sh clipboard # screenshot to clipboard
+bindsym $mod+Shift+s exec ~/.config/sway/waybar/scripts/screenshot.sh window  # screenshot active window
 
 # Contrôles multimédia avec pipewire
 bindsym --locked XF86AudioMute exec ~/.config/sway/waybar/scripts/volume.sh mute

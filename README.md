@@ -103,17 +103,7 @@ For more detailed information on backup and restoration, please refer to the [Ba
 
 ## 🎨 How to Change Themes
 
-Themes can be changed using the scripts located in `scripts/change-theme/`. For example, to apply the `catppuccin-mocha` theme:
-
-```bash
-./scripts/change-theme/set-mocha.sh
-```
-
-To apply the `rose-pine-dawn` theme:
-
-```bash
-./scripts/change-theme/set-rose-pine-dawn.sh
-```
+change the theme with the keybinding `super + t`
 
 After changing a theme, it's recommended to restart your applications or session to see all changes applied.
 
@@ -125,6 +115,8 @@ For a detailed guide on how to add a new theme, please refer to the [How to Add 
 *   **Restart Required**: After installation or restoration, it's recommended to restart your session to apply all changes.
 *   **Permissions**: Ensure that `install.sh` and `restore.sh` are executable (`chmod +x install.sh restore.sh`).
 
-## 🤝 Support
+## 🤝 Support and Contributions
 
 For any issues or suggestions, please open an issue on the project's GitHub repository.
+Feel free to contribute to the project by submitting pull requests or opening issues.
+

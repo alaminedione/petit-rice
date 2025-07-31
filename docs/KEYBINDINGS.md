@@ -13,11 +13,12 @@ you can find the configuration files in `~/.config/hypr/hyprland.conf` and `~/.c
 | :--------------------- | :-------------------------------------- |
 | `$mod + Return`        | Launch Terminal (`ghostty`)             |
 | `$mod + q`             | Kill active window                      |
-| `$mod + d`             | Launch application menu (`wofi drun`)   |
+| `$mod + a`             | Launch application menu (`wofi drun`)   |
 | `$mod + x`             | Power menu (`wofi power`)               |
 | `$mod + c`             | Launch Calculator (`galculator`)        |
 | `$mod + v`             | Clipboard history (`clipman pick`)      |
 | `$mod + b`             | Toggle Waybar                           |
+| `$mod + t`             | menu to change the current theme        |
 | `$mod + Ctrl + l`      | Lock screen (`hyprlock` / `swaylock`)   |
 
 ### Window Management
