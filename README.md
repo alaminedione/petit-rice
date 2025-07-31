@@ -89,6 +89,12 @@ cd petit-rice
 ./install.sh
 ```
 
+You may want to deactivate the blue light filter or modify the values.
+For Hyprland, comment out the line ` exec wlsunset -t 5700 -T 5800 -l 14.71 -L -17.46 &` in `~/.config/hypr/hyprland.conf`.
+For Sway, comment out the line `exec = hyprsunset` in `~/.config/sway/config`.
+Restart your session.
+
+
 For a detailed explanation of the `install.sh` script, its options, and how to use it, please refer to the  [Installation Guide ](docs/GUIDE_INSTALLATION.md).
 
 For a complete and up-to-date list of keybindings, please refer to the [Keybindings Guide](docs/KEYBINDINGS.md).

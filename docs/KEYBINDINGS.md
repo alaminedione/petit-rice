@@ -1,10 +1,11 @@
 ## ⌨️ Keybindings
 
+https://hypr.land/
+https://swaywm.org/
+
 Keybindings are consistent across both Sway and Hyprland. The main modifier key (`$mod`) is the **Super key** (Windows key).
 
 you can find the configuration files in `~/.config/hypr/hyprland.conf` and `~/.config/sway/config`.
-
-Here's a summary of the most common keybindings:
 
 ### General
 
@@ -78,7 +79,12 @@ I added a few keybindings on top of the default ones.
 | `<leader>e`            | Toggle focus between NERDTree and editor |
 
 
-### Nvim
+### Nvim (NvChad)
+
+for more information, please visit 
+
+website: https://nvchad.com/
+github: https://github.com/NvChad/NvChad
 
 I added a few keybindings on top of the default ones.
 
