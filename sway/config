@@ -100,7 +100,7 @@ bindsym $mod+e exec ~/.config/wofi/wofi-launcher.sh emoji    # emoji selector
 bindsym $mod+x exec ~/.config/wofi/wofi-launcher.sh power    # Menu power
 bindsym $mod+d exec ~/.config/wofi/wofi-launcher.sh drun     # Applications (alias)
 bindsym $mod+c exec galculator                               # Calculator
-bindsym $mod+t exec ~/.config/wofi/wofi-launcher.sh terminal # Theme selector
+bindsym $mod+t exec ~/.config/wofi/wofi-theme-selector.sh # Theme selector
 
 # Utilitaires système
 bindsym $mod+n exec iwgtk

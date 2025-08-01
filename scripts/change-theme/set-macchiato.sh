@@ -1,16 +1,20 @@
 #!/bin/bash
 
+# sway
+sed -i "s|^include=./themes/.*|include=./themes/catppuccin-macchiato|" ~/.config/sway/config
+
+
 # foot
 sed -i "s|^include=~/.config/foot/themes/.*|include=~/.config/foot/themes/catppuccin-macchiato.ini|" ~/.config/foot/foot.ini
 
 # wofi
-cp ~/.config/wofi/macchiato.css ~/.config/wofi/style.css
+cp ~/.config/wofi/themes/macchiato.css ~/.config/wofi/style.css
 
 # waybar sway
-cp ~/.config/sway/waybar/macchiato.css ~/.config/sway/waybar/style.css
+cp ~/.config/sway/waybar/themes/macchiato.css ~/.config/sway/waybar/style.css
 
 # waybar hyprland
-cp ~/.config/hypr/waybar/macchiato.css ~/.config/hypr/waybar/style.css
+cp ~/.config/hypr/waybar/themes/macchiato.css ~/.config/hypr/waybar/style.css
 
 # vim
 sed -i "s|^set background=.*|set background=dark|" ~/.vimrc
@@ -25,7 +29,7 @@ nvim --headless +'lua require("base46").load_all_highlights()' +qa
 sed -i "s|^include=./themes/.*|include=./themes/catppuccin-mocha|" ~/.config/sway/config
 
 # mako
-cp ~/.config/mako/macchiato ~/.config/mako/config
+cp ~/.config/mako/themes/macchiato ~/.config/mako/config
 
 # ghostty
 sed -i "/^theme=/s|.*|theme=catppuccin-macchiato|" ~/.config/ghostty/config
@@ -57,4 +61,4 @@ echo "Catppuccin Macchiato theme applied successfully!"
 echo "Restart your applications to see the changes."
 
 # reload the configuration
-bash "$HOME/petit-rice/scripts/reload-config.sh"
+bash "$HOME/.config/petit-rice-scripts/reload-config.sh"

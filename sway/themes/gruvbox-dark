@@ -1,0 +1,53 @@
+# Gruvbox Theme for Sway
+# Based on the official Gruvbox palette
+
+# Gruvbox Dark colors
+set $bg0_h     #1d2021
+set $bg0       #282828
+set $bg0_s     #32302f
+set $bg1       #3c3836
+set $bg2       #504945
+set $bg3       #665c54
+set $bg4       #7c6f64
+
+set $fg0       #fbf1c7
+set $fg1       #ebdbb2
+set $fg2       #d5c4a1
+set $fg3       #bdae93
+set $fg4       #a89984
+
+# Gruvbox accent colors
+set $red       #cc241d
+set $green     #98971a
+set $yellow    #d79921
+set $blue      #458588
+set $purple    #b16286
+set $aqua      #689d6a
+set $orange    #d65d0e
+
+# Gruvbox bright colors
+set $red_b     #fb4934
+set $green_b   #b8bb26
+set $yellow_b  #fabd2f
+set $blue_b    #83a598
+set $purple_b  #d3869b
+set $aqua_b    #8ec07c
+set $orange_b  #fe8019
+
+set $gray      #928374
+
+# Window colors for Sway
+#                       border    bg        text      indicator  child_border
+client.focused          $orange   $bg0      $fg1      $yellow    $orange
+client.focused_inactive $bg3      $bg1      $fg3      $bg3       $bg3
+client.unfocused        $bg2      $bg0_h    $fg4      $bg2       $bg2
+client.urgent           $red      $red      $bg0      $red       $red_b
+client.placeholder      $bg0      $bg0      $fg1      $bg0       $bg0
+client.background       $bg0
+
+# Additional variables for use in other configs
+set $accent     $orange
+set $warning    $yellow
+set $error      $red
+set $success    $green
+set $info       $blue

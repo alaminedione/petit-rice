@@ -1,19 +1,23 @@
 #!/bin/bash
 
+
+# sway
+sed -i "s|^include=./themes/.*|include=./themes/gruvbox-dark|" ~/.config/sway/config
+
 # foot
 sed -i "s|^include=~/.config/foot/themes/.*|include=~/.config/foot/themes/gruvbox-dark.ini|" ~/.config/foot/foot.ini
 
 # wofi
-cp ~/.config/wofi/gruvbox-dark.css ~/.config/wofi/style.css
+cp ~/.config/wofi/themes/gruvbox-dark.css ~/.config/wofi/style.css
 
 # waybar sway
-cp ~/.config/sway/waybar/gruvbox-dark.css ~/.config/sway/waybar/style.css
+cp ~/.config/sway/waybar/themes/gruvbox-dark.css ~/.config/sway/waybar/style.css
 
 # waybar hyprland
-cp ~/.config/hypr/waybar/gruvbox-dark.css ~/.config/hypr/waybar/style.css
+cp ~/.config/hypr/waybar/themes/gruvbox-dark.css ~/.config/hypr/waybar/style.css
 
 # mako
-cp ~/.config/mako/gruvbox-dark ~/.config/mako/config
+cp ~/.config/mako/themes/gruvbox-dark ~/.config/mako/config
 
 # ghostty
 sed -i "/^theme=/s|.*|theme=GruvboxDark|" ~/.config/ghostty/config
@@ -53,4 +57,4 @@ echo "Gruvbox Dark theme applied successfully!"
 echo "Restart your applications to see the changes."
 
 # reload the configuration
-bash "$HOME/petit-rice/scripts/reload-config.sh"
+bash "$HOME/.config/petit-rice-scripts/reload-config.sh"
