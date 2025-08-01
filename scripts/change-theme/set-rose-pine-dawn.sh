@@ -59,6 +59,8 @@ sed -i "s|output \* bg .*|output * bg ~/.wallpaper/lofi-anime-girl2.png fill|" ~
 sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/lofi-anime-girl2.png|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/lofi-anime-girl2.png|" ~/.config/hypr/hyprpaper.conf
 
 
+#rmpc 
+sed -i 's|theme:Some.*|theme:Some("rose-pine-dawn"),|' ~/.config/rmpc/config.ron
 
 
 echo "Rose-pine-dawn theme applied successfully!"

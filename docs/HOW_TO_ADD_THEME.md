@@ -21,6 +21,7 @@ For each application, you'll need to create a new theme file in its respective t
 *   **gsettings**: You'll need to install a theme (cursors, icons, themes).
 *   **kvantum**: open Kvantum and add your theme. 
 *   **wallpaper**: put your wallpaper in `~/.wallpaper/` .
+*   **rmpc**: put your rmpc theme in `rmpc/themes`.
 
 ### Step 2: Create a Theme Application Script
 
@@ -88,6 +89,9 @@ echo "" > ~/.config/gtk-4.0/settings.ini
 
 #  kvantum 
 sed -i "s|theme=.*|theme=your-new-theme|" ~/.config/Kvantum/kvantum.kvconfig
+
+#rmpc (you put your theme name in the quotes without the extension '.ron')
+sed -i 's|theme:Some.*|theme:Some("your-new-theme"),|' ~/.config/rmpc/config.ron
 
 # Wallpaper
 sed -i "s|output \* bg .*|output * bg ~/.wallpaper/your-new-wallpaper fill|" ~/.config/sway/config

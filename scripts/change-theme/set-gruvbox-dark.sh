@@ -56,6 +56,9 @@ echo -e "[Settings] \n gtk-application-prefer-dark-theme=1" > ~/.config/gtk-4.0/
 #  kvantum 
 sed -i "s|theme=.*|theme=KvArcDark|" ~/.config/Kvantum/kvantum.kvconfig
 
+#rmpc
+sed -i 's|theme:Some.*|theme:Some("gruvbox-dark"),|' ~/.config/rmpc/config.ron
+
 echo "Gruvbox Dark theme applied successfully!"
 echo "Restart your applications to see the changes."
 

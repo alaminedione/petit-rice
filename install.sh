@@ -41,6 +41,8 @@ readonly -a APPS=(
     "fastfetch" 
     "hypr" 
     "ghostty"
+    "mpd"
+    "rmpc"
 )
 
 readonly -a HOME_FILES=(

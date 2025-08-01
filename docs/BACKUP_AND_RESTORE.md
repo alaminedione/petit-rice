@@ -32,6 +32,8 @@ The backup system creates a timestamped directory for each backup, containing th
 │   ├── mako/
 │   ├── fastfetch/
 │   ├── hypr/
+│   ├── rmpc/
+│   ├── mpd/
 │   ├── home/
 │   │   ├── .zshrc
 │   │   ├── .aliases.sh

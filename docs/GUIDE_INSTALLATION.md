@@ -18,7 +18,7 @@ The `install.sh` script performs the following operations:
     *   A `backup-info.txt` file is included in each backup, detailing its content.
 
 2.  **Installation of Application Configurations**:
-    *   The configuration folders for applications (`foot`, `nvim`, `sway`, `swaylock`, `waybar`, `wofi`, `mako`, `fastfetch`, `hypr`, `ghostty`) are copied from the repository directory to `$HOME/.config/`.
+    *   The configuration folders for applications (`foot`, `nvim`, `sway`, `swaylock`, `waybar`, `wofi`, `mako`, `fastfetch`, `hypr`, `ghostty`, `rmpc`, `mpd`) are copied from the repository directory to `$HOME/.config/`.
     *   Existing configurations for these applications will be backed up in `$HOME/.petit-rice-backups/backup-YYYYMMDD-HHMMSS/`.
 
 3.  **Installation of `$HOME` Directory Files**:

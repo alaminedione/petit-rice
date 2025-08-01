@@ -8,6 +8,7 @@ exec_always mako
 exec_always = ~/.config/sway/waybar/scripts/toggle-waybar.sh
 exec = wl-paste -t text --watch clipman store --no-persist
 exec wlsunset -t 5700 -T 5800 -l 14.71 -L -17.46 &
+exec mpd
 
 
 for_window [app_id=".*"] focus
@@ -101,6 +102,9 @@ bindsym $mod+x exec ~/.config/wofi/wofi-launcher.sh power    # Menu power
 bindsym $mod+d exec ~/.config/wofi/wofi-launcher.sh drun     # Applications (alias)
 bindsym $mod+c exec galculator                               # Calculator
 bindsym $mod+t exec ~/.config/wofi/wofi-theme-selector.sh # Theme selector
+
+
+bindsym $mod+m exec foot -e rmpc
 
 # Utilitaires système
 bindsym $mod+n exec iwgtk
@@ -240,7 +244,7 @@ assign [app_id="Geany"] workspace 4
 assign [app_id="dev.zed.Zed"] workspace 4
 assign [app_id="code"] workspace 4
 assign [app_id="gvim"] workspace 4
-assign [app_id="foot"] workspace 4
+# assign [app_id="foot"] workspace 4
 
 # PDF viewers on workspace 5
 assign [app_id="Evince"] workspace 5

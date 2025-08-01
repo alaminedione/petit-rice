@@ -20,6 +20,7 @@ you can find the configuration files in `~/.config/hypr/hyprland.conf` and `~/.c
 | `$mod + b`             | Toggle Waybar                           |
 | `$mod + t`             | menu to change the current theme        |
 | `$mod + Ctrl + l`      | Lock screen (`hyprlock` / `swaylock`)   |
+| `$mod + m`             | Music player                            |
 
 ### Window Management
 

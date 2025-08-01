@@ -8,7 +8,7 @@ Each application was selected to meet a specific need, while keeping the system 
 - **Utilities**: `brightnessctl`, `playerctl`, `clipman`, `galculator`, `yt-dlp`, `slurp`, `grim`, `wl-clipboard` for managing audio, brightness, clipboard, screenshots, etc.
 - **File management**: `thunar` and its plugins, `gvfs`, `file-roller` for efficient file handling.
 - **Fonts and appearance**: `ttf-jetbrains-mono-nerd`, `ttf-fira-code`, `adobe-source-code-pro-fonts` for better readability.
-- **Audio**: `wireplumber`, `pavucontrol` for audio management with PipeWire.
+- **Audio**: `wireplumber`, `pavucontrol`, `mpd`, `rmpc` for audio management with PipeWire.
 - **Previews and thumbnails**: `tumbler`, `ffmpegthumbnailer` for file previews.
 - **Others**: `wlsunset`, `hyprsunset` for color temperature management based on the time of day.
 
