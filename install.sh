@@ -1,31 +1,73 @@
 #!/bin/bash
 
-# Automatic dotfiles installation script
-# This script automatically configures themes and settings
+# ==============================================================================
+# DOTFILES INSTALLATION SCRIPT
+# ==============================================================================
+# Description: Automatic dotfiles installation with backup and theme management
+# Author: [Alamine Dione ] 
+# Version: 2.0
+# ==============================================================================
 
 set -e
 
-# Colors for display
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-PURPLE='\033[0;35m'
-CYAN='\033[0;36m'
-NC='\033[0m' # No Color
+# ==============================================================================
+# CONSTANTS AND CONFIGURATION
+# ==============================================================================
 
-# Variables
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
-BACKUP_BASE_DIR="$HOME/.petit-rice-backups"
-BACKUP_DIR="$BACKUP_BASE_DIR/backup-$TIMESTAMP"
-CONFIG_DIR="$HOME/.config"
+# Color definitions
+readonly RED='\033[0;31m'
+readonly GREEN='\033[0;32m'
+readonly YELLOW='\033[1;33m'
+readonly BLUE='\033[0;34m'
+readonly PURPLE='\033[0;35m'
+readonly CYAN='\033[0;36m'
+readonly NC='\033[0m' # No Color
 
-# Colored display function
+# Directory paths
+readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly TIMESTAMP="$(date +%Y%m%d-%H%M%S)"
+readonly BACKUP_BASE_DIR="$HOME/.petit-rice-backups"
+readonly BACKUP_DIR="$BACKUP_BASE_DIR/backup-$TIMESTAMP"
+readonly CONFIG_DIR="$HOME/.config"
+
+# Configuration lists
+readonly -a APPS=(
+    "foot" 
+    "nvim" 
+    "sway" 
+    "swaylock" 
+    "wofi" 
+    "mako" 
+    "fastfetch" 
+    "hypr" 
+    "ghostty"
+)
+
+readonly -a HOME_FILES=(
+    ".aliases.sh" 
+    ".fdignore" 
+    ".tgpt_aliases.sh" 
+    ".vimrc" 
+    ".vim" 
+    ".zshrc" 
+    ".wallpaper"
+)
+
+readonly -a OPTIONAL_SCRIPTS=(
+    "scripts/fix_fonts.sh:Font correction"
+    "scripts/set-swapinness.sh:Swapiness configuration"
+    "scripts/create_macspoof_service.sh:Creating macspoof service"
+)
+
+# ==============================================================================
+# UTILITY FUNCTIONS
+# ==============================================================================
+
+# Display functions
 print_header() {
-    echo -e "${CYAN}=====================================
-$1
-=====================================${NC}"
+    echo -e "\n${CYAN}╔════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${CYAN}║ ${1}${NC}"
+    echo -e "${CYAN}╚════════════════════════════════════════════════════════════╝${NC}\n"
 }
 
 print_success() {
@@ -44,340 +86,354 @@ print_info() {
     echo -e "${BLUE}ℹ️  $1${NC}"
 }
 
-# Function to ask for confirmation
+# Interactive functions
 ask_yes_no() {
+    local prompt="$1"
+    local response
+    
     while true; do
-        read -p "$(echo -e "${YELLOW}$1 (y/n): ${NC}")" yn
-        case $yn in
-            [Yy]* ) return 0;;
-            [Nn]* ) return 1;;
-            * ) echo "Please answer y (yes) or n (no).";;
+        read -p "$(echo -e "${YELLOW}${prompt} (y/n): ${NC}")" response
+        case "${response,,}" in
+            y|yes) return 0 ;;
+            n|no)  return 1 ;;
+            *)     echo "Please answer 'y' (yes) or 'n' (no)." ;;
         esac
     done
 }
 
-# Global backup function
-create_global_backup() {
-    local apps=("foot" "nvim" "sway" "swaylock"  "wofi" "mako" "fastfetch" "hypr" "ghostty")
-    local home_files=(".aliases.sh" ".fdignore" ".tgpt_aliases.sh" ".vimrc"  ".vim" ".zshrc" ".wallpaper")
-    local backup_needed=false
-    
-    print_info "Checking for existing configurations..."
-    
-    # Check if there are configurations to backup
-    for app in "${apps[@]}"; do
-        local config_path="$CONFIG_DIR/$app"
-        if [ -d "$config_path" ] || [ -f "$config_path" ]; then
-            backup_needed=true
-            break
-        fi
+# Progress indicator
+show_progress() {
+    local message="$1"
+    echo -ne "${BLUE}⏳ ${message}...${NC}"
+}
+
+complete_progress() {
+    echo -e "\r${GREEN}✅ Done!${NC}                    "
+}
+
+# ==============================================================================
+# BACKUP FUNCTIONS
+# ==============================================================================
+
+check_backup_needed() {
+    # Check applications
+    for app in "${APPS[@]}"; do
+        [[ -e "$CONFIG_DIR/$app" ]] && return 0
     done
     
-    # Check for existing petit-rice scripts
-    if [ -d "$CONFIG_DIR/petit-rice-scripts" ]; then
-        backup_needed=true
-    fi
+    # Check petit-rice scripts
+    [[ -d "$CONFIG_DIR/petit-rice-scripts" ]] && return 0
     
-    # Check for existing home files
-    for home_file in "${home_files[@]}"; do
-        local home_path="$HOME/$home_file"
-        if [ -d "$home_path" ] || [ -f "$home_path" ]; then
-            backup_needed=true
-            break
-        fi
+    # Check home files
+    for file in "${HOME_FILES[@]}"; do
+        [[ -e "$HOME/$file" ]] && return 0
     done
     
-    if [ "$backup_needed" = true ]; then
-        print_info "Creating global backup folder: $BACKUP_DIR"
-        mkdir -p "$BACKUP_DIR"
-        
-        # Create a backup information file
-        cat > "$BACKUP_DIR/backup-info.txt" << EOF
-Backup created on: $(date)
+    return 1
+}
+
+create_backup_info() {
+    cat > "$BACKUP_DIR/backup-info.txt" << EOF
+═══════════════════════════════════════════════════════════════
+BACKUP INFORMATION
+═══════════════════════════════════════════════════════════════
+Date: $(date)
 Timestamp: $TIMESTAMP
-Script used: $0
-Source directory: $SCRIPT_DIR
+Script: $0
+Source: $SCRIPT_DIR
+═══════════════════════════════════════════════════════════════
 Backed up configurations:
 EOF
-        
-        # Backup each existing configuration
-        for app in "${apps[@]}"; do
-            local config_path="$CONFIG_DIR/$app"
-            if [ -d "$config_path" ] || [ -f "$config_path" ]; then
-                print_info "Backing up $app..."
-                cp -r "$config_path" "$BACKUP_DIR/$app"
-                echo "  - $app" >> "$BACKUP_DIR/backup-info.txt"
-                print_success "✓ $app backed up"
-            fi
-        done
-        
-        # Backup existing home files
-        mkdir -p "$BACKUP_DIR/home"
-        for home_file in "${home_files[@]}"; do
-            local home_path="$HOME/$home_file"
-            if [ -d "$home_path" ] || [ -f "$home_path" ]; then
-                print_info "Backing up $home_file..."
-                cp -r "$home_path" "$BACKUP_DIR/home/$home_file"
-                echo "  - home/$home_file" >> "$BACKUP_DIR/backup-info.txt"
-                print_success "✓ $home_file backed up"
-            fi
-        done
-        
-        # Backup petit-rice scripts if they exist
-        if [ -d "$CONFIG_DIR/petit-rice-scripts" ]; then
-            print_info "Backing up petit-rice scripts..."
-            cp -r "$CONFIG_DIR/petit-rice-scripts" "$BACKUP_DIR/petit-rice-scripts"
-            echo "  - petit-rice-scripts" >> "$BACKUP_DIR/backup-info.txt"
-            print_success "✓ petit-rice scripts backed up"
-        fi
-        
-        print_success "Global backup created: $BACKUP_DIR"
-        echo -e "${GREEN}📁 Backup available for restoration with: ./restore.sh $TIMESTAMP${NC}"
-    else
-        print_info "No existing configurations found, no backup needed"
+}
+
+backup_item() {
+    local item_path="$1"
+    local backup_path="$2"
+    local item_name="$3"
+    
+    if [[ -e "$item_path" ]]; then
+        show_progress "Backing up $item_name"
+        cp -r "$item_path" "$backup_path"
+        echo "  ✓ $item_name" >> "$BACKUP_DIR/backup-info.txt"
+        complete_progress
+        return 0
+    fi
+    return 1
+}
+
+create_global_backup() {
+    print_info "Checking for existing configurations..."
+    
+    if ! check_backup_needed; then
+        print_info "No existing configurations found, skipping backup"
+        return 0
+    fi
+    
+    print_info "Creating backup directory: $BACKUP_DIR"
+    mkdir -p "$BACKUP_DIR"
+    
+    create_backup_info
+    
+    # Backup applications
+    for app in "${APPS[@]}"; do
+        backup_item "$CONFIG_DIR/$app" "$BACKUP_DIR/$app" "$app"
+    done
+    
+    # Backup home files
+    mkdir -p "$BACKUP_DIR/home"
+    for file in "${HOME_FILES[@]}"; do
+        backup_item "$HOME/$file" "$BACKUP_DIR/home/$file" "$file"
+    done
+    
+    # Backup petit-rice scripts
+    backup_item "$CONFIG_DIR/petit-rice-scripts" "$BACKUP_DIR/petit-rice-scripts" "petit-rice scripts"
+    
+    echo "" >> "$BACKUP_DIR/backup-info.txt"
+    echo "═══════════════════════════════════════════════════════════════" >> "$BACKUP_DIR/backup-info.txt"
+    
+    print_success "Backup completed: $BACKUP_DIR"
+    echo -e "${GREEN}📁 Restore with: ./restore.sh $TIMESTAMP${NC}\n"
+}
+
+# ==============================================================================
+# INSTALLATION FUNCTIONS
+# ==============================================================================
+
+validate_source_directory() {
+    if [[ ! -d "$SCRIPT_DIR" ]]; then
+        print_error "Source directory not found: $SCRIPT_DIR"
+        exit 1
     fi
 }
 
-# Configuration installation function
 install_config() {
     local app_name="$1"
     local source_dir="$SCRIPT_DIR/$app_name"
     local target_dir="$CONFIG_DIR/$app_name"
     
-    if [ -d "$source_dir" ]; then
-        print_info "Installing $app_name configuration..."
-        
-        # Create target directory
-        mkdir -p "$(dirname "$target_dir")"
-        
-        # Remove old configuration if it exists
-        if [ -d "$target_dir" ] || [ -f "$target_dir" ]; then
-            rm -rf "$target_dir"
-        fi
-        
-        # Copy files
-        cp -r "$source_dir" "$target_dir"
-        print_success "$app_name configuration installed"
-    else
+    if [[ ! -d "$source_dir" ]]; then
         print_warning "$app_name configuration not found in $source_dir"
+        return 1
     fi
+    
+    show_progress "Installing $app_name configuration"
+    
+    # Create parent directory
+    mkdir -p "$(dirname "$target_dir")"
+    
+    # Remove existing configuration
+    [[ -e "$target_dir" ]] && rm -rf "$target_dir"
+    
+    # Copy configuration
+    cp -r "$source_dir" "$target_dir"
+    
+    complete_progress
+    return 0
 }
-# Home files installation function
+
 install_home_files() {
     local source_dir="$SCRIPT_DIR/home"
     
-    if [ -d "$source_dir" ]; then
-        print_info "Installing home files..."
-        
-        # Iterate over all files in the home directory
-        find "$source_dir" -type f | while read -r file; do
-            # Get the relative path to the source directory
-            local relative_path="${file#$source_dir/}"
-            local target_path="$HOME/$relative_path"
-            
-            # Create parent directory if necessary
-            mkdir -p "$(dirname "$target_path")"
-            
-            # Copy the file
-            cp "$file" "$target_path"
-            print_success "✓ $relative_path installed in home"
-        done
-        
-        # Iterate over all directories in the home directory
-        find "$source_dir" -type d -not -path "$source_dir" | while read -r dir; do
-            # Get the relative path to the source directory
-            local relative_path="${dir#$source_dir/}"
-            local target_path="$HOME/$relative_path"
-            
-            # Create the directory
-            mkdir -p "$target_path"
-            print_success "✓ Directory $relative_path created in home"
-        done
-        
-        print_success "Home files installed"
-    else
+    if [[ ! -d "$source_dir" ]]; then
         print_warning "Home directory not found in $source_dir"
+        return 1
     fi
+    
+    print_info "Installing home files..."
+    
+    # Process files
+    while IFS= read -r -d '' file; do
+        local relative_path="${file#$source_dir/}"
+        local target_path="$HOME/$relative_path"
+        
+        mkdir -p "$(dirname "$target_path")"
+        cp "$file" "$target_path"
+        print_success "✓ $relative_path"
+    done < <(find "$source_dir" -type f -print0)
+    
+    print_success "Home files installation completed"
 }
 
-# Function to make scripts executable
-make_scripts_executable() {
-    print_info "Making scripts executable..."
+install_utility_scripts() {
+    if [[ ! -d "$SCRIPT_DIR/scripts" ]]; then
+        print_warning "Scripts directory not found"
+        return 1
+    fi
+    
+    print_info "Installing utility scripts..."
+    
+    # Make scripts executable
     find "$SCRIPT_DIR/scripts" -name "*.sh" -type f -exec chmod +x {} \;
-    print_success "Scripts made executable"
+    
+    # Copy to config directory
+    [[ -d "$CONFIG_DIR/petit-rice-scripts" ]] && rm -rf "$CONFIG_DIR/petit-rice-scripts"
+    mkdir -p "$CONFIG_DIR/petit-rice-scripts"
+    cp -r "$SCRIPT_DIR/scripts"/* "$CONFIG_DIR/petit-rice-scripts/"
+    
+    print_success "Utility scripts installed in $CONFIG_DIR/petit-rice-scripts/"
 }
 
-# Main installation function
-main_install() {
-    print_header "Installing dotfiles"
-    
-    # Prerequisite check
-    if [ ! -d "$SCRIPT_DIR" ]; then
-        print_error "Source directory not found: $SCRIPT_DIR"
-        exit 1
-    fi
-    
-    # backup the current Dotfiles
-    print_info "Backing up current Dotfiles to $BACKUP_BASE_DIR ..."
-    sleep 2
+create_gtk_directories() {
+    mkdir -p "$HOME/.config/gtk-3.0"
+    mkdir -p "$HOME/.config/gtk-4.0"
+    print_success "GTK directories created"
+}
 
-    # Create base backup directory
-    print_info "Creating backup directory: $BACKUP_BASE_DIR"
-    mkdir -p "$BACKUP_BASE_DIR"
+# ==============================================================================
+# MAIN INSTALLATION WORKFLOWS
+# ==============================================================================
+
+main_install() {
+    print_header "INSTALLING DOTFILES"
+    
+    validate_source_directory
+    
+    # Create backup
+    print_info "Creating backup before installation..."
     sleep 1
-    
-    # Create global backup BEFORE installation
-    print_info "Creating global backup BEFORE installation..."
-    sleep 2
+    mkdir -p "$BACKUP_BASE_DIR"
     create_global_backup
-    sleep 2
-    
-    print_info "Installing dotfiles..."
-    sleep 2
-    # List of applications to configure
-    local apps=("foot" "nvim" "sway" "hypr" "swaylock" "wofi" "mako" "fastfetch" "ghostty")
     
     # Install configurations
-    for app in "${apps[@]}"; do
+    print_info "Installing application configurations..."
+    for app in "${APPS[@]}"; do
         install_config "$app"
     done
     
     # Install home files
     install_home_files
-
-    # install the vim plugins
-    print_info "Installing vim plugins..."
-    sleep 2
-    bash "$SCRIPT_DIR/scripts/config-vim.sh"
-
-    #create gtk-3.0 and gtk-4.0 folders
-    mkdir -p ~/.config/gtk-3.0/
-    mkdir -p ~/.config/gtk-4.0/
-
-
     
-    # Make scripts executable
-    make_scripts_executable
-    
-    # Copy scripts to an accessible directory
-    if [ -d "$SCRIPT_DIR/scripts" ]; then
-        print_info "Installing utility scripts..."
-        mkdir -p "$CONFIG_DIR/petit-rice-scripts"
-        cp -r "$SCRIPT_DIR/scripts"/* "$CONFIG_DIR/petit-rice-scripts/"
-        print_success "Utility scripts installed in $CONFIG_DIR/petit-rice-scripts/"
+    # Install vim plugins
+    if [[ -f "$SCRIPT_DIR/scripts/config-vim.sh" ]]; then
+        print_info "Configuring Vim..."
+        bash "$SCRIPT_DIR/scripts/config-vim.sh"
     fi
+    
+    # Create GTK directories
+    create_gtk_directories
+    
+    # Install utility scripts
+    install_utility_scripts
 }
 
-# Dependency installation function
 install_dependencies() {
-    print_header "Installing dependencies"
+    print_header "INSTALLING DEPENDENCIES"
     
-    if [ -f "$SCRIPT_DIR/scripts/install-apps.sh" ]; then
-        if ask_yes_no "Do you want to install the necessary applications?"; then
-            print_info "Launching application installation script..."
-            bash "$SCRIPT_DIR/scripts/install-apps.sh"
-        fi
-    else
+    local install_script="$SCRIPT_DIR/scripts/install-apps.sh"
+    
+    if [[ ! -f "$install_script" ]]; then
         print_warning "Application installation script not found"
+        return 1
+    fi
+    
+    if ask_yes_no "Install necessary applications?"; then
+        print_info "Launching application installation..."
+        bash "$install_script"
     fi
 }
 
-# Default theme application function
 apply_default_theme() {
-    print_header "Applying default theme"
+    print_header "APPLYING DEFAULT THEME"
     
-    if [ -f "$SCRIPT_DIR/scripts/change-theme/set-mocha.sh" ]; then
-      if ask_yes_no "Do you want to apply the Catppuccin Mocha theme (default theme)? (recommended)"; then
-            print_info "Applying Catppuccin Mocha theme..."
-            bash "$SCRIPT_DIR/scripts/change-theme/set-mocha.sh"
-            print_success "Catppuccin Mocha theme applied"
-        fi
-    else
+    local theme_script="$SCRIPT_DIR/scripts/change-theme/set-default.sh"
+    
+    if [[ ! -f "$theme_script" ]]; then
         print_warning "Default theme script not found"
+        return 1
+    fi
+    
+    if ask_yes_no "Apply Catppuccin Macchiato theme? (recommended)"; then
+        print_info "Applying theme..."
+        bash "$theme_script"
+        print_success "Theme applied successfully"
     fi
 }
 
-# Function to run additional configuration scripts
 run_additional_scripts() {
-    print_header "Additional configuration scripts"
-
-
-    bash "$SCRIPT_DIR/scripts/config-vim.sh"
-    bash "$SCRIPT_DIR/scripts/config-zsh.sh"
-    bash "$SCRIPT_DIR/scripts/get-layan-cursors.sh"
-    bash "$SCRIPT_DIR/scripts/get-gruvbox-gtk.sh"
-    bash "$SCRIPT_DIR/scripts/get-luv-icons.sh"
+    print_header "ADDITIONAL CONFIGURATION"
     
-    # Optional scripts
-    local optional_scripts=(
-        "scripts/fix_fonts.sh:Font correction"
-        "scripts/set-swapinness.sh:Swapiness configuration"
-        "scripts/create_macspoof_service.sh:Creating macspoof service for MAC address spoofing"
+    # Run mandatory scripts
+    local -a mandatory_scripts=(
+        "scripts/config-vim.sh"
+        "scripts/config-zsh.sh"
+        "scripts/get-layan-cursors.sh"
+        "scripts/get-gruvbox-gtk.sh"
+        "scripts/get-luv-icons.sh"
     )
     
-    for script_info in "${optional_scripts[@]}"; do
-        IFS=':' read -ra SCRIPT_PARTS <<< "$script_info"
-        local script_path="$SCRIPT_DIR/${SCRIPT_PARTS[0]}"
-        local script_desc="${SCRIPT_PARTS[1]}"
+    for script in "${mandatory_scripts[@]}"; do
+        if [[ -f "$SCRIPT_DIR/$script" ]]; then
+            print_info "Running $(basename "$script")..."
+            bash "$SCRIPT_DIR/$script"
+        fi
+    done
+    
+    # Run optional scripts
+    for script_info in "${OPTIONAL_SCRIPTS[@]}"; do
+        IFS=':' read -r script_path script_desc <<< "$script_info"
+        local full_path="$SCRIPT_DIR/$script_path"
         
-        if [ -f "$script_path" ]; then
-            if ask_yes_no "Execute: $script_desc ?"; then
-                print_info "Executing $script_desc..."
-                bash "$script_path"
-                print_success "$script_desc completed"
-            fi
+        if [[ -f "$full_path" ]] && ask_yes_no "Execute: $script_desc?"; then
+            print_info "Running $script_desc..."
+            bash "$full_path"
+            print_success "$script_desc completed"
         fi
     done
 }
 
-# Summary display function
+# ==============================================================================
+# USER INTERFACE
+# ==============================================================================
+
 show_summary() {
-    print_header "Installation Summary"
+    print_header "INSTALLATION SUMMARY"
     
-    echo -e "${GREEN}✅ Installation completed successfully!${NC}"
-    echo ""
-    print_info "Configurations installed in: $CONFIG_DIR"
-    if [ -d "$BACKUP_DIR" ]; then
-        print_info "Backup created in: $BACKUP_DIR"
-        print_info "To restore this backup: ./restore.sh $TIMESTAMP"
+    echo -e "${GREEN}✨ Installation completed successfully! ✨${NC}\n"
+    
+    echo -e "${CYAN}📍 Locations:${NC}"
+    echo "   • Configurations: $CONFIG_DIR"
+    [[ -d "$BACKUP_DIR" ]] && echo "   • Backup: $BACKUP_DIR"
+    echo "   • Scripts: $CONFIG_DIR/petit-rice-scripts"
+    
+    echo -e "\n${YELLOW}📋 Recommended actions:${NC}"
+    echo "   • Restart your session to apply all changes"
+    echo "   • Verify configurations in your applications"
+    echo "   • Check installed files in your home directory"
+    
+    if [[ -d "$SCRIPT_DIR/scripts/change-theme" ]]; then
+        echo -e "\n${PURPLE}🎨 Available themes:${NC}"
+        find "$SCRIPT_DIR/scripts/change-theme" -name "*.sh" -exec basename {} \; | 
+            sed 's/^/   • /' | sed 's/.sh$//'
     fi
-    print_info "Utility scripts in: $CONFIG_DIR/petit-rice-scripts"
-    echo ""
-    print_warning "Recommended actions:"
-    echo "   - Restart your session to apply all changes"
-    echo "   - Check configurations in your applications"
-    echo "   - Check installed files in your home directory"
-    echo "   - Use theme change scripts if necessary"
-    echo ""
-    print_info "Available theme scripts:"
-    if [ -d "$SCRIPT_DIR/scripts/change-theme" ]; then
-        find "$SCRIPT_DIR/scripts/change-theme" -name "*.sh" -exec basename {} \; | sed 's/^/   - /'
+    
+    if [[ -d "$BACKUP_BASE_DIR" ]]; then
+        echo -e "\n${BLUE}💾 Available backups:${NC}"
+        ls -1 "$BACKUP_BASE_DIR" | grep "^backup-" | 
+            sed 's/^backup-/   • /' | 
+            head -5
     fi
-    echo ""
-    print_info "Available backups:"
-    if [ -d "$BACKUP_BASE_DIR" ]; then
-        ls -1 "$BACKUP_BASE_DIR" | grep "^backup-" | sed 's/^backup-/   - /' | sed 's/$/ (use: .\/restore.sh <timestamp>)/'
-    fi
-    # afficher un messa de felicitation
-    echo -e "${GREEN}✅ Installation completed successfully!${NC}"
+    
+    echo -e "\n${GREEN}🎉 Enjoy your new setup! 🎉${NC}\n"
 }
 
-# Main menu
 show_menu() {
-    print_header "Dotfiles Installation Script"
-    echo "This script will automatically configure your dotfiles."
+    clear
+    print_header "DOTFILES INSTALLATION MENU"
+    
+    echo "This script will configure your dotfiles with automatic backup."
     echo ""
-    echo "Available options:"
-    echo "1. Complete installation (recommended)"
-    echo "2. Install configurations only"
-    echo "3. Install dependencies only"
-    echo "4. Apply default theme only"
-    echo "5. Exit"
+    echo "Select an option:"
+    echo ""
+    echo -e "  ${GREEN}1)${NC} Complete installation (recommended)"
+    echo -e "  ${BLUE}2)${NC} Install configurations only"
+    echo -e "  ${BLUE}3)${NC} Install dependencies only"
+    echo -e "  ${PURPLE}4)${NC} Apply default theme only"
+    echo -e "  ${RED}5)${NC} Exit"
     echo ""
     
-    read -p "$(echo -e "${YELLOW}Choose an option (1-5): ${NC}")" choice
+    read -p "$(echo -e "${YELLOW}Your choice (1-5): ${NC}")" choice
     
-    case $choice in
+    case "$choice" in
         1)
             main_install
             install_dependencies
@@ -402,18 +458,25 @@ show_menu() {
             ;;
         *)
             print_error "Invalid option"
+            sleep 2
             show_menu
             ;;
     esac
 }
 
-# Main entry point
+# ==============================================================================
+# MAIN ENTRY POINT
+# ==============================================================================
+
 main() {
-    #TODO: Check that the script is executed from the correct directory
+    # Verify script is run from correct directory
+    if [[ ! -f "$SCRIPT_DIR/install.sh" ]]; then
+        print_error "Please run this script from the dotfiles directory"
+        exit 1
+    fi
     
-    # Display the menu
     show_menu
 }
 
-# Execute the main script
+# Execute main function
 main "$@"
