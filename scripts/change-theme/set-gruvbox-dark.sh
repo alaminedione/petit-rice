@@ -2,7 +2,7 @@
 
 
 # sway
-sed -i "s|^include=./themes/.*|include=./themes/gruvbox-dark|" ~/.config/sway/config
+sed -i "s|^include ./themes/.*|include ./themes/gruvbox-dark|" ~/.config/sway/config
 
 # foot
 sed -i "s|^include=~/.config/foot/themes/.*|include=~/.config/foot/themes/gruvbox-dark.ini|" ~/.config/foot/foot.ini

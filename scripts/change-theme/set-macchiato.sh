@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # sway
-sed -i "s|^include=./themes/.*|include=./themes/catppuccin-macchiato|" ~/.config/sway/config
+sed -i "s|^include ./themes/.*|include ./themes/catppuccin-macchiato|" ~/.config/sway/config
 
 
 # foot

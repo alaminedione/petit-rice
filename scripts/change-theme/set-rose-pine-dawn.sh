@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # sway
-sed -i "s|^include=./themes/.*|include=./themes/rose-pine-dawn|" ~/.config/sway/config
+sed -i "s|^include ./themes/.*|include ./themes/rose-pine-dawn|" ~/.config/sway/config
 
 
 # changer le theme du terminal foot a catppuccin macchiato
