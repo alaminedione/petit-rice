@@ -37,12 +37,6 @@ I've created a script (`install.sh`) that allows for a quick installation of my 
 
 </div>
 
-## ✨ Features
-
-*   **Modern Workflow**: Designed for a smooth and efficient user experience.
-*   **Extensive Theming**: Easy to switch between themes and add new ones.
-*   **Automated Setup**: Simple installation, backup, and restore processes.
-*   **Consistent Keybindings**: Unified keybindings for both Hyprland and Sway.
 
 ## 🎨 Supported Themes
 
@@ -90,6 +84,7 @@ For Hyprland, comment out the line ` exec wlsunset -t 5700 -T 5800 -l 14.71 -L -
 For Sway, comment out the line `exec = hyprsunset` in `~/.config/sway/config`.
 Restart your session.
 
+You will need to change the time zone in the `clock` module of the Waybar configuration files: `~/.config/hypr/waybar/config.json` and `~/.config/sway/waybar/config-sway`
 
 For a detailed explanation of the `install.sh` script, its options, and how to use it, please refer to the  [Installation Guide ](docs/GUIDE_INSTALLATION.md).
 
