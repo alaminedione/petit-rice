@@ -377,7 +377,8 @@ restore_backup() {
         echo -e "${CYAN}To undo this restoration:${NC} ./restore.sh $safety_backup_timestamp"
     fi
     
-    echo ""
+    echo "reloading config"
+    bash "$SCRIPT_DIR/scripts/reload-config.sh"
     print_warning "Please restart your session to apply all changes"
 }
 
