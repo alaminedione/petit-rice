@@ -110,9 +110,9 @@ show_progress() {
 }
 
 complete_progress() {
-    echo -e "\r${GREEN}✅ Done!${NC}                    "
+    local message="$1"
+    echo -e "\r${GREEN}✅ ${message} - Completed${NC}"
 }
-
 # ==============================================================================
 # BACKUP FUNCTIONS
 # ==============================================================================
@@ -154,14 +154,15 @@ backup_item() {
     local item_name="$3"
     
     if [[ -e "$item_path" ]]; then
-        show_progress "Backing up $item_name"
+        print_info "Backing up $item_name..."
         cp -r "$item_path" "$backup_path"
         echo "  ✓ $item_name" >> "$BACKUP_DIR/backup-info.txt"
-        complete_progress
+        print_success "Backed up: $item_name"
         return 0
     fi
     return 1
 }
+
 
 create_global_backup() {
     print_info "Checking for existing configurations..."
@@ -177,24 +178,37 @@ create_global_backup() {
     create_backup_info
     
     # Backup applications
+    echo -e "\n${CYAN}Backing up application configurations:${NC}"
     for app in "${APPS[@]}"; do
         backup_item "$CONFIG_DIR/$app" "$BACKUP_DIR/$app" "$app"
     done
+
+    sleep 2
     
     # Backup home files
+    echo -e "\n${CYAN}Backing up home files:${NC}"
     mkdir -p "$BACKUP_DIR/home"
     for file in "${HOME_FILES[@]}"; do
         backup_item "$HOME/$file" "$BACKUP_DIR/home/$file" "$file"
     done
+
+    sleep 2
     
     # Backup petit-rice scripts
+    echo -e "\n${CYAN}Backing up scripts:${NC}"
     backup_item "$CONFIG_DIR/petit-rice-scripts" "$BACKUP_DIR/petit-rice-scripts" "petit-rice scripts"
+
+    sleep 2
     
     echo "" >> "$BACKUP_DIR/backup-info.txt"
     echo "═══════════════════════════════════════════════════════════════" >> "$BACKUP_DIR/backup-info.txt"
+
     
+    echo ""
     print_success "Backup completed: $BACKUP_DIR"
     echo -e "${GREEN}📁 Restore with: ./restore.sh $TIMESTAMP${NC}\n"
+
+    sleep 2
 }
 
 # ==============================================================================
@@ -218,7 +232,7 @@ install_config() {
         return 1
     fi
     
-    show_progress "Installing $app_name configuration"
+    print_info "Installing $app_name configuration..."
     
     # Create parent directory
     mkdir -p "$(dirname "$target_dir")"
@@ -229,9 +243,10 @@ install_config() {
     # Copy configuration
     cp -r "$source_dir" "$target_dir"
     
-    complete_progress
+    print_success "Installed: $app_name configuration"
     return 0
 }
+
 
 install_home_files() {
     local source_dir="$SCRIPT_DIR/home"
@@ -273,6 +288,7 @@ install_utility_scripts() {
     cp -r "$SCRIPT_DIR/scripts"/* "$CONFIG_DIR/petit-rice-scripts/"
     
     print_success "Utility scripts installed in $CONFIG_DIR/petit-rice-scripts/"
+    sleep 2
 }
 
 create_gtk_directories() {
@@ -291,30 +307,39 @@ main_install() {
     validate_source_directory
     
     # Create backup
-    print_info "Creating backup before installation..."
+    echo -e "${CYAN}═══ BACKUP PHASE ═══${NC}"
     sleep 1
     mkdir -p "$BACKUP_BASE_DIR"
     create_global_backup
     
     # Install configurations
-    print_info "Installing application configurations..."
+    echo -e "\n${CYAN}═══ INSTALLATION PHASE ═══${NC}"
+    echo -e "${CYAN}Installing application configurations:${NC}"
     for app in "${APPS[@]}"; do
         install_config "$app"
     done
+
+    sleep 2
     
     # Install home files
+    echo ""
     install_home_files
+
+    sleep 2
     
     # Install vim plugins
     if [[ -f "$SCRIPT_DIR/scripts/config-vim.sh" ]]; then
+        echo ""
         print_info "Configuring Vim..."
         bash "$SCRIPT_DIR/scripts/config-vim.sh"
     fi
     
     # Create GTK directories
+    echo ""
     create_gtk_directories
     
     # Install utility scripts
+    echo ""
     install_utility_scripts
 }
 
