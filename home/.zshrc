@@ -91,7 +91,7 @@ setopt AUTO_LIST           # Automatically list choices on ambiguous completion.
 setopt COMPLETE_IN_WORD    # Complete from both ends of a word
 
 bindkey -M viins 'jj' vi-cmd-mode
-
+bindkey "^[." insert-last-word
 
 #eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"

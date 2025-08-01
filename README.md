@@ -12,9 +12,7 @@
 </div>
 
 
-
-
-This repository contains my personal Linux configuration for Hyprland and Sway. My goal for this configuration is to provide a modern, beautiful, productive, and simple workflow with extensive theme support, making it very easy to configure your own themes.
+The main reason I created this configuration is to make my system easily reproducible. I particularly enjoy minimalist, clean, and highly productive setups. This repository reflects my desire for an environment that is simple to replicate, while remaining elegant and efficient.
 
 I've created a script (`install.sh`) that allows for a quick installation of my work environment, as well as backup and restoration capabilities.
 
