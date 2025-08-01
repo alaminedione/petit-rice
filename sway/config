@@ -237,7 +237,7 @@ assign [app_id="Thunar"] workspace 3
 
 # Code editors on workspace 4
 assign [app_id="Geany"] workspace 4
-assign [app_id="zeditor"] workspace 4
+assign [app_id="dev.zed.Zed"] workspace 4
 assign [app_id="code"] workspace 4
 assign [app_id="gvim"] workspace 4
 assign [app_id="foot"] workspace 4
