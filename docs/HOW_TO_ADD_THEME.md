@@ -14,6 +14,7 @@ For each application, you'll need to create a new theme file in its respective t
 *   **waybar (Sway)**: Create a `.css` file in `sway/waybar/themes` (e.g., `sway/waybar/themes/your-new-theme.css`).
 *   **mako**: Create a configuration file in `mako/themes` (e.g., `mako/themes/your-new-theme`).
 *   **sway**: Create a theme directory in `sway/themes/` containing your Sway-specific configurations (e.g., `sway/themes/your-new-theme`).
+*   **hyprland**: Create a theme directory in `hypr/themes/` containing your Hyprland-specific configurations (e.g., `hypr/themes/your-new-theme`).
 *   **ghostty**: ghostty support already a lot of themes `ghostty +list-themes`.
 *   **vim**: You'll need to install a theme with vim-plug.
 *   **nvim**: NvChad support a lot of themes `<leader>th` in nvim.to see all themes.
@@ -56,6 +57,9 @@ nvim --headless +'lua require("base46").load_all_highlights()' +qa
 
 # sway
 sed -i "s|^include=./themes/.*|include=./themes/your-new-theme|" ~/.config/sway/config
+
+# Hyprland
+cp ~/.config/hypr/themes/your-new-theme.conf ~/.config/hypr/colors.conf
 
 # mako
 cp ~/.config/mako/themes/your-new-theme ~/.config/mako/config
@@ -104,12 +108,25 @@ Remember to make the new script executable:
 chmod +x scripts/change-theme/set-your-new-theme.sh
 ```
 
-### Step 3: Test Your New Theme
+### Step 3: execute the script 
+
+```bash
+./install.sh
+```
+choose this option : 2) Install configurations only
+
+this will update your dotfiles and install the theme.
+
+### Step 4: Test Your New Theme
+
+`Super + t` to open wofi and choose your new theme to apply it.
 
 Run your newly created script:
 
+or
+
 ```bash
-./scripts/change-theme/set-your-new-theme.sh
+bash ~/.config/petit-rice-scripts/change-theme/set-your-new-theme.sh
 ```
 
 Then, restart your applications (or your session) to see the changes take effect.

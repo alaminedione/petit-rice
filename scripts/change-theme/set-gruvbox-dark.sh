@@ -4,6 +4,9 @@
 # sway
 sed -i "s|^include ./themes/.*|include ./themes/gruvbox-dark|" ~/.config/sway/config
 
+# hyprland
+cp ~/.config/hypr/themes/gruvbox-dark.conf ~/.config/hypr/colors.conf
+
 # foot
 sed -i "s|^include=~/.config/foot/themes/.*|include=~/.config/foot/themes/gruvbox-dark.ini|" ~/.config/foot/foot.ini
 

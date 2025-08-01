@@ -3,6 +3,9 @@
 # sway
 sed -i "s|^include ./themes/.*|include ./themes/catppuccin-macchiato|" ~/.config/sway/config
 
+# hyprland
+cp ~/.config/hypr/themes/catppuccin-macchiato.conf ~/.config/hypr/colors.conf
+
 
 # foot
 sed -i "s|^include=~/.config/foot/themes/.*|include=~/.config/foot/themes/catppuccin-macchiato.ini|" ~/.config/foot/foot.ini

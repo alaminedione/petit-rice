@@ -3,6 +3,9 @@
 # sway
 sed -i "s|^include ./themes/.*|include ./themes/rose-pine-dawn|" ~/.config/sway/config
 
+# hyprland
+cp ~/.config/hypr/themes/rose-pine-dawn.conf ~/.config/hypr/colors.conf
+
 
 # changer le theme du terminal foot a catppuccin macchiato
 sed -i "s|^include=~/.config/foot/themes/.*|include=~/.config/foot/themes/rose-pine-dawn.ini|" ~/.config/foot/foot.ini
