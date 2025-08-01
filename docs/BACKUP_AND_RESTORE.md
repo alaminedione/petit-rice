@@ -62,7 +62,7 @@ When you run `./install.sh`, an interactive menu will be presented with the foll
 1.  **Complete Installation (recommended)**: Executes all steps: Global backup, configuration installation, dependency installation, default theme application, and execution of additional scripts.
 2.  **Install Configurations Only**: Performs the global backup and installs only the application configurations and `$HOME` directory files.
 3.  **Install Dependencies Only**: Only executes the `scripts/install-apps.sh` script to install the necessary applications and packages.
-4.  **Apply Default Theme Only**: Only executes the `scripts/change-theme/set-mocha.sh` script to apply the default theme.
+4.  **Apply Default Theme Only**: Only executes the `scripts/change-theme/set-default.sh` script to apply the default theme.
 5.  **Quit**: Allows you to exit the script without performing any operations.
 
 ## 🔄 Restoration

@@ -19,7 +19,7 @@ The `install.sh` script performs the following operations:
 
 2.  **Installation of Application Configurations**:
     *   The configuration folders for applications (`foot`, `nvim`, `sway`, `swaylock`, `waybar`, `wofi`, `mako`, `fastfetch`, `hypr`, `ghostty`) are copied from the repository directory to `$HOME/.config/`.
-    *   Existing configurations for these applications are deleted before copying to ensure a clean installation.
+    *   Existing configurations for these applications will be backed up in `$HOME/.petit-rice-backups/backup-YYYYMMDD-HHMMSS/`.
 
 3.  **Installation of `$HOME` Directory Files**:
     *   Files and folders contained in the `home/` directory of the repository (e.g., `.vimrc`, `.zshrc`, `.aliases.sh`, `.vim/`) are copied directly to your `$HOME` directory.
@@ -44,7 +44,7 @@ The `install.sh` script performs the following operations:
 When you run `./install.sh`, an interactive menu will be presented with the following options:
 
 1.  **Complete Installation (recommended)**:
-    *   Executes all steps: Global backup, configuration installation, dependency installation, default theme application, and execution of additional scripts.
+    *   Executes all steps: global backup, configuration installation, dependency installation, and default theme application. Each step will require your confirmation.
     *   This is the simplest option for a first complete installation.
 
 2.  **Install Configurations Only**:
@@ -56,7 +56,7 @@ When you run `./install.sh`, an interactive menu will be presented with the foll
     *   Useful if you want to manage configuration and theme installation separately.
 
 4.  **Apply Default Theme Only**:
-    *   Only executes the `scripts/change-theme/set-mocha.sh` script to apply the default theme.
+    *   Only executes the `scripts/change-theme/set-default.sh` script to apply the default theme.
     *   Useful if you have already installed the configurations and dependencies.
 
 5.  **Quit**:
