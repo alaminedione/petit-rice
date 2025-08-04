@@ -39,7 +39,7 @@ sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/lofi-anime-girl2.p
 
 
 # gsettings
-gsettings set org.gnome.desktop.interface icon-theme 'Luv'
+gsettings set org.gnome.desktop.interface icon-theme 'Vimix'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.interface gtk-theme "Gruvbox-Dark"
 gsettings set org.gnome.desktop.wm.preferences theme "Gruvbox-Dark"
