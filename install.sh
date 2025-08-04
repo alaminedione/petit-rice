@@ -386,6 +386,7 @@ run_additional_scripts() {
         "scripts/get-layan-cursors.sh"
         "scripts/get-gruvbox-gtk.sh"
         "scripts/get-luv-icons.sh"
+        "scripts/get-vimix-icons.sh"
     )
     
     for script in "${mandatory_scripts[@]}"; do
