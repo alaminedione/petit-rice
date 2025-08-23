@@ -193,7 +193,7 @@ check_prerequisites() {
 declare -A PACKAGES
 
 # Essential packages for rice functionality
-PACKAGES["essential"]="debugedit sway swaybg swaylock-effects swayidle hyprland hyprpaper hyprlock hypridle hyprsunset waybar wofi mako fastfetch foot ghostty neovim git curl vim rsync bc libnotify brightnessctl playerctl htop bat fd eza tree yazi zoxide galculator clipman tgpt yt-dlp slurp grim wl-clipboard adapta-gtk-theme orchis-theme kvantum lxappearance ttf-jetbrains-mono-nerd ttf-fira-code adobe-source-code-pro-fonts wireplumber pavucontrol tumbler  ffmpegthumbnailer  gtk-engine-murrine wlsunset thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman gvfs  gvfs-mtp android-udev  thunar-archive-plugin file-roller mpd rmpc"
+PACKAGES["essential"]="debugedit sway swaybg swaylock-effects swayidle hyprland hyprpaper hyprlock hypridle hyprsunset waybar wofi mako fastfetch foot ghostty neovim git curl vim rsync bc libnotify brightnessctl playerctl htop bat fd eza tree yazi zoxide galculator clipman tgpt yt-dlp slurp grim wl-clipboard adapta-gtk-theme orchis-theme kvantum lxappearance ttf-jetbrains-mono-nerd ttf-fira-code adobe-source-code-pro-fonts wireplumber pavucontrol tumbler  ffmpegthumbnailer  gtk-engine-murrine wlsunset thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman gvfs  gvfs-mtp android-udev  thunar-archive-plugin file-roller mpd rmpc mpv"
 
 # Developer essentials (if developer profile)
 PACKAGES["dev"]="github-cli  nodejs pnpm npm python python-pip cargo rust go onefetch cloc typescript lazygit sccache ccache uv ts-node lazydocker-bin croc php composer hyperfine yq"
