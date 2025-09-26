@@ -60,6 +60,7 @@ readonly -a OPTIONAL_SCRIPTS=(
     "scripts/set-swapinness.sh:Swapiness configuration"
     "scripts/create_macspoof_service.sh:Creating macspoof service"
     "scripts/setup-bluetooth.sh:Setup bluetooth"
+    "scripts/config-npm.sh:Configuring npm to use a user-specific directory for global packages and updating the .zshrc file to add the new directory to the system's PATH"
 )
 
 # ==============================================================================
@@ -388,7 +389,7 @@ run_additional_scripts() {
         "scripts/get-gruvbox-gtk.sh"
         "scripts/get-luv-icons.sh"
         "scripts/get-vimix-icons.sh"
-        "./scripts/get-nord-gtk-theme.sh"
+        "scripts/get-nord-gtk-theme.sh"
     )
     
     for script in "${mandatory_scripts[@]}"; do
