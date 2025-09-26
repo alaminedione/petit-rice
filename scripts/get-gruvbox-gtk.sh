@@ -10,7 +10,7 @@ else
 
     # Installer le thème
     cd Gruvbox-GTK-Theme
-    ./install.sh
+    ./themes/install.sh
 
     # Nettoyer le dossier cloné
     cd ..

@@ -388,6 +388,7 @@ run_additional_scripts() {
         "scripts/get-gruvbox-gtk.sh"
         "scripts/get-luv-icons.sh"
         "scripts/get-vimix-icons.sh"
+        "./scripts/get-nord-gtk-theme.sh"
     )
     
     for script in "${mandatory_scripts[@]}"; do

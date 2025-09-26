@@ -39,12 +39,12 @@ print_info() {
 
 print_logo() {
     echo -e "${PURPLE}"
-    echo "    ██████╗ ██╗ ██████╗███████╗    ██╗     ██╗███╗   ██╗██╗   ██╗██╗  ██╗"
-    echo "    ██╔══██╗██║██╔════╝██╔════╝    ██║     ██║████╗  ██║██║   ██║╚██╗██╔╝"
-    echo "    ██████╔╝██║██║     █████╗      ██║     ██║██╔██╗ ██║██║   ██║ ╚███╔╝ "
-    echo "    ██╔══██╗██║██║     ██╔══╝      ██║     ██║██║╚██╗██║██║   ██║ ██╔██╗ "
-    echo "    ██║  ██║██║╚██████╗███████╗    ███████╗██║██║ ╚████║╚██████╔╝██╔╝ ██╗"
-    echo "    ╚═╝  ╚═╝╚═╝ ╚═════╝╚══════╝    ╚══════╝╚═╝╚═╝  ╚═══╝ ╚═════╝ ╚═╝  ╚═╝"
+    echo "    ██████╗ ███████╗████████╗██╗████████╗   ██████╗ ██╗ ██████╗███████╗"
+    echo "    ██╔══██╗██╔════╝╚══██╔══╝██║╚══██╔══╝   ██╔══██╗██║██╔════╝██╔════╝"
+    echo "    ██████╔╝█████╗     ██║   ██║   ██║      ██████╔╝██║██║     █████╗  "
+    echo "    ██╔═══╝ ██╔══╝     ██║   ██║   ██║      ██╔══██╗██║██║     ██╔══╝  "
+    echo "    ██║     ███████╗   ██║   ██║   ██║      ██║  ██║██║╚██████╗███████╗"
+    echo "    ╚═╝     ╚══════╝   ╚═╝   ╚═╝   ╚═╝      ╚═╝  ╚═╝╚═╝ ╚═════╝╚══════╝"
     echo -e "${NC}"
     echo -e "${CYAN}    Sway/Hyprland Rice Installation Script${NC}"
     echo ""
@@ -193,18 +193,13 @@ check_prerequisites() {
 declare -A PACKAGES
 
 # Essential packages for rice functionality
-PACKAGES["essential"]="debugedit sway swaybg swaylock-effects swayidle hyprland hyprpaper hyprlock hypridle hyprsunset waybar wofi mako fastfetch foot ghostty neovim git curl vim rsync bc libnotify brightnessctl playerctl htop bat fd eza tree yazi zoxide galculator clipman tgpt yt-dlp slurp grim wl-clipboard adapta-gtk-theme orchis-theme kvantum lxappearance ttf-jetbrains-mono-nerd ttf-fira-code adobe-source-code-pro-fonts wireplumber pavucontrol tumbler  ffmpegthumbnailer  gtk-engine-murrine wlsunset thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman gvfs  gvfs-mtp android-udev  thunar-archive-plugin file-roller mpd rmpc mpv"
+PACKAGES["essential"]="debugedit sway swaybg swaylock-effects swayidle hyprland hyprpaper hyprlock hypridle hyprsunset waybar wofi mako fastfetch foot ghostty neovim git curl vim rsync bc libnotify brightnessctl playerctl htop bat fd eza tree yazi zoxide galculator clipman tgpt yt-dlp slurp grim wl-clipboard adapta-gtk-theme orchis-theme kvantum lxappearance ttf-jetbrains-mono-nerd ttf-fira-code adobe-source-code-pro-fonts wireplumber pavucontrol tumbler  ffmpegthumbnailer  gtk-engine-murrine wlsunset thunar thunar-archive-plugin thunar-media-tags-plugin thunar-volman gvfs  gvfs-mtp android-udev  thunar-archive-plugin file-roller mpd rmpc mpv ripgrep trash-cli"
 
 # Developer essentials (if developer profile)
 PACKAGES["dev"]="github-cli  nodejs pnpm npm python python-pip cargo rust go onefetch cloc typescript lazygit sccache ccache uv ts-node lazydocker-bin croc php composer hyperfine yq"
 
 
-# Personal tools 
-PACKAGES["personal"]="cloudflare-warp-bin google-cloud-cli obsidian thorium-browser-bin drawio-desktop brave-bin telegram-desktop  appflowy-bin  macchanger megasync-bin turso docker docker-compose podman"
-
-
-# All remaining packages
-PACKAGES["extras"]="freedownloadmanager firefox gpu-screen-recorder-gtk pipes.sh onlyoffice-bin atril cheese qemu meld clapper viewnior gst-plugin-bad gst-plugin-ugly gst-libav"
+# Personal and extra packages are now installed via install_personal_apps.sh
 
 # Installation profiles
 install_minimum() {
@@ -222,86 +217,16 @@ install_minimum() {
     fi
 }
 
-install_all() {
-    print_header "COMPLETE INSTALLATION: categories: essential, dev, extras"
-    print_info "Installing all available packages"
-    
-    for category in essential dev extras; do
-        if [[ -v PACKAGES[$category] ]]; then
-            IFS=' ' read -ra packages <<< "${PACKAGES[$category]}"
-            # Create readable category names
-            case $category in
-                essential) description="Essential Rice Packages" ;;
-                dev) description="Essential Developer Tools" ;;
-                extras) description="Extra Utilities" ;;
-            esac
-            install_packages "$category" "$description" "${packages[@]}"
-        fi
-    done
-}
 
-install_by_category() {
-    print_header "SELECTIVE INSTALLATION"
-    print_info "Choose categories to install:"
-    echo ""
-    
-    echo "Available categories:"
-    echo "1.  Essential Rice Packages (${PACKAGES[essential]})"
-    echo "2.  Essential Developer Tools (${PACKAGES[dev]})"
-    echo "3.  Extra Utilities (${PACKAGES[extras]})"
-    echo "4.  Personal Tools (${PACKAGES[personal]})"
-    echo ""
-    
-    declare -A category_map
-    category_map[1]="essential"
-    category_map[2]="dev"
-    category_map[3]="extras"
-    category_map[4]="personal"
-    
-    declare -A category_descriptions
-    category_descriptions["essential"]="Essential Rice Packages"
-    category_descriptions["dev"]="Development tools"
-    category_descriptions["extras"]="Extra Utilities"
-    category_descriptions["personal"]="Personal Tools"
-    
-    while true; do
-        read -p "$(echo -e "${YELLOW}Enter category numbers (e.g., 1 2 3), 'all' for everything, or 'done' to finish: ${NC}")" selected
-        
-        if [[ "$selected" == "done" ]]; then
-            break
-        elif [[ "$selected" == "all" ]]; then
-            install_all
-            break
-        else
-            for num in $selected; do
-                if [[ -v category_map[$num] ]]; then
-                    category_key="${category_map[$num]}"
-                    IFS=' ' read -ra packages <<< "${PACKAGES[$category_key]}"
-                    install_packages "$category_key" "${category_descriptions[$category_key]}" "${packages[@]}"
-                else
-                    print_error "Invalid category number: $num"
-                fi
-            done
-        fi
-    done
-}
 
 # Post-installation configuration
-# User applications
 post_installation() {
-    print_header "Post-Installation Configuration"
-    
-    # Docker configuration
-    if command -v docker &> /dev/null; then
-        if ask_yes_no "Add user to docker group?"; then
-            sudo usermod -aG docker "$USER"
-            print_success "User added to docker group"
-            print_warning "Log out and back in for docker group changes to take effect"
-        fi
-    fi
-    
     print_header "Installation Summary"
-    echo -e "🎉 All packages installed successfully! \n"
+    echo -e "🎉 Essential packages installed successfully! \n"
+    
+    print_info "To install personal and extra applications, you can now run:"
+    echo -e "${YELLOW}./scripts/install_personal_apps.sh${NC}"
+    echo ""
 }
 
 # Main script execution
@@ -310,55 +235,29 @@ main() {
     print_logo
     
     print_info "Welcome to the Arch Linux Rice Installation Script"
-    print_info "This script will install packages for Sway/Hyprland rice"
+    print_info "This script will install essential packages for Sway/Hyprland rice"
     echo ""
     
     check_prerequisites
     check_developer_profile
     
-    while true; do
-        print_header "Installation Options"
-        print_info "Available Categories: essential, dev, personal, extras"
-        echo "1. 🟢 Install Minimum Dependencies:"
-        echo "   - Core packages for this Sway/Hyprland desktop rice (window managers, bar, launcher, terminal, basic utilities)."
-        if [ "$IS_DEVELOPER" = true ]; then
-            echo "   - Includes essential developer tools as developer profile was detected."
+    # Handle potential conflict between swaylock and swaylock-effects
+    if [[ " ${PACKAGES[essential]} " =~ " swaylock-effects " ]] && pacman -Q swaylock &> /dev/null; then
+        if ask_yes_no "Conflict detected: 'swaylock' is installed, but these dotfiles use 'swaylock-effects'. Replace 'swaylock' with 'swaylock-effects'?"; then
+            print_info "Removing 'swaylock' to avoid installation conflicts..."
+            sudo pacman -R --noconfirm swaylock
+            print_success "'swaylock' removed."
+        else
+            print_warning "Skipping installation of 'swaylock-effects' to keep 'swaylock'."
+            PACKAGES["essential"]="${PACKAGES[essential]//swaylock-effects/}"
         fi
-        echo "2. 🔵 Install All Packages (excluding category: personal):"
-        echo "   - A complete installation including essential, developer, and extra utility packages (general-purpose tools: browser, media player, document reader...)."
-        echo "3. 🟡 Install by Category:"
-        echo "   - Allows you to selectively choose which groups of packages (essential, dev, personal, extras) to install."
-        echo "4. ❌ Cancel Installation:"
-        echo "   - Exit the script without installing any packages."
-        echo ""
-        
-        read -p "$(echo -e "${YELLOW}Choose an option (1-4): ${NC}")" choice
-        
-        case $choice in
-            1)
-                install_minimum
-                post_installation
-                break
-                ;;
-            2)
-                install_all
-                post_installation
-                break
-                ;;
-            3)
-                install_by_category
-                post_installation
-                break
-                ;;
-            4)
-                print_info "Installation cancelled"
-                exit 0
-                ;;
-            *)
-                print_error "Invalid option. Please choose 1-4."
-                ;;
-        esac
-    done
+    fi
+    
+    # Install essential and (if applicable) developer packages
+    install_minimum
+    
+    # Run post-installation tasks
+    post_installation
 }
 
 # Run main function

@@ -53,6 +53,8 @@ echo  "" > ~/.config/gtk-4.0/settings.ini
 
 # changer le theme kvantum 
 sed -i "s|theme=.*|theme=KvArc|" ~/.config/Kvantum/kvantum.kvconfig
+mkdir -p ~/.config/Kvantum 
+kvantummanager --set KvArc
 
 # Wallpaper
 sed -i "s|output \* bg .*|output * bg ~/.wallpaper/lofi-anime-girl2.png fill|" ~/.config/sway/config

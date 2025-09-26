@@ -52,7 +52,8 @@ echo -e "[Settings] \n gtk-application-prefer-dark-theme=1" > ~/.config/gtk-3.0/
 echo -e "[Settings] \n gtk-application-prefer-dark-theme=1" > ~/.config/gtk-4.0/settings.ini
 
 #  kvantum 
-sed -i "s|theme=.*|theme=KvArcDark|" ~/.config/Kvantum/kvantum.kvconfig
+mkdir -p "$HOME/.config/Kvantum"
+kvantummanager --set KvArcDark
 
 #rmpc
 sed -i 's|theme:Some.*|theme:Some("macchiato"),|' ~/.config/rmpc/config.ron

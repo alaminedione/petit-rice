@@ -18,7 +18,7 @@ if ! command -v yay &> /dev/null; then
   echo "yay not detected. Installing..."
   sudo pacman -S --noconfirm yay
 fi
-yay -S  freetype2-ubuntu fontconfig-ubuntu cairo-ubuntu
+yay -S  freetype2 fontconfig cairo
 
 # 4. Fontconfig configuration
 echo "[4/6] Configuring rendering via fontconfig..."
