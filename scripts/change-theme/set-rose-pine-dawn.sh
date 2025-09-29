@@ -17,14 +17,14 @@ cp ~/.config/wofi/themes/rose-pine-dawn.css ~/.config/wofi/style.css
 cp ~/.config/sway/waybar/themes/rose-pine-dawn.css ~/.config/sway/waybar/style.css
 
 # waybar hyprland  
-cp ~/.config/hypr/waybar/themes/rose-pine-down.css ~/.config/hypr/waybar/style.css
+cp ~/.config/hypr/waybar/themes/rose-pine-dawn.css ~/.config/hypr/waybar/style.css
 
-# changer le theme de vim a macchiato
-sed -i "s|^set background=.*|set background=dark|" ~/.vimrc
+# changer le theme de vim a rose-pine-dawn
+sed -i "s|^set background=.*|set background=light|" ~/.vimrc
 sed -i "s|^colorscheme .*|colorscheme rosepine_dawn|" ~/.vimrc
 
-# changer le theme de nvim a catppuccin_macchiato 
-sed -i "s|theme = .*|theme = \"flexoki-light\",|" ~/.config/nvim/lua/chadrc.lua
+# changer le theme de nvim a rose-pine-dawn
+sed -i "s|theme = .*|theme = \"rosepine-dawn\",|" ~/.config/nvim/lua/chadrc.lua
 nvim --headless +'lua require("base46").load_all_highlights()' +qa
 
 # changer le theme de sway a catppuccin catppuccin_macchiato

@@ -66,7 +66,7 @@ output * bg ~/.wallpaper/lofi-anime-girl2.png fill
 
 ### Idle configuration
 exec swayidle -w \
-          timeout 600 '~/.config/swaylock/swaylock.sh' \
+          timeout 600 '~/.config/swaylock-effects/swaylock.sh' \
           timeout 1200 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
           before-sleep '~/.config/swaylock/swaylock.sh'
 

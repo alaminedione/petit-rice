@@ -7,7 +7,7 @@ readonly -a APPS=(
     "foot" 
     "nvim" 
     "sway" 
-    "swaylock" 
+    "swaylock-effects" 
     "wofi" 
     "mako" 
     "fastfetch" 

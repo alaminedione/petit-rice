@@ -1,144 +1,73 @@
-/* Gruvbox Material Theme for Wofi */
-
-/* Define Gruvbox Material colors */
-@define-color bg0 #282828;
-@define-color bg0_h #1d2021;
-@define-color bg0_s #32302f;
-@define-color bg1 #3c3836;
-@define-color bg2 #504945;
-@define-color bg3 #665c54;
-@define-color bg4 #7c6f64;
-@define-color bg5 #928374;
-@define-color fg0 #fbf1c7;
-@define-color fg1 #ebdbb2;
-@define-color fg2 #d5c4a1;
-@define-color fg3 #bdae93;
-@define-color fg4 #a89984;
-@define-color red #fb4934;
-@define-color green #b8bb26;
-@define-color yellow #fabd2f;
-@define-color blue #83a598;
-@define-color purple #d3869b;
-@define-color aqua #8ec07c;
-@define-color orange #fe8019;
-@define-color gray #928374;
-
-/* Main window */
+/* Window styling */
 window {
   margin: 0px;
-  background-color: @bg0;
-  font-family: "JetBrainsMono Nerd Font", sans-serif;
-  font-size: 14px;
+  border: 1px solid #89b482; /* aqua/green */
+  background-color: #282828; /* bg0 */
+  border-radius: 7px;
 }
 
-/* Input field */
+/* Input bar */
 #input {
-  all: unset;
-  min-height: 36px;
-  padding: 4px 10px;
-  margin: 4px;
+  margin: 5px;
   border: none;
-  color: @fg1;
-  font-weight: bold;
-  background-color: @bg1;
-  border-radius: 8px;
-  border: 2px solid @bg2;
-}
-
-#input:focus {
-  border: 2px solid @green;
-  margin: 4px;
-  outline: none;
+  color: #d4be98;            /* fg0 */
+  background-color: #3c3836; /* bg1 */
 }
 
 /* Inner box */
 #inner-box {
-  margin: 4px;
+  margin: 5px;
   border: none;
-  background-color: @bg0;
-  border-radius: 8px;
+  background-color: #282828; /* bg0 */
 }
 
 /* Outer box */
 #outer-box {
-  margin: 0px;
+  margin: 5px;
   border: none;
-  background-color: @bg0;
-  border-radius: 12px;
+  background-color: #282828; /* bg0 */
 }
 
 /* Scroll area */
 #scroll {
-  margin-top: 5px;
+  margin: 0px;
   border: none;
-  border-radius: 8px;
-  margin-bottom: 5px;
 }
 
-/* Text styling */
-#text:selected {
-  color: @bg0;
-  margin: 0px 0px;
-  border: none;
-  border-radius: 8px;
-}
-
+/* Default text */
 #text {
-  margin: 0px 0px;
+  margin: 5px;
   border: none;
-  color: @fg1;
-  animation: none;
+  color: #d4be98; /* fg0 */
 }
 
-/* Entry styling */
-#entry {
-  background-color: transparent;
-  margin: 0px 0px;
-  border: none;
-  border-radius: 8px;
-  animation: none;
+/* Active entry text */
+#entry.activatable #text {
+  color: #282828; /* bg0 - for contrast */
 }
 
+/* Generic entries */
+#entry > * {
+  color: #d4be98; /* fg0 */
+}
+
+/* Selected entry background and highlight */
 #entry:selected {
-  background-color: @green;
-  margin: 0px 0px;
-  border: none;
-  border-radius: 8px;
-  animation: none;
+  background-color: #89b482; /* aqua/green */
 }
 
+/* Selected entry text */
 #entry:selected #text {
-  color: @bg0;
+  font-weight: bold;
+  color: #282828; /* bg0 - for contrast on green background */
 }
 
-#entry:hover {
-  background-color: @bg1;
-  margin: 0px 0px;
-  border: none;
-  border-radius: 8px;
-  animation: none;
+/* Selected image receives no background */
+#img:selected {
+  background: none;
 }
 
-/* Image styling */
-#img {
-  margin: 0px 0px;
-  border: none;
-  border-radius: 8px;
-  animation: none;
+/* Selected text receives no background */
+#text:selected {
+  background: none;
 }
-
-/* Unselected text */
-#unselected {
-  color: @fg1;
-}
-
-/* Selected text */
-#selected {
-  color: @bg0;
-}
-
-/* Input placeholder */
-#input:placeholder {
-  color: @bg5;
-}
-

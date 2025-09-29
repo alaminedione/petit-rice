@@ -13,7 +13,7 @@ The goal is to provide a fast, reliable, and interactive installation process.
 The `install.sh` script performs the following operations:
 
 1.  **Global Backup of Existing Configurations**:
-    *   Before any installation, the script checks for the presence of existing configurations for the covered applications (foot, kitty, nvim, sway, swaylock, waybar, wofi, mako, fastfetch, hypr) as well as some files in the `$HOME` directory (`.aliases.sh`, `.fdignore`, `.tgpt_aliases.sh`, `.vimrc`,  `.vim`, `.zshrc` `.wallpaper`).
+    *   Before any installation, the script checks for the presence of existing configurations for the covered applications (foot, nvim, sway, swaylock-effects, wofi, mako, fastfetch, hypr, ghostty, mpd, rmpc) as well as some files in the `$HOME` directory (`.aliases.sh`, `.fdignore`, `.tgpt_aliases.sh`, `.vimrc`,  `.vim`, `.zshrc` `.wallpaper`).
     *   If configurations are found, a timestamped backup is created in `$HOME/.petit-rice-backups/backup-YYYYMMDD-HHMMSS/`. This ensures that you can always revert to your previous state.
     *   A `backup-info.txt` file is included in each backup, detailing its content.
 
@@ -34,7 +34,7 @@ The `install.sh` script performs the following operations:
     *   The script can execute `scripts/install-apps.sh` to install the necessary applications and packages for the environment to function correctly. You will be prompted for confirmation.
 
 7.  **Default Theme Application (Optional)**:
-    *   The script can apply the `Catppuccin Mocha` theme by executing `scripts/change-theme/set-mocha.sh`. You will be prompted for confirmation.
+    *   The script can apply the `Catppuccin Macchiato` theme by executing `scripts/change-theme/set-default.sh`. You will be prompted for confirmation.
 
 8.  **Execution of Additional Configuration Scripts (Optional)**:
     *   The script offers to execute several optional scripts for specific configurations (e.g., font correction, Zsh configuration, cursor installation, etc.). Each execution requires confirmation.
