@@ -1,0 +1,304 @@
+/* Everforest Dark Medium Theme for Waybar */
+
+/* Import Everforest colors */
+@define-color bg_dim #1e2326;
+@define-color bg0 #272e33;
+@define-color bg1 #2e383c;
+@define-color bg2 #374145;
+@define-color bg3 #414b50;
+@define-color bg4 #495156;
+@define-color bg5 #4f5b58;
+@define-color fg #d3c6aa;
+@define-color red #e67e80;
+@define-color orange #e69875;
+@define-color yellow #dbbc7f;
+@define-color green #a7c080;
+@define-color aqua #83c092;
+@define-color blue #7fbbb3;
+@define-color purple #d699b6;
+@define-color grey0 #7a8478;
+@define-color grey1 #859289;
+@define-color grey2 #9da9a0;
+
+/* Reset styles */
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  min-height: 0;
+}
+
+/* Main window */
+window#waybar {
+  background: alpha(@bg_dim, 0.9);
+  border-radius: 12px;
+  color: @fg;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/* Tooltips */
+tooltip {
+  background: @bg0;
+  border-radius: 8px;
+  border: 2px solid @purple;
+  color: @fg;
+}
+
+tooltip label {
+  color: @fg;
+}
+
+/* Workspaces */
+#workspaces {
+  background: alpha(@bg0, 0.8);
+  margin: 5px;
+  padding: 0px 5px;
+  border-radius: 12px;
+  border: 2px solid alpha(@purple, 0.5);
+}
+
+#workspaces button {
+  padding: 5px 10px;
+  margin: 3px 3px;
+  border-radius: 8px;
+  color: @fg;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.active {
+  color: @bg_dim;
+  background: @purple;
+  border-radius: 8px;
+}
+
+#workspaces button.focused {
+  color: @bg_dim;
+  background: @purple;
+  border-radius: 8px;
+}
+
+#workspaces button.urgent {
+  color: @bg_dim;
+  background: @red;
+  border-radius: 8px;
+}
+
+#workspaces button:hover {
+  background: alpha(@purple, 0.2);
+  color: @purple;
+  border-radius: 8px;
+}
+
+/* Mode */
+#mode {
+  background: @red;
+  color: @bg_dim;
+  padding: 5px 10px;
+  margin: 5px 0px 5px 5px;
+  border-radius: 12px;
+  border: 2px solid @red;
+}
+
+/* Scratchpad */
+#scratchpad {
+  background: alpha(@bg0, 0.8);
+  color: @fg;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 12px;
+  border: 2px solid alpha(@bg3, 0.5);
+}
+
+#scratchpad.empty {
+  background: transparent;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Clock */
+#clock {
+  background: alpha(@bg0, 0.8);
+  color: @fg;
+  padding: 5px 15px;
+  margin: 5px;
+  border-radius: 12px;
+  border: 2px solid alpha(@blue, 0.5);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* System modules */
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#battery,
+#network,
+#pulseaudio,
+#idle_inhibitor,
+#tray {
+  background: alpha(@bg0, 0.8);
+  color: @fg;
+  padding: 5px 10px;
+  margin: 5px 2px;
+  border-radius: 12px;
+  border: 2px solid alpha(@bg3, 0.5);
+  transition: all 0.3s ease-in-out;
+}
+
+/* CPU */
+#cpu {
+  color: @green;
+  border-color: alpha(@green, 0.5);
+}
+
+#cpu:hover {
+  background: alpha(@green, 0.2);
+  border-color: @green;
+}
+
+/* Memory */
+#memory {
+  color: @yellow;
+  border-color: alpha(@yellow, 0.5);
+}
+
+#memory:hover {
+  background: alpha(@yellow, 0.2);
+  border-color: @yellow;
+}
+
+/* Temperature */
+#temperature {
+  color: @blue;
+  border-color: alpha(@blue, 0.5);
+}
+
+#temperature.critical {
+  color: @red;
+  border-color: @red;
+  background: alpha(@red, 0.2);
+}
+
+/* Backlight */
+#backlight {
+  color: @orange;
+  border-color: alpha(@orange, 0.5);
+}
+
+/* Battery */
+#battery {
+  color: @green;
+  border-color: alpha(@green, 0.5);
+}
+
+#battery.charging {
+  color: @green;
+  border-color: @green;
+}
+
+#battery.warning:not(.charging) {
+  color: @yellow;
+  border-color: @yellow;
+  background: alpha(@yellow, 0.1);
+}
+
+#battery.critical:not(.charging) {
+  color: @red;
+  border-color: @red;
+  background: alpha(@red, 0.2);
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* Network */
+#network {
+  color: @aqua;
+  border-color: alpha(@aqua, 0.5);
+}
+
+#network.disconnected {
+  color: @red;
+  border-color: @red;
+  background: alpha(@red, 0.1);
+}
+
+/* Audio */
+#pulseaudio {
+  color: @purple;
+  border-color: alpha(@purple, 0.5);
+}
+
+#pulseaudio.muted {
+  color: @grey0;
+  border-color: @grey0;
+}
+
+/* Idle inhibitor */
+#idle_inhibitor {
+  color: @purple;
+  border-color: alpha(@purple, 0.5);
+}
+
+#idle_inhibitor.activated {
+  color: @green;
+  border-color: @green;
+  background: alpha(@green, 0.1);
+}
+
+/* Tray */
+#tray {
+  padding: 5px 5px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: @red;
+}
+
+/* Animations */
+@keyframes blink {
+  to {
+    background-color: alpha(@red, 0.5);
+    color: @bg_dim;
+  }
+}
+
+/* Hover effects */
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#backlight:hover,
+#battery:hover,
+#network:hover,
+#pulseaudio:hover,
+#idle_inhibitor:hover {
+  box-shadow:
+    inset 0 -3px transparent,
+    inset 0 -3px;
+}
+
+/* Additional styling for better visual hierarchy */
+.modules-left {
+  margin-left: 12px;
+}
+
+.modules-right {
+  margin-right: 12px;
+}

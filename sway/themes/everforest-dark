@@ -1,0 +1,41 @@
+# Everforest Theme for Sway
+
+# Everforest Dark colors
+set $bg_dim     #1E2326
+set $bg0        #272E33
+set $bg1        #2E383C
+set $bg2        #374145
+set $bg3        #414B50
+set $bg4        #495156
+set $bg5        #4F5B58
+
+set $fg         #D3C6AA
+
+# Everforest accent colors
+set $red        #E67E80
+set $orange     #E69875
+set $yellow     #DBBC7F
+set $green      #A7C080
+set $aqua       #83C092
+set $blue       #7FBBB3
+set $purple     #D699B6
+
+set $grey0      #7A8478
+set $grey1      #859289
+set $grey2      #9DA9A0
+
+# Window colors for Sway
+#                       border    bg        text      indicator  child_border
+client.focused          $green    $bg0      $fg       $yellow    $green
+client.focused_inactive $bg3      $bg1      $grey2    $bg3       $bg3
+client.unfocused        $bg2      $bg_dim   $grey0    $bg2       $bg2
+client.urgent           $red      $red      $bg0      $red       $red
+client.placeholder      $bg0      $bg0      $fg       $bg0       $bg0
+client.background       $bg0
+
+# Additional variables for use in other configs
+set $accent     $green
+set $warning    $yellow
+set $error      $red
+set $success    $green
+set $info       $blue

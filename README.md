@@ -46,6 +46,7 @@ Currently supported themes:
 *   `catppuccin-macchiato` (dark)
 *   `rose-pine-dawn` (light)
 *   `gruvbox-dark`
+*   `everforest` (dark)
 
 Themes under development:
 *   `catppuccin-mocha`
