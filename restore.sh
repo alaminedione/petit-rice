@@ -28,30 +28,8 @@ readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly BACKUP_BASE_DIR="$HOME/.petit-rice-backups"
 readonly CONFIG_DIR="$HOME/.config"
 
-# Configuration lists (must match install.sh)
-readonly -a APPS=(
-    "foot" 
-    "nvim" 
-    "sway" 
-    "swaylock" 
-    "wofi" 
-    "mako" 
-    "fastfetch" 
-    "hypr" 
-    "ghostty"
-    "mpd"
-    "rmpc"
-)
-
-readonly -a HOME_FILES=(
-    ".aliases.sh" 
-    ".wallpaper" 
-    ".fdignore" 
-    ".tgpt_aliases.sh" 
-    ".vimrc" 
-    ".vim" 
-    ".zshrc"
-)
+# Source shared configuration
+source "$SCRIPT_DIR/scripts/config.sh"
 
 # ==============================================================================
 # UTILITY FUNCTIONS

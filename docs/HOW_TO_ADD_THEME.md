@@ -1,136 +1,116 @@
 ## ➕ How to Add a New Theme
 
-Adding a new theme involves creating theme-specific configuration files for each application and then creating a shell script to apply these theme files.
+Adding a new theme involves finding a color palette, creating theme-specific configuration files for each application, and then creating a shell script to apply these theme files.
 
 Here's a step-by-step guide:
 
-### Step 1: Create Theme Files for Each Application
+### Step 1: Find a Color Palette
 
-For each application, you'll need to create a new theme file in its respective theme directory. The naming convention should be consistent (e.g., `your-new-theme.ini`, `your-new-theme.conf`, `your-new-theme.css`).
+Before you start, you need the color palette for your new theme. Most popular themes (like Nord, Gruvbox, Catppuccin, etc.) have official websites where you can find their color palettes with hex codes.
 
-*   **foot**: Create a `.ini` file in `foot/themes/` (e.g., `foot/themes/your-new-theme.ini`).
-*   **wofi**: Create a `.css` file in `wofi/themes` (e.g., `wofi/themes/your-new-theme.css`).
-*   **waybar (Hyprland)**: Create a `.css` file in `hypr/waybar/themes` (e.g., `hypr/waybar/themes/your-new-theme.css`).
-*   **waybar (Sway)**: Create a `.css` file in `sway/waybar/themes` (e.g., `sway/waybar/themes/your-new-theme.css`).
-*   **mako**: Create a configuration file in `mako/themes` (e.g., `mako/themes/your-new-theme`).
-*   **sway**: Create a theme directory in `sway/themes/` containing your Sway-specific configurations (e.g., `sway/themes/your-new-theme`).
-*   **hyprland**: Create a theme directory in `hypr/themes/` containing your Hyprland-specific configurations (e.g., `hypr/themes/your-new-theme`).
-*   **ghostty**: ghostty support already a lot of themes `ghostty +list-themes`.
-*   **vim**: You'll need to install a theme with vim-plug.
-*   **nvim**: NvChad support a lot of themes `<leader>th` in nvim.to see all themes.
-*   **gsettings**: You'll need to install a theme (cursors, icons, themes).
-*   **kvantum**: open Kvantum and add your theme. 
-*   **wallpaper**: put your wallpaper in `~/.wallpaper/` .
-*   **rmpc**: put your rmpc theme in `rmpc/themes`.
+A web search for `"<your-theme-name> color palette"` should give you what you need.
 
-### Step 2: Create a Theme Application Script
+### Step 2: Create Theme Files for Each Application
 
-Create a new shell script in `scripts/change-theme/` (e.g., `scripts/change-theme/set-your-new-theme.sh`). This script will be responsible for applying your new theme to all relevant applications.
+For each application, you'll need to create a new theme file in its respective theme directory. Use the color palette you found in Step 1. The naming convention should be consistent (e.g., `your-new-theme.ini`, `your-new-theme.conf`, `your-new-theme.css`).
 
-Here's the template to adapt:
+*   **foot**: Create a `.ini` file in `foot/themes/`.
+*   **wofi**: Create a `.css` file in `wofi/themes`.
+*   **waybar (Hyprland & Sway)**: Create `.css` files in `hypr/waybar/themes` and `sway/waybar/themes`.
+*   **mako**: Create a configuration file in `mako/themes`.
+*   **sway**: Create a theme file in `sway/themes/`.
+*   **hyprland**: Create a `.conf` file in `hypr/themes/`.
+*   **ghostty**: Check if the theme is already supported with `ghostty --list-themes`.
+*   **vim / nvim**: You may need to install a plugin for the theme.
+*   **gsettings**: You'll need to install GTK themes, icon themes, and cursor themes separately.
+*   **kvantum**: You may need to install a Kvantum theme separately.
+*   **wallpaper**: Place your wallpaper in `home/.wallpaper/`.
+*   **rmpc**: Create a `.ron` file in `rmpc/themes`.
+
+### Step 3: Create a Theme Application Script
+
+Create a new shell script in `scripts/change-theme/` (e.g., `set-your-new-theme.sh`). This script will apply your new theme to all relevant applications.
+
+Here's a template to adapt:
 
 ```bash
 #!/bin/bash
 
-# foot
-sed -i "s|^include=~/.config/foot/themes/.*|include=~/.config/foot/themes/your-new-theme.ini|" ~/.config/foot/foot.ini
-
-# wofi
-cp ~/.config/wofi/themes/your-new-theme.css ~/.config/wofi/style.css
-
-# waybar sway
-cp ~/.config/sway/waybar/themes/your-new-theme.css ~/.config/sway/waybar/style.css
-
-# waybar hyprland
-cp ~/.config/hypr/waybar/themes/your-new-theme.css ~/.config/hypr/waybar/style.css
-
-# vim
-sed -i "s|^colorscheme .*|colorscheme your-new-theme|" ~/.vimrc
-# if the theme is dark do this:
-sed -i "s|^set background=.*|set background=dark|" ~/.vimrc
-# if the theme is light do this:
-sed -i "s|^set background=.*|set background=light|" ~/.vimrc
-
-# nvim
-sed -i "s|theme = .*|theme = \"your-new-theme\",|" ~/.config/nvim/lua/chadrc.lua
-nvim --headless +'lua require("base46").load_all_highlights()' +qa
-
-
-# sway
-sed -i "s|^include=./themes/.*|include=./themes/your-new-theme|" ~/.config/sway/config
+# Sway
+sed -i "s|^include ./themes/.*|include ./themes/your-new-theme|" ~/.config/sway/config
 
 # Hyprland
 cp ~/.config/hypr/themes/your-new-theme.conf ~/.config/hypr/colors.conf
 
-# mako
+# Foot
+sed -i "s|^include=~/.config/foot/themes/.*|include=~/.config/foot/themes/your-new-theme.ini|" ~/.config/foot/foot.ini
+
+# Wofi
+cp ~/.config/wofi/themes/your-new-theme.css ~/.config/wofi/style.css
+
+# Waybar (Sway)
+cp ~/.config/sway/waybar/themes/your-new-theme.css ~/.config/sway/waybar/style.css
+
+# Waybar (Hyprland)
+cp ~/.config/hypr/waybar/themes/your-new-theme.css ~/.config/hypr/waybar/style.css
+
+# Mako
 cp ~/.config/mako/themes/your-new-theme ~/.config/mako/config
 
-# ghostty
+# Ghostty
 sed -i "/^theme=/s|.*|theme=your-new-theme|" ~/.config/ghostty/config
 
-# gsettings
-gsettings set org.gnome.desktop.interface icon-theme 'your-new-theme'
-gsettings set org.gnome.desktop.interface color-scheme 'your-new-color-scheme'
+# Vim
+# For a dark theme:
+sed -i "s|^set background=.*|set background=dark|" ~/.vimrc
+sed -i "s|^colorscheme .*|colorscheme your-new-theme|" ~/.vimrc
+# For a light theme:
+# sed -i "s|^set background=.*|set background=light|" ~/.vimrc
+
+# Nvim
+sed -i "s|theme = .*|theme = \"your-new-theme\",|" ~/.config/nvim/lua/chadrc.lua
+nvim --headless +'lua require(\"base46\").load_all_highlights()'
+
+# GSettings (GTK, Icons, etc.)
 gsettings set org.gnome.desktop.interface gtk-theme "your-new-theme"
+gsettings set org.gnome.desktop.interface icon-theme "your-new-icon-theme"
+gsettings set org.gnome.desktop.interface cursor-theme "your-new-cursor-theme"
+gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 gsettings set org.gnome.desktop.wm.preferences theme "your-new-theme"
-gsettings set org.gnome.desktop.interface font-name 'your-new-font size'
-gsettings set org.gnome.desktop.interface document-font-name 'your-new-font size'
-gsettings set org.gnome.desktop.interface monospace-font-name 'your-new-font size'
+gsettings set org.gnome.desktop.interface font-name 'JetBrains Mono 10.4'
+gsettings set org.gnome.desktop.interface document-font-name 'JetBrains Mono 10.4'
+gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrains Mono 10.4'
 gsettings set org.gnome.desktop.interface text-scaling-factor 1.0
-gsettings set org.gnome.desktop.interface cursor-theme 'your-new-cursor'
-gsettings set org.gnome.desktop.interface cursor-size 'size-cursor'
-
-# if the theme is dark do this:
-echo -e "[Settings] \n gtk-application-prefer-dark-theme=1" > ~/.config/gtk-3.0/settings.ini
-echo -e "[Settings] \n gtk-application-prefer-dark-theme=1" > ~/.config/gtk-4.0/settings.ini
-# if the theme is light do this:
-echo "" > ~/.config/gtk-3.0/settings.ini
-echo "" > ~/.config/gtk-4.0/settings.ini
-
-#  kvantum 
-sed -i "s|theme=.*|theme=your-new-theme|" ~/.config/Kvantum/kvantum.kvconfig
-
-#rmpc (you put your theme name in the quotes without the extension '.ron')
-sed -i 's|theme:Some.*|theme:Some("your-new-theme"),|' ~/.config/rmpc/config.ron
+gsettings set org.gnome.desktop.interface cursor-size 24
 
 # Wallpaper
-sed -i "s|output \* bg .*|output * bg ~/.wallpaper/your-new-wallpaper fill|" ~/.config/sway/config
-sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/your-new-wallpaper|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/your-new-wallpaper|" ~/.config/hypr/hyprpaper.conf
+sed -i "s|output * bg .*|output * bg ~/.wallpaper/your-new-wallpaper.png fill|" ~/.config/sway/config
+sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/your-new-wallpaper.png|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/your-new-wallpaper.png|" ~/.config/hypr/hyprpaper.conf
 
-# Fin
-echo "Catppuccin Macchiato theme applied successfully!"
-echo "Restart your applications to see the changes."
+# RMPC
+sed -i 's|theme:Some.*|theme:Some(\"your-new-theme\"),|' ~/.config/rmpc/config.ron
 
-# reload the configuration
+# Kvantum
+kvantummanager --set YourNewKvantumTheme
+
+# Reload the configuration
 bash "$HOME/.config/petit-rice-scripts/reload-config.sh"
 
+# Fin
+echo "Your New Theme applied successfully!"
+echo "Restart your applications to see the changes."
 ```
 
 Remember to make the new script executable:
-
-```bash
-chmod +x scripts/change-theme/set-your-new-theme.sh
-```
-
-### Step 3: execute the script 
-
-```bash
-./install.sh
-```
-choose this option : 2) Install configurations only
-
-this will update your dotfiles and install the theme.
+`chmod +x scripts/change-theme/set-your-new-theme.sh`
 
 ### Step 4: Test Your New Theme
 
-`Super + t` to open wofi and choose your new theme to apply it.
+The easiest way to apply your new theme is to use the theme selector:
+*   Press `Super + t` to open Wofi.
+*   Select your new theme from the list.
 
-Run your newly created script:
+Alternatively, you can run your script directly from the terminal:
+`./scripts/change-theme/set-your-new-theme.sh`
 
-or
-
-```bash
-bash ~/.config/petit-rice-scripts/change-theme/set-your-new-theme.sh
-```
-
-Then, restart your applications (or your session) to see the changes take effect.
+Restart your applications or your session to ensure all changes are applied correctly.

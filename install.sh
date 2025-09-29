@@ -30,30 +30,8 @@ readonly BACKUP_BASE_DIR="$HOME/.petit-rice-backups"
 readonly BACKUP_DIR="$BACKUP_BASE_DIR/backup-$TIMESTAMP"
 readonly CONFIG_DIR="$HOME/.config"
 
-# Configuration lists
-readonly -a APPS=(
-    "foot" 
-    "nvim" 
-    "sway" 
-    "swaylock" 
-    "wofi" 
-    "mako" 
-    "fastfetch" 
-    "hypr" 
-    "ghostty"
-    "mpd"
-    "rmpc"
-)
-
-readonly -a HOME_FILES=(
-    ".aliases.sh" 
-    ".fdignore" 
-    ".tgpt_aliases.sh" 
-    ".vimrc" 
-    ".vim" 
-    ".zshrc" 
-    ".wallpaper"
-)
+# Source shared configuration
+source "$SCRIPT_DIR/scripts/config.sh"
 
 readonly -a OPTIONAL_SCRIPTS=(
     "scripts/fix_fonts.sh:Font correction"
