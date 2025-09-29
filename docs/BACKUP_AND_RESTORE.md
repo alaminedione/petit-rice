@@ -27,7 +27,7 @@ The backup system creates a timestamped directory for each backup, containing th
 │   ├── foot/
 │   ├── nvim/
 │   ├── sway/
-│   ├── swaylock-effects/
+│   ├── swaylock/
 │   ├── wofi/
 │   ├── mako/
 │   ├── fastfetch/

@@ -1,8 +1,8 @@
 /* Window styling */
 window {
   margin: 0px;
-  border: 1px solid #B7BDF8; /* lavender accent */
-  background-color: #24273A; /* base */
+  border: 1px solid #7fbbb3; /* aqua */
+  background-color: #2d353b; /* bg0 */
   border-radius: 7px;
 }
 
@@ -10,22 +10,22 @@ window {
 #input {
   margin: 5px;
   border: none;
-  color: #CAD3F5;            /* main text */
-  background-color: #363A4F; /* surface */
+  color: #d3c6aa;            /* fg */
+  background-color: #343f44; /* bg1 */
 }
 
 /* Inner box */
 #inner-box {
   margin: 5px;
   border: none;
-  background-color: #24273A; /* base */
+  background-color: #2d353b; /* bg0 */
 }
 
 /* Outer box */
 #outer-box {
   margin: 5px;
   border: none;
-  background-color: #24273A; /* base */
+  background-color: #2d353b; /* bg0 */
 }
 
 /* Scroll area */
@@ -38,28 +38,28 @@ window {
 #text {
   margin: 5px;
   border: none;
-  color: #CAD3F5; /* main text */
+  color: #d3c6aa; /* fg */
 }
 
 /* Active entry text */
 #entry.activatable #text {
-  color: #24273A; /* contrast on highlight selection */
+  color: #2d353b; /* bg0 - for contrast */
 }
 
 /* Generic entries */
 #entry > * {
-  color: #CAD3F5; /* normal text */
+  color: #d3c6aa; /* fg */
 }
 
 /* Selected entry background and highlight */
 #entry:selected {
-  background-color: #363A4F; /* surface highlight */
+  background-color: #a7c080; /* green */
 }
 
 /* Selected entry text */
 #entry:selected #text {
   font-weight: bold;
-  color: #8AADF4; /* sky blue for emphasis */
+  color: #2d353b; /* bg0 - for contrast on green background */
 }
 
 /* Selected image receives no background */

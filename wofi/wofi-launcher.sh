@@ -95,8 +95,8 @@ case $1 in
             "🔒 Lock")
                 case $WM in
                     sway)
-                        if [ -f ~/.config/swaylock-effects/swaylock.sh ]; then
-                            ~/.config/swaylock-effects/swaylock.sh
+                        if [ -f ~/.config/swaylock/swaylock.sh ]; then
+                            ~/.config/swaylock/swaylock.sh
                         else
                             swaylock
                         fi

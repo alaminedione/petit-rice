@@ -23,15 +23,17 @@ cp ~/.config/hypr/waybar/themes/everforest-dark-medium.css ~/.config/hypr/waybar
 cp ~/.config/mako/themes/everforest-dark ~/.config/mako/config
 
 # ghostty
-sed -i "/^theme=/s|.*|theme=EverforestDark|" ~/.config/ghostty/config
+sed -i "/^theme=/s|.*|theme=everforest-dark-medium|" ~/.config/ghostty/config
+
 
 # vim
 sed -i "s|^set background=.*|set background=dark|" ~/.vimrc
 sed -i "s|^colorscheme .*|colorscheme everforest|" ~/.vimrc
 
+
 # nvim
 sed -i "s|theme = .*|theme = \"everforest\",|" ~/.config/nvim/lua/chadrc.lua
-nvim --headless +'lua require(\"base46\").load_all_highlights()' +qa
+nvim --headless +'lua require("base46").load_all_highlights()' +qa
 
 # Wallpaper
 sed -i "s|output * bg .*|output * bg ~/.wallpaper/lofi-anime-girl2.png fill|" ~/.config/sway/config

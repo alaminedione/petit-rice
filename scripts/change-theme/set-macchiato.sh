@@ -32,7 +32,7 @@ nvim --headless +'lua require("base46").load_all_highlights()' +qa
 cp ~/.config/mako/themes/macchiato ~/.config/mako/config
 
 # ghostty
-sed -i "/^theme=/s|.*|theme=catppuccin-macchiato|" ~/.config/ghostty/config
+sed -i "/^theme=/s|.*|theme=Catppuccin Macchiato|" ~/.config/ghostty/config
 
 # gsettings
 gsettings set org.gnome.desktop.interface icon-theme 'Luv'

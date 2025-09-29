@@ -13,7 +13,7 @@ The goal is to provide a fast, reliable, and interactive installation process.
 The `install.sh` script performs the following operations:
 
 1.  **Global Backup of Existing Configurations**:
-    *   Before any installation, the script checks for the presence of existing configurations for the covered applications (foot, nvim, sway, swaylock-effects, wofi, mako, fastfetch, hypr, ghostty, mpd, rmpc) as well as some files in the `$HOME` directory (`.aliases.sh`, `.fdignore`, `.tgpt_aliases.sh`, `.vimrc`,  `.vim`, `.zshrc` `.wallpaper`).
+    *   Before any installation, the script checks for the presence of existing configurations for the covered applications (foot, nvim, sway, swaylock, wofi, mako, fastfetch, hypr, ghostty, mpd, rmpc) as well as some files in the `$HOME` directory (`.aliases.sh`, `.fdignore`, `.tgpt_aliases.sh`, `.vimrc`,  `.vim`, `.zshrc` `.wallpaper`).
     *   If configurations are found, a timestamped backup is created in `$HOME/.petit-rice-backups/backup-YYYYMMDD-HHMMSS/`. This ensures that you can always revert to your previous state.
     *   A `backup-info.txt` file is included in each backup, detailing its content.
 
