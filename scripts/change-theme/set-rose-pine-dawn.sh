@@ -34,7 +34,7 @@ sed -i "s|^include=./themes/.*|include=./themes/rose-pine-dawn|" ~/.config/sway/
 cp ~/.config/mako/themes/rose-pine-dawn ~/.config/mako/config
 
 # ghostty
-sed -i "/^theme=/s|.*|theme=rose-pine-dawn|" ~/.config/ghostty/config
+sed -i "/^theme=/s|.*|theme=Rose Pine Dawn|" ~/.config/ghostty/config
 
 # gsettings
 gsettings set org.gnome.desktop.interface icon-theme 'Luv'

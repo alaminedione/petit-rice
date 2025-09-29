@@ -23,7 +23,7 @@ cp ~/.config/hypr/waybar/themes/gruvbox-dark.css ~/.config/hypr/waybar/style.css
 cp ~/.config/mako/themes/gruvbox-dark ~/.config/mako/config
 
 # ghostty
-sed -i "/^theme=/s|.*|theme=GruvboxDark|" ~/.config/ghostty/config
+sed -i "/^theme=/s|.*|theme=Gruvbox Dark|" ~/.config/ghostty/config
 
 # vim
 sed -i "s|^set background=.*|set background=dark|" ~/.vimrc
