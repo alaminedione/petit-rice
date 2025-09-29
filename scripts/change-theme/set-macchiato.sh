@@ -28,9 +28,6 @@ sed -i "s|theme = .*|theme = \"catppuccin\",|" ~/.config/nvim/lua/chadrc.lua
 nvim --headless +'lua require("base46").load_all_highlights()' +qa
 
 
-# sway
-sed -i "s|^include=./themes/.*|include=./themes/catppuccin-mocha|" ~/.config/sway/config
-
 # mako
 cp ~/.config/mako/themes/macchiato ~/.config/mako/config
 
