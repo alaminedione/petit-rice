@@ -67,20 +67,16 @@ set showmatch
 
 
 call plug#begin()
-
-" Plug 'tpope/vim-sensible'
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && pnpm install' }
-" Explorer de fichiers
 Plug 'preservim/nerdtree'
 " Auto-completion
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" Mode zen
 Plug 'junegunn/goyo.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'rose-pine/vim'
 Plug 'morhetz/gruvbox'
+Plug 'sainnhe/everforest'
 
 call plug#end()
 
@@ -97,9 +93,8 @@ map <F2> :NERDTreeToggle<CR>
 
 inoremap jj <Esc>
 
-"colorscheme  catppuccin_macchiato
+colorscheme  catppuccin_macchiato
 set background=dark
-colorscheme catppuccin_macchiato
 
 nnoremap ; :
 
@@ -129,4 +124,6 @@ function! ToggleNERDTreeWindow()
 endfunction
 
 nnoremap <silent> <leader>e :call ToggleNERDTreeWindow()<CR>
+
+
 

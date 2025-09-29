@@ -53,11 +53,9 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 autoload -Uz compinit
 compinit
 
-plugins=(git zsh-completions fzf vi-mode gitignore zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git zsh-completions fzf  gitignore zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
-source /usr/share/fzf/key-bindings.zsh
-source /usr/share/fzf/completion.zsh
 source <(fzf --zsh)
 source ~/.aliases.sh
 [ -f ~/.env ] && source ~/.env
@@ -90,11 +88,12 @@ setopt LIST_PACKED		   # The completion menu takes less space.
 setopt AUTO_LIST           # Automatically list choices on ambiguous completion.
 setopt COMPLETE_IN_WORD    # Complete from both ends of a word
 
-bindkey -M viins 'jj' vi-cmd-mode
 bindkey "^[." insert-last-word
 
-#eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 
 
 
+
+# Set path for globally installed npm packages
+export PATH=/home/alamine/.npm-global/bin:$PATH

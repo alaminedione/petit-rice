@@ -1,0 +1,228 @@
+/* Palette Everforest Dark Medium */
+@define-color base   #2d353b;
+@define-color mantle #232a2e;
+@define-color crust  #1e2326;
+
+@define-color text     #d3c6aa;
+@define-color subtext0 #9da9a0;
+@define-color subtext1 #a7c080;
+
+@define-color surface0 #374145;
+@define-color surface1 #404c51;
+@define-color surface2 #4a555b;
+
+@define-color overlay0 #859289;
+@define-color overlay1 #9da9a0;
+@define-color overlay2 #a7c080;
+
+@define-color blue      #7fbbb3;
+@define-color lavender  #d699b6;
+@define-color sapphire  #83c092;
+@define-color sky       #87c095;
+@define-color teal      #8ec07c;
+@define-color green     #a7c080;
+@define-color yellow    #dbbc7f;
+@define-color peach     #e69875;
+@define-color maroon    #d699b6;
+@define-color red       #e67e80;
+@define-color mauve     #d699b6;
+@define-color pink      #d699b6;
+@define-color flamingo  #e69875;
+@define-color rosewater #e69875;
+
+/* Configuration globale */
+* {
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", monospace;
+  font-size: 12px;
+  font-weight: 900;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+}
+
+/* Barre principale */
+window#waybar {
+  background: rgba(45, 53, 59, 0.7);
+  border: 1px solid rgba(127, 187, 179, 0.3);
+  border-radius: 12px;
+  color: @text;
+}
+
+/* Style des boutons/modules */
+button,
+label {
+  background: rgba(55, 65, 69, 0.6);
+  color: @text;
+  border-radius: 6px;
+  margin: 2px 1px;
+  padding: 2px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+label:hover {
+  background: rgba(64, 76, 81, 0.8);
+  border-color: rgba(127, 187, 179, 0.5);
+}
+
+/* Workspaces */
+#workspaces {
+  background: rgba(35, 42, 46, 0.7);
+  border-radius: 8px;
+  padding: 1px;
+  margin: 2px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#workspaces button {
+  background: transparent;
+  color: @overlay1;
+  border: none;
+  border-radius: 6px;
+  margin: 1px;
+  padding: 2px 6px;
+}
+
+#workspaces button.active {
+  background: @blue;
+  color: @base;
+}
+
+#workspaces button:hover {
+  background: rgba(127, 187, 179, 0.3);
+  color: @text;
+}
+
+/* Fenêtre active */
+#window {
+  background: rgba(55, 65, 69, 0.6);
+  color: @blue;
+  border-radius: 8px;
+  padding: 4px 16px;
+  margin: 4px 8px;
+  border: 1px solid rgba(127, 187, 179, 0.3);
+  font-weight: 600;
+}
+
+/* Horloge centrale */
+#clock {
+  background: @subtext1;
+  color: @base;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 8px;
+  padding: 3px 12px;
+  margin: 2px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Modules système */
+#cpu {
+  color: @green;
+  border-color: rgba(167, 192, 128, 0.3);
+}
+
+#memory {
+  color: @yellow;
+  border-color: rgba(219, 188, 127, 0.3);
+}
+
+#temperature {
+  color: @peach;
+  border-color: rgba(230, 152, 117, 0.3);
+}
+
+#temperature.critical {
+  color: @red;
+  background: rgba(230, 126, 128, 0.2);
+  border-color: rgba(230, 126, 128, 0.5);
+}
+
+/* Batterie */
+#battery {
+  color: @green;
+  border-color: rgba(167, 192, 128, 0.3);
+}
+
+#battery.charging {
+  color: @blue;
+  border-color: rgba(127, 187, 179, 0.3);
+}
+
+#battery.warning:not(.charging) {
+  color: @yellow;
+  border-color: rgba(219, 188, 127, 0.5);
+}
+
+#battery.critical:not(.charging) {
+  color: @red;
+  background: rgba(230, 126, 128, 0.2);
+  border-color: rgba(230, 126, 128, 0.5);
+}
+
+/* Réseau */
+#network {
+  color: @sapphire;
+  border-color: rgba(131, 192, 146, 0.3);
+}
+
+#network.disconnected {
+  color: @red;
+  border-color: rgba(230, 126, 128, 0.3);
+}
+
+/* Audio */
+#pulseaudio {
+  color: @lavender;
+  border-color: rgba(214, 153, 182, 0.3);
+}
+
+#pulseaudio.muted {
+  color: @overlay1;
+  border-color: rgba(157, 169, 160, 0.3);
+}
+
+/* Idle inhibitor */
+#idle_inhibitor {
+  color: @sky;
+  border-color: rgba(135, 192, 149, 0.3);
+}
+
+#idle_inhibitor.activated {
+  color: @yellow;
+  background: rgba(219, 188, 127, 0.2);
+  border-color: rgba(219, 188, 127, 0.5);
+}
+
+/* Tray */
+#tray {
+  background: rgba(55, 65, 69, 0.6);
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin: 4px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: rgba(230, 126, 128, 0.3);
+}
+
+/* Tooltip */
+tooltip {
+  background: rgba(45, 53, 59, 0.9);
+  border: 1px solid rgba(127, 187, 179, 0.3);
+  border-radius: 8px;
+  color: @text;
+}
+
+tooltip label {
+  background: transparent;
+  border: none;
+  color: @text;
+  margin: 0;
+  padding: 8px;
+}

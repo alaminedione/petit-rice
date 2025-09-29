@@ -1,0 +1,73 @@
+/* Window styling */
+window {
+  margin: 0px;
+  border: 1px solid #B7BDF8; /* lavender accent */
+  background-color: #24273A; /* base */
+  border-radius: 7px;
+}
+
+/* Input bar */
+#input {
+  margin: 5px;
+  border: none;
+  color: #CAD3F5;            /* main text */
+  background-color: #363A4F; /* surface */
+}
+
+/* Inner box */
+#inner-box {
+  margin: 5px;
+  border: none;
+  background-color: #24273A; /* base */
+}
+
+/* Outer box */
+#outer-box {
+  margin: 5px;
+  border: none;
+  background-color: #24273A; /* base */
+}
+
+/* Scroll area */
+#scroll {
+  margin: 0px;
+  border: none;
+}
+
+/* Default text */
+#text {
+  margin: 5px;
+  border: none;
+  color: #CAD3F5; /* main text */
+}
+
+/* Active entry text */
+#entry.activatable #text {
+  color: #24273A; /* contrast on highlight selection */
+}
+
+/* Generic entries */
+#entry > * {
+  color: #CAD3F5; /* normal text */
+}
+
+/* Selected entry background and highlight */
+#entry:selected {
+  background-color: #363A4F; /* surface highlight */
+}
+
+/* Selected entry text */
+#entry:selected #text {
+  font-weight: bold;
+  color: #8AADF4; /* sky blue for emphasis */
+}
+
+/* Selected image receives no background */
+#img:selected {
+  background: none;
+}
+
+/* Selected text receives no background */
+#text:selected {
+  background: none;
+}
