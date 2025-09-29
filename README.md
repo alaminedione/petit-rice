@@ -1,6 +1,8 @@
 <div align="center">
     <h1>【 petit-rice 】</h1>
-    <h3> for Arch-based distributions only (hyprland and sway)</h3>
+    <h2> Hyprland and Sway </h2>
+    <h3>Compatible exclusively with Arch-based distributions </h3>
+    <h3>Currently in development — please do not use yet unless you are an expert</h3>
 </div>
 
 
