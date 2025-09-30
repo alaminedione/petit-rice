@@ -242,14 +242,23 @@ main() {
     check_developer_profile
     
     # Handle potential conflict between swaylock and swaylock-effects
-    if [[ " ${PACKAGES[essential]} " =~ " swaylock-effects " ]] && pacman -Q swaylock &> /dev/null; then
-        if ask_yes_no "Conflict detected: 'swaylock' is installed, but these dotfiles use 'swaylock-effects'. Replace 'swaylock' with 'swaylock-effects'?"; then
-            print_info "Removing 'swaylock' to avoid installation conflicts..."
-            sudo pacman -R --noconfirm swaylock
-            print_success "'swaylock' removed."
-        else
-            print_warning "Skipping installation of 'swaylock-effects' to keep 'swaylock'."
-            PACKAGES["essential"]="${PACKAGES[essential]//swaylock-effects/}"
+    if [[ " ${PACKAGES[essential]} " =~ " swaylock-effects " ]] && command -v swaylock &> /dev/null; then
+        # Find which package owns the swaylock binary
+        owner_pkg_line=$(pacman -Qo $(command -v swaylock) 2>/dev/null)
+        if [[ -n "$owner_pkg_line" ]] && owner_pkg=$(echo "$owner_pkg_line" | awk '{print $5}') && [[ "$owner_pkg" != "swaylock-effects" ]]; then
+            if ask_yes_no "Conflict detected: '$owner_pkg' is installed, but these dotfiles use 'swaylock-effects'. Replace '$owner_pkg' with 'swaylock-effects'?"; then
+                print_info "Removing '$owner_pkg' to avoid installation conflicts..."
+                if sudo pacman -R --noconfirm "$owner_pkg"; then
+                    print_success "'$owner_pkg' removed."
+                else
+                    print_error "Failed to remove '$owner_pkg'. Please remove it manually."
+                    print_warning "Skipping installation of 'swaylock-effects'."
+                    PACKAGES["essential"]="${PACKAGES[essential]//swaylock-effects/}"
+                fi
+            else
+                print_warning "Skipping installation of 'swaylock-effects' to keep '$owner_pkg'."
+                PACKAGES["essential"]="${PACKAGES[essential]//swaylock-effects/}"
+            fi
         fi
     fi
     
