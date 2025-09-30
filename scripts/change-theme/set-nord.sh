@@ -24,7 +24,7 @@ sed -i "s|^set background=.*|set background=dark|" ~/.vimrc
 sed -i "s|^colorscheme .*|colorscheme nord|" ~/.vimrc
 
 # nvim
-sed -i "s|theme = .*|theme = \"Nord\",|" ~/.config/nvim/lua/chadrc.lua
+sed -i "s|theme = .*|theme = \"nord\",|" ~/.config/nvim/lua/chadrc.lua
 nvim --headless +'lua require(\"base46\").load_all_highlights()' +qa
 
 
