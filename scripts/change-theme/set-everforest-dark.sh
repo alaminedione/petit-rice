@@ -36,8 +36,8 @@ sed -i "s|theme = .*|theme = \"everforest\",|" ~/.config/nvim/lua/chadrc.lua
 nvim --headless +'lua require("base46").load_all_highlights()' +qa
 
 # Wallpaper
-sed -i "s|output * bg .*|output * bg ~/.wallpaper/lofi-anime-girl2.png fill|" ~/.config/sway/config
-sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/lofi-anime-girl2.png|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/lofi-anime-girl2.png|" ~/.config/hypr/hyprpaper.conf
+sed -i "s|output * bg .*|output * bg ~/.wallpaper/1-everforest.jpg fill|" ~/.config/sway/config
+sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/1-everforest.jpg|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/1-everforest.jpg|" ~/.config/hypr/hyprpaper.conf
 
 
 # gsettings

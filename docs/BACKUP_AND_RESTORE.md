@@ -34,6 +34,8 @@ The backup system creates a timestamped directory for each backup, containing th
 │   ├── hypr/
 │   ├── rmpc/
 │   ├── mpd/
+│   ├── yazi
+│   ├── geany
 │   ├── home/
 │   │   ├── .zshrc
 │   │   ├── .aliases.sh

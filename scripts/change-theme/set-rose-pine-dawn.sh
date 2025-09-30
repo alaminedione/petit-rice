@@ -57,8 +57,8 @@ mkdir -p ~/.config/Kvantum
 kvantummanager --set KvArc
 
 # Wallpaper
-sed -i "s|output \* bg .*|output * bg ~/.wallpaper/lofi-anime-girl2.png fill|" ~/.config/sway/config
-sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/lofi-anime-girl2.png|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/lofi-anime-girl2.png|" ~/.config/hypr/hyprpaper.conf
+sed -i "s|output \* bg .*|output * bg ~/.wallpaper/1-catppuccin-latte.png fill|" ~/.config/sway/config
+sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/1-catppuccin-latte.png|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/1-catppuccin-latte.png|" ~/.config/hypr/hyprpaper.conf
 
 
 #rmpc 

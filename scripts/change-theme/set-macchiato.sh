@@ -53,9 +53,9 @@ echo -e "[Settings] \n gtk-application-prefer-dark-theme=1" > ~/.config/gtk-4.0/
 mkdir -p "$HOME/.config/Kvantum"
 kvantummanager --set KvArcDark
 
-# Wallpaper
-sed -i "s|output \* bg .*|output * bg ~/.wallpaper/lofi-anime-girl2.png fill|" ~/.config/sway/config
-sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/lofi-anime-girl2.png|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/lofi-anime-girl2.png|" ~/.config/hypr/hyprpaper.conf
+#wallpaper
+sed -i "s|output * bg .*|output * bg ~/.wallpaper/arch.png fill|" ~/.config/sway/config
+sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/arch.png|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/arch.png|" ~/.config/hypr/hyprpaper.conf
 
 #rmpc
 sed -i 's|theme:Some.*|theme:Some("macchiato"),|' ~/.config/rmpc/config.ron

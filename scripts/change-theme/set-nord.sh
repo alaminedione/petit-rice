@@ -54,8 +54,8 @@ mkdir -p "$HOME/.config/Kvantum"
 kvantummanager --set KvArcDark
 
 # Wallpaper
-sed -i "s|output * bg .*|output * bg ~/.wallpaper/lofi-anime-girl2.png fill|" ~/.config/sway/config
-sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/lofi-anime-girl2.png|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/lofi-anime-girl2.png|" ~/.config/hypr/hyprpaper.conf
+sed -i "s|output * bg .*|output * bg ~/.wallpaper/wall-05_1.webp fill|" ~/.config/sway/config
+sed -i -e "s|preload = ~/.wallpaper/.*|preload = ~/.wallpaper/wall-05_1.webp|" -e "s|wallpaper = ,~/.wallpaper/.*|wallpaper = ,~/.wallpaper/wall-05_1.webp|" ~/.config/hypr/hyprpaper.conf
 
 #rmpc
 sed -i 's|theme:Some.*|theme:Some(\"nord\"),|' ~/.config/rmpc/config.ron

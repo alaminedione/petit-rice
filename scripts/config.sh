@@ -15,6 +15,8 @@ readonly -a APPS=(
     "ghostty"
     "mpd"
     "rmpc"
+    "yazi"
+    "geany"
 )
 
 readonly -a HOME_FILES=(
