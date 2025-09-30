@@ -1,0 +1,217 @@
+/* Palette Nord */
+@define-color nord0  #2e3440;
+@define-color nord1  #3b4252;
+@define-color nord2  #434c5e;
+@define-color nord3  #4c566a;
+
+@define-color nord4  #d8dee9;
+@define-color nord5  #e5e9f0;
+@define-color nord6  #eceff4;
+
+@define-color nord7  #8fbcbb;
+@define-color nord8  #88c0d0;
+@define-color nord9  #81a1c1;
+@define-color nord10 #5e81ac;
+
+@define-color nord11 #bf616a;
+@define-color nord12 #d08770;
+@define-color nord13 #ebcb8b;
+@define-color nord14 #a3be8c;
+@define-color nord15 #b48ead;
+
+/* Configuration globale */
+* {
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", monospace;
+  font-size: 12px;
+  font-weight: 900;
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+}
+
+/* Barre principale */
+window#waybar {
+  background: rgba(46, 52, 64, 0.7);
+  border: 1px solid rgba(136, 192, 208, 0.3);
+  border-radius: 12px;
+  color: @nord4;
+}
+
+/* Style des boutons/modules */
+button,
+label {
+  background: rgba(59, 66, 82, 0.6);
+  color: @nord4;
+  border-radius: 6px;
+  margin: 2px 1px;
+  padding: 2px 8px;
+  border: 1px solid rgba(216, 222, 233, 0.1);
+}
+
+label:hover {
+  background: rgba(67, 76, 94, 0.8);
+  border-color: rgba(136, 192, 208, 0.5);
+}
+
+/* Workspaces */
+#workspaces {
+  background: rgba(46, 52, 64, 0.7);
+  border-radius: 8px;
+  padding: 1px;
+  margin: 2px 4px;
+  border: 1px solid rgba(216, 222, 233, 0.1);
+}
+
+#workspaces button {
+  background: transparent;
+  color: @nord3;
+  border: none;
+  border-radius: 6px;
+  margin: 1px;
+  padding: 2px 6px;
+}
+
+#workspaces button.active {
+  background: @nord8;
+  color: @nord0;
+}
+
+#workspaces button:hover {
+  background: rgba(136, 192, 208, 0.3);
+  color: @nord6;
+}
+
+/* Fenêtre active */
+#window {
+  background: rgba(59, 66, 82, 0.6);
+  color: @nord8;
+  border-radius: 8px;
+  padding: 4px 16px;
+  margin: 4px 8px;
+  border: 1px solid rgba(136, 192, 208, 0.3);
+  font-weight: 600;
+}
+
+/* Horloge centrale */
+#clock {
+  background: @nord9;
+  color: @nord0;
+  font-weight: bold;
+  font-size: 12px;
+  border-radius: 8px;
+  padding: 3px 12px;
+  margin: 2px 4px;
+  border: 1px solid rgba(129, 161, 193, 0.2);
+}
+
+/* Modules système */
+#cpu {
+  color: @nord14;
+  border-color: rgba(163, 190, 140, 0.3);
+}
+
+#memory {
+  color: @nord13;
+  border-color: rgba(235, 203, 139, 0.3);
+}
+
+#temperature {
+  color: @nord12;
+  border-color: rgba(208, 135, 112, 0.3);
+}
+
+#temperature.critical {
+  color: @nord11;
+  background: rgba(191, 97, 106, 0.2);
+  border-color: rgba(191, 97, 106, 0.5);
+}
+
+/* Batterie */
+#battery {
+  color: @nord14;
+  border-color: rgba(163, 190, 140, 0.3);
+}
+
+#battery.charging {
+  color: @nord8;
+  border-color: rgba(136, 192, 208, 0.3);
+}
+
+#battery.warning:not(.charging) {
+  color: @nord13;
+  border-color: rgba(235, 203, 139, 0.5);
+}
+
+#battery.critical:not(.charging) {
+  color: @nord11;
+  background: rgba(191, 97, 106, 0.2);
+  border-color: rgba(191, 97, 106, 0.5);
+}
+
+/* Réseau */
+#network {
+  color: @nord7;
+  border-color: rgba(143, 188, 187, 0.3);
+}
+
+#network.disconnected {
+  color: @nord11;
+  border-color: rgba(191, 97, 106, 0.3);
+}
+
+/* Audio */
+#pulseaudio {
+  color: @nord15;
+  border-color: rgba(180, 142, 173, 0.3);
+}
+
+#pulseaudio.muted {
+  color: @nord3;
+  border-color: rgba(76, 86, 106, 0.3);
+}
+
+/* Idle inhibitor */
+#idle_inhibitor {
+  color: @nord7;
+  border-color: rgba(143, 188, 187, 0.3);
+}
+
+#idle_inhibitor.activated {
+  color: @nord13;
+  background: rgba(235, 203, 139, 0.2);
+  border-color: rgba(235, 203, 139, 0.5);
+}
+
+/* Tray */
+#tray {
+  background: rgba(59, 66, 82, 0.6);
+  border-radius: 8px;
+  padding: 4px 8px;
+  margin: 4px 8px;
+  border: 1px solid rgba(216, 222, 233, 0.1);
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: rgba(191, 97, 106, 0.3);
+}
+
+/* Tooltip */
+tooltip {
+  background: rgba(46, 52, 64, 0.9);
+  border: 1px solid rgba(136, 192, 208, 0.3);
+  border-radius: 8px;
+  color: @nord4;
+}
+
+tooltip label {
+  background: transparent;
+  border: none;
+  color: @nord4;
+  margin: 0;
+  padding: 8px;
+}

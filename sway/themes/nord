@@ -1,0 +1,56 @@
+# Nord Theme for Sway
+# Official Nord palette
+
+# Polar Night (dark colors)
+set $nord0  #2e3440
+set $nord1  #3b4252
+set $nord2  #434c5e
+set $nord3  #4c566a
+
+# Snow Storm (light colors)
+set $nord4  #d8dee9
+set $nord5  #e5e9f0
+set $nord6  #eceff4
+
+# Frost (blue/cyan colors)
+set $nord7  #8fbcbb
+set $nord8  #88c0d0
+set $nord9  #81a1c1
+set $nord10 #5e81ac
+
+# Aurora (accent colors)
+set $nord11 #bf616a
+set $nord12 #d08770
+set $nord13 #ebcb8b
+set $nord14 #a3be8c
+set $nord15 #b48ead
+
+# Semantic aliases
+set $text      $nord4
+set $subtext1  $nord5
+set $subtext0  $nord6
+set $overlay2  $nord3
+set $overlay1  $nord3
+set $overlay0  $nord3
+set $surface2  $nord2
+set $surface1  $nord1
+set $surface0  $nord1
+set $base      $nord0
+set $mantle    $nord0
+set $crust     $nord0
+
+# Window colors for Sway
+#                       border    bg        text      indicator  child_border
+client.focused          $nord8    $base     $text     $nord7     $nord8
+client.focused_inactive $overlay0 $base     $text     $nord7     $overlay0
+client.unfocused        $overlay0 $base     $subtext1 $nord7     $overlay0
+client.urgent           $nord11   $base     $nord11   $overlay0  $nord11
+client.placeholder      $overlay0 $base     $text     $overlay0  $overlay0
+client.background       $base
+
+# Additional variables for use in other configs
+set $accent     $nord8
+set $warning    $nord13
+set $error      $nord11
+set $success    $nord14
+set $info       $nord9

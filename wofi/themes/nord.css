@@ -1,0 +1,73 @@
+/* Window styling */
+window {
+  margin: 0px;
+  border: 1px solid #88c0d0; /* nord8 */
+  background-color: #2e3440; /* nord0 */
+  border-radius: 7px;
+}
+
+/* Input bar */
+#input {
+  margin: 5px;
+  border: none;
+  color: #d8dee9;            /* nord4 */
+  background-color: #3b4252; /* nord1 */
+}
+
+/* Inner box */
+#inner-box {
+  margin: 5px;
+  border: none;
+  background-color: #2e3440; /* nord0 */
+}
+
+/* Outer box */
+#outer-box {
+  margin: 5px;
+  border: none;
+  background-color: #2e3440; /* nord0 */
+}
+
+/* Scroll area */
+#scroll {
+  margin: 0px;
+  border: none;
+}
+
+/* Default text */
+#text {
+  margin: 5px;
+  border: none;
+  color: #d8dee9; /* nord4 */
+}
+
+/* Active entry text */
+#entry.activatable #text {
+  color: #2e3440; /* nord0 - for contrast */
+}
+
+/* Generic entries */
+#entry > * {
+  color: #d8dee9; /* nord4 */
+}
+
+/* Selected entry background and highlight */
+#entry:selected {
+  background-color: #88c0d0; /* nord8 */
+}
+
+/* Selected entry text */
+#entry:selected #text {
+  font-weight: bold;
+  color: #2e3440; /* nord0 - for contrast on blue background */
+}
+
+/* Selected image receives no background */
+#img:selected {
+  background: none;
+}
+
+/* Selected text receives no background */
+#text:selected {
+  background: none;
+}

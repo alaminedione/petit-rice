@@ -1,0 +1,316 @@
+/* Nord Theme for Waybar */
+
+/* Import Nord colors */
+@define-color nord0 #2e3440;
+@define-color nord1 #3b4252;
+@define-color nord2 #434c5e;
+@define-color nord3 #4c566a;
+@define-color nord4 #d8dee9;
+@define-color nord5 #e5e9f0;
+@define-color nord6 #eceff4;
+@define-color nord7 #8fbcbb;
+@define-color nord8 #88c0d0;
+@define-color nord9 #81a1c1;
+@define-color nord10 #5e81ac;
+@define-color nord11 #bf616a;
+@define-color nord12 #d08770;
+@define-color nord13 #ebcb8b;
+@define-color nord14 #a3be8c;
+@define-color nord15 #b48ead;
+
+/* Semantic aliases */
+@define-color text @nord4;
+@define-color subtext1 @nord5;
+@define-color subtext0 @nord6;
+@define-color overlay2 @nord3;
+@define-color overlay1 @nord3;
+@define-color overlay0 @nord3;
+@define-color surface2 @nord2;
+@define-color surface1 @nord1;
+@define-color surface0 @nord1;
+@define-color base @nord0;
+@define-color mantle @nord0;
+@define-color crust @nord0;
+
+/* Reset styles */
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  min-height: 0;
+}
+
+/* Main window */
+window#waybar {
+  background: alpha(@base, 0.9);
+  border-radius: 12px;
+  color: @text;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/* Tooltips */
+tooltip {
+  background: @surface0;
+  border-radius: 8px;
+  border: 2px solid @nord8;
+  color: @text;
+}
+
+tooltip label {
+  color: @text;
+}
+
+/* Workspaces */
+#workspaces {
+  background: alpha(@surface0, 0.8);
+  margin: 5px;
+  padding: 0px 5px;
+  border-radius: 12px;
+  border: 2px solid alpha(@nord8, 0.5);
+}
+
+#workspaces button {
+  padding: 5px 10px;
+  margin: 3px 3px;
+  border-radius: 8px;
+  color: @text;
+  background: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+#workspaces button.active {
+  color: @base;
+  background: @nord8;
+  border-radius: 8px;
+}
+
+#workspaces button.focused {
+  color: @base;
+  background: @nord9;
+  border-radius: 8px;
+}
+
+#workspaces button.urgent {
+  color: @base;
+  background: @nord11;
+  border-radius: 8px;
+}
+
+#workspaces button:hover {
+  background: alpha(@nord8, 0.2);
+  color: @nord8;
+  border-radius: 8px;
+}
+
+/* Mode */
+#mode {
+  background: @nord11;
+  color: @base;
+  padding: 5px 10px;
+  margin: 5px 0px 5px 5px;
+  border-radius: 12px;
+  border: 2px solid @nord11;
+}
+
+/* Scratchpad */
+#scratchpad {
+  background: alpha(@surface0, 0.8);
+  color: @text;
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 12px;
+  border: 2px solid alpha(@overlay0, 0.5);
+}
+
+#scratchpad.empty {
+  background: transparent;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Clock */
+#clock {
+  background: alpha(@surface0, 0.8);
+  color: @text;
+  padding: 5px 15px;
+  margin: 5px;
+  border-radius: 12px;
+  border: 2px solid alpha(@nord9, 0.5);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* System modules */
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#battery,
+#network,
+#pulseaudio,
+#idle_inhibitor,
+#tray {
+  background: alpha(@surface0, 0.8);
+  color: @text;
+  padding: 5px 10px;
+  margin: 5px 2px;
+  border-radius: 12px;
+  border: 2px solid alpha(@overlay0, 0.5);
+  transition: all 0.3s ease-in-out;
+}
+
+/* CPU */
+#cpu {
+  color: @nord14;
+  border-color: alpha(@nord14, 0.5);
+}
+
+#cpu:hover {
+  background: alpha(@nord14, 0.2);
+  border-color: @nord14;
+}
+
+/* Memory */
+#memory {
+  color: @nord13;
+  border-color: alpha(@nord13, 0.5);
+}
+
+#memory:hover {
+  background: alpha(@nord13, 0.2);
+  border-color: @nord13;
+}
+
+/* Temperature */
+#temperature {
+  color: @nord9;
+  border-color: alpha(@nord9, 0.5);
+}
+
+#temperature.critical {
+  color: @nord11;
+  border-color: @nord11;
+  background: alpha(@nord11, 0.2);
+}
+
+/* Backlight */
+#backlight {
+  color: @nord12;
+  border-color: alpha(@nord12, 0.5);
+}
+
+/* Battery */
+#battery {
+  color: @nord14;
+  border-color: alpha(@nord14, 0.5);
+}
+
+#battery.charging {
+  color: @nord14;
+  border-color: @nord14;
+}
+
+#battery.warning:not(.charging) {
+  color: @nord13;
+  border-color: @nord13;
+  background: alpha(@nord13, 0.1);
+}
+
+#battery.critical:not(.charging) {
+  color: @nord11;
+  border-color: @nord11;
+  background: alpha(@nord11, 0.2);
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+/* Network */
+#network {
+  color: @nord7;
+  border-color: alpha(@nord7, 0.5);
+}
+
+#network.disconnected {
+  color: @nord11;
+  border-color: @nord11;
+  background: alpha(@nord11, 0.1);
+}
+
+/* Audio */
+#pulseaudio {
+  color: @nord15;
+  border-color: alpha(@nord15, 0.5);
+}
+
+#pulseaudio.muted {
+  color: @overlay0;
+  border-color: @overlay0;
+}
+
+/* Idle inhibitor */
+#idle_inhibitor {
+  color: @nord8;
+  border-color: alpha(@nord8, 0.5);
+}
+
+#idle_inhibitor.activated {
+  color: @nord14;
+  border-color: @nord14;
+  background: alpha(@nord14, 0.1);
+}
+
+/* Tray */
+#tray {
+  padding: 5px 5px;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background-color: @nord11;
+}
+
+/* Animations */
+@keyframes blink {
+  to {
+    background-color: alpha(@nord11, 0.5);
+    color: @base;
+  }
+}
+
+/* Hover effects */
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#backlight:hover,
+#battery:hover,
+#network:hover,
+#pulseaudio:hover,
+#idle_inhibitor:hover {
+  box-shadow:
+    inset 0 -3px transparent,
+    inset 0 -3px;
+}
+
+/* Additional styling for better visual hierarchy */
+.modules-left {
+  margin-left: 12px;
+}
+
+.modules-right {
+  margin-right: 12px;
+}

@@ -77,6 +77,7 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'rose-pine/vim'
 Plug 'morhetz/gruvbox'
 Plug 'sainnhe/everforest'
+Plug 'arcticicestudio/nord-vim'
 
 call plug#end()
 
@@ -93,8 +94,8 @@ map <F2> :NERDTreeToggle<CR>
 
 inoremap jj <Esc>
 
-colorscheme  catppuccin_macchiato
 set background=dark
+colorscheme nord
 
 nnoremap ; :
 
