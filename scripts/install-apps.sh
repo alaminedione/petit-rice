@@ -94,57 +94,53 @@ install_packages() {
     echo -e "${BLUE}Packages:${NC} ${packages[*]}"
     echo ""
     
-    if ask_yes_no "Install $description?"; then
-        echo "📦 Installing packages..."
+    echo "📦 Installing packages..."
+    
+    # Progress indicator
+    local total=${#packages[@]}
+    local current=0
+    local failed_packages=()
+    
+    for package in "${packages[@]}"; do
+        current=$((current + 1))
+        echo -e "${BLUE}[$current/$total]${NC} Installing $package..."
         
-        # Progress indicator
-        local total=${#packages[@]}
-        local current=0
-        local failed_packages=()
-        
-        for package in "${packages[@]}"; do
-            current=$((current + 1))
-            echo -e "${BLUE}[$current/$total]${NC} Installing $package..."
+        # Try installation without suppressing stderr for better debugging
+        if ! yay -S --needed --noconfirm "$package"; then
+            print_error "Initial installation of $package failed."
+            local retry_attempt=1
+            local max_retries=10
+            local install_success=false
             
-            # Try installation without suppressing stderr for better debugging
-            if ! yay -S --needed --noconfirm "$package"; then
-                print_error "Initial installation of $package failed."
-                local retry_attempt=1
-                local max_retries=10
-                local install_success=false
-                
-                while [ $retry_attempt -le $max_retries ]; do
-                    if ask_yes_no "Do you want to try reinstalling $package? (Attempt $retry_attempt/$max_retries)"; then
-                        echo -e "${BLUE}[$current/$total]${NC} Retrying installation of $package... (Attempt $retry_attempt)"
-                        if yay -S --needed --noconfirm "$package"; then
-                            print_success "$package reinstalled successfully."
-                            install_success=true
-                            break
-                        else
-                            print_warning "Attempt $retry_attempt to install $package failed."
-                            retry_attempt=$((retry_attempt + 1))
-                        fi
-                    else
-                        print_info "Skipping $package as requested, continuing..."
+            while [ $retry_attempt -le $max_retries ]; do
+                if ask_yes_no "Do you want to try reinstalling $package? (Attempt $retry_attempt/$max_retries)"; then
+                    echo -e "${BLUE}[$current/$total]${NC} Retrying installation of $package... (Attempt $retry_attempt)"
+                    if yay -S --needed --noconfirm "$package"; then
+                        print_success "$package reinstalled successfully."
+                        install_success=true
                         break
+                    else
+                        print_warning "Attempt $retry_attempt to install $package failed."
+                        retry_attempt=$((retry_attempt + 1))
                     fi
-                done
-                
-                if [ "$install_success" = false ]; then
-                    failed_packages+=("$package")
-                    print_error "Failed to install $package after all attempts, continuing..."
+                else
+                    print_info "Skipping $package as requested, continuing..."
+                    break
                 fi
+            done
+            
+            if [ "$install_success" = false ]; then
+                failed_packages+=("$package")
+                print_error "Failed to install $package after all attempts, continuing..."
             fi
-        done
-        
-        # Summary
-        if [ ${#failed_packages[@]} -eq 0 ]; then
-            print_success "$description installed successfully"
-        else
-            print_warning "$description partially installed. Failed packages: ${failed_packages[*]}"
         fi
+    done
+    
+    # Summary
+    if [ ${#failed_packages[@]} -eq 0 ]; then
+        print_success "$description installed successfully"
     else
-        print_info "$description skipped"
+        print_warning "$description partially installed. Failed packages: ${failed_packages[*]}"
     fi
     echo ""
 }
