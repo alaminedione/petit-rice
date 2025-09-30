@@ -46,6 +46,7 @@ Currently supported themes:
 *   `rose-pine-dawn` (light)
 *   `gruvbox-dark`
 *   `everforest` (dark)
+*   `nord`
 
 Themes under development:
 *   `catppuccin-mocha`
@@ -53,7 +54,6 @@ Themes under development:
 *   `catppuccin-frappe`
 *   `rose-pine-moon` (dark)
 *   `gruvbox-light`
-*   `nord`
 
 ## 🚀 Covered Applications
 
