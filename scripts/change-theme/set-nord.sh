@@ -24,7 +24,7 @@ sed -i "s|^set background=.*|set background=dark|" ~/.vimrc
 sed -i "s|^colorscheme .*|colorscheme nord|" ~/.vimrc
 
 # nvim
-sed -i "s|theme = .*|theme = \"nord\",|" ~/.config/nvim/lua/chadrc.lua
+sed -i "s|theme = .*|theme = \"Nord\",|" ~/.config/nvim/lua/chadrc.lua
 nvim --headless +'lua require(\"base46\").load_all_highlights()' +qa
 
 
@@ -32,7 +32,7 @@ nvim --headless +'lua require(\"base46\").load_all_highlights()' +qa
 cp ~/.config/mako/themes/nord ~/.config/mako/config
 
 # ghostty
-sed -i "/^theme=/s|.*|theme=nord|" ~/.config/ghostty/config
+sed -i "/^theme=/s|.*|theme=Nord|" ~/.config/ghostty/config
 
 # gsettings
 gsettings set org.gnome.desktop.interface icon-theme 'Luv'
