@@ -8,3 +8,4 @@
 - [ ] adpater la configuration selon que le systeme utilise pipewire ou pulseaudio, pour l'instant on suppose que c'est pipewire
 - [ ]  nvim --headless :SupermavenUseFree
 - configure l'adpatation des themes de geany 
+- [ ] fix wofi window open
