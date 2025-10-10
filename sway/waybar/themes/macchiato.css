@@ -1,32 +1,32 @@
-/* Catppuccin Mocha Theme for Waybar */
+/* Catppuccin Macchiato Theme for Waybar */
 
-/* Import Catppuccin colors */
-@define-color rosewater #f5e0dc;
-@define-color flamingo #f2cdcd;
-@define-color pink #f5c2e7;
-@define-color mauve #cba6f7;
-@define-color red #f38ba8;
-@define-color maroon #eba0ac;
-@define-color peach #fab387;
-@define-color yellow #f9e2af;
-@define-color green #a6e3a1;
-@define-color teal #94e2d5;
-@define-color sky #89dceb;
-@define-color sapphire #74c7ec;
-@define-color blue #89b4fa;
-@define-color lavender #b4befe;
-@define-color text #cdd6f4;
-@define-color subtext1 #bac2de;
-@define-color subtext0 #a6adc8;
-@define-color overlay2 #9399b2;
-@define-color overlay1 #7f849c;
-@define-color overlay0 #6c7086;
-@define-color surface2 #585b70;
-@define-color surface1 #45475a;
-@define-color surface0 #313244;
-@define-color base #1e1e2e;
-@define-color mantle #181825;
-@define-color crust #11111b;
+/* Import Catppuccin Macchiato colors */
+@define-color base #24273a;
+@define-color mantle #1e2030;
+@define-color crust #181926;
+@define-color surface0 #363a4f;
+@define-color surface1 #494d64;
+@define-color surface2 #5b6078;
+@define-color overlay0 #6e738d;
+@define-color overlay1 #8087a2;
+@define-color overlay2 #939ab7;
+@define-color subtext0 #a5adcb;
+@define-color subtext1 #b8c0e0;
+@define-color text #cad3f5;
+@define-color lavender #b7bdf8;
+@define-color blue #8aadf4;
+@define-color sapphire #7dc4e4;
+@define-color sky #91d7e3;
+@define-color teal #8bd5ca;
+@define-color green #a6da95;
+@define-color yellow #eed49f;
+@define-color peach #f5a97f;
+@define-color maroon #ee99a0;
+@define-color red #ed8796;
+@define-color mauve #c6a0f6;
+@define-color pink #f5bde6;
+@define-color flamingo #f0c6c6;
+@define-color rosewater #f4dbd6;
 
 /* Reset styles */
 * {
@@ -40,7 +40,7 @@
 
 /* Main window */
 window#waybar {
-  background: alpha(@base, 0.9);
+  background: alpha(@crust, 0.9);
   border-radius: 12px;
   color: @text;
   transition-property: background-color;
@@ -53,9 +53,9 @@ window#waybar.hidden {
 
 /* Tooltips */
 tooltip {
-  background: @surface0;
+  background: @base;
   border-radius: 8px;
-  border: 2px solid @lavender;
+  border: 2px solid @mauve;
   color: @text;
 }
 
@@ -65,11 +65,11 @@ tooltip label {
 
 /* Workspaces */
 #workspaces {
-  background: alpha(@surface0, 0.8);
+  background: alpha(@base, 0.8);
   margin: 5px;
   padding: 0px 5px;
   border-radius: 12px;
-  border: 2px solid alpha(@lavender, 0.5);
+  border: 2px solid alpha(@mauve, 0.5);
 }
 
 #workspaces button {
@@ -82,33 +82,33 @@ tooltip label {
 }
 
 #workspaces button.active {
-  color: @base;
-  background: @lavender;
+  color: @crust;
+  background: @mauve;
   border-radius: 8px;
 }
 
 #workspaces button.focused {
-  color: @base;
+  color: @crust;
   background: @mauve;
   border-radius: 8px;
 }
 
 #workspaces button.urgent {
-  color: @base;
+  color: @crust;
   background: @red;
   border-radius: 8px;
 }
 
 #workspaces button:hover {
-  background: alpha(@lavender, 0.2);
-  color: @lavender;
+  background: alpha(@mauve, 0.2);
+  color: @mauve;
   border-radius: 8px;
 }
 
 /* Mode */
 #mode {
   background: @red;
-  color: @base;
+  color: @crust;
   padding: 5px 10px;
   margin: 5px 0px 5px 5px;
   border-radius: 12px;
@@ -117,12 +117,12 @@ tooltip label {
 
 /* Scratchpad */
 #scratchpad {
-  background: alpha(@surface0, 0.8);
+  background: alpha(@base, 0.8);
   color: @text;
   padding: 5px 10px;
   margin: 5px;
   border-radius: 12px;
-  border: 2px solid alpha(@overlay0, 0.5);
+  border: 2px solid alpha(@surface2, 0.5);
 }
 
 #scratchpad.empty {
@@ -134,7 +134,7 @@ tooltip label {
 
 /* Clock */
 #clock {
-  background: alpha(@surface0, 0.8);
+  background: alpha(@base, 0.8);
   color: @text;
   padding: 5px 15px;
   margin: 5px;
@@ -154,12 +154,12 @@ tooltip label {
 #pulseaudio,
 #idle_inhibitor,
 #tray {
-  background: alpha(@surface0, 0.8);
+  background: alpha(@base, 0.8);
   color: @text;
   padding: 5px 10px;
   margin: 5px 2px;
   border-radius: 12px;
-  border: 2px solid alpha(@overlay0, 0.5);
+  border: 2px solid alpha(@surface2, 0.5);
   transition: all 0.3s ease-in-out;
 }
 
@@ -245,8 +245,8 @@ tooltip label {
 
 /* Audio */
 #pulseaudio {
-  color: @pink;
-  border-color: alpha(@pink, 0.5);
+  color: @mauve;
+  border-color: alpha(@mauve, 0.5);
 }
 
 #pulseaudio.muted {
@@ -284,7 +284,7 @@ tooltip label {
 @keyframes blink {
   to {
     background-color: alpha(@red, 0.5);
-    color: @base;
+    color: @crust;
   }
 }
 
@@ -300,7 +300,6 @@ tooltip label {
   box-shadow:
     inset 0 -3px transparent,
     inset 0 -3px;
-  /* transform: translateY(-2px); */ /* Propriété non supportée par GTK */
 }
 
 /* Additional styling for better visual hierarchy */

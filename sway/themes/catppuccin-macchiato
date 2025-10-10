@@ -46,3 +46,8 @@ set $warning    $yellow
 set $error      $red
 set $success    $green
 set $info       $blue
+
+
+### Output configuration
+output * bg ~/.wallpaper/arch.png fill
+

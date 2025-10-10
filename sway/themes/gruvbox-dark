@@ -51,3 +51,6 @@ set $warning    $yellow
 set $error      $red
 set $success    $green
 set $info       $blue
+
+
+output * bg ~/.wallpaper/lofi-anime-girl2.png fill

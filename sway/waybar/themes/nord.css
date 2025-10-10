@@ -1,36 +1,26 @@
 /* Nord Theme for Waybar */
 
 /* Import Nord colors */
+/* Polar Night */
 @define-color nord0 #2e3440;
 @define-color nord1 #3b4252;
 @define-color nord2 #434c5e;
 @define-color nord3 #4c566a;
+/* Snow Storm */
 @define-color nord4 #d8dee9;
 @define-color nord5 #e5e9f0;
 @define-color nord6 #eceff4;
+/* Frost */
 @define-color nord7 #8fbcbb;
 @define-color nord8 #88c0d0;
 @define-color nord9 #81a1c1;
 @define-color nord10 #5e81ac;
+/* Aurora */
 @define-color nord11 #bf616a;
 @define-color nord12 #d08770;
 @define-color nord13 #ebcb8b;
 @define-color nord14 #a3be8c;
 @define-color nord15 #b48ead;
-
-/* Semantic aliases */
-@define-color text @nord4;
-@define-color subtext1 @nord5;
-@define-color subtext0 @nord6;
-@define-color overlay2 @nord3;
-@define-color overlay1 @nord3;
-@define-color overlay0 @nord3;
-@define-color surface2 @nord2;
-@define-color surface1 @nord1;
-@define-color surface0 @nord1;
-@define-color base @nord0;
-@define-color mantle @nord0;
-@define-color crust @nord0;
 
 /* Reset styles */
 * {
@@ -44,9 +34,9 @@
 
 /* Main window */
 window#waybar {
-  background: alpha(@base, 0.9);
+  background: alpha(@nord0, 0.9);
   border-radius: 12px;
-  color: @text;
+  color: @nord4;
   transition-property: background-color;
   transition-duration: 0.5s;
 }
@@ -57,62 +47,62 @@ window#waybar.hidden {
 
 /* Tooltips */
 tooltip {
-  background: @surface0;
+  background: @nord1;
   border-radius: 8px;
-  border: 2px solid @nord8;
-  color: @text;
+  border: 2px solid @nord15;
+  color: @nord4;
 }
 
 tooltip label {
-  color: @text;
+  color: @nord4;
 }
 
 /* Workspaces */
 #workspaces {
-  background: alpha(@surface0, 0.8);
+  background: alpha(@nord1, 0.8);
   margin: 5px;
   padding: 0px 5px;
   border-radius: 12px;
-  border: 2px solid alpha(@nord8, 0.5);
+  border: 2px solid alpha(@nord15, 0.5);
 }
 
 #workspaces button {
   padding: 5px 10px;
   margin: 3px 3px;
   border-radius: 8px;
-  color: @text;
+  color: @nord4;
   background: transparent;
   transition: all 0.3s ease-in-out;
 }
 
 #workspaces button.active {
-  color: @base;
-  background: @nord8;
+  color: @nord0;
+  background: @nord15;
   border-radius: 8px;
 }
 
 #workspaces button.focused {
-  color: @base;
-  background: @nord9;
+  color: @nord0;
+  background: @nord15;
   border-radius: 8px;
 }
 
 #workspaces button.urgent {
-  color: @base;
+  color: @nord0;
   background: @nord11;
   border-radius: 8px;
 }
 
 #workspaces button:hover {
-  background: alpha(@nord8, 0.2);
-  color: @nord8;
+  background: alpha(@nord15, 0.2);
+  color: @nord15;
   border-radius: 8px;
 }
 
 /* Mode */
 #mode {
   background: @nord11;
-  color: @base;
+  color: @nord0;
   padding: 5px 10px;
   margin: 5px 0px 5px 5px;
   border-radius: 12px;
@@ -121,12 +111,12 @@ tooltip label {
 
 /* Scratchpad */
 #scratchpad {
-  background: alpha(@surface0, 0.8);
-  color: @text;
+  background: alpha(@nord1, 0.8);
+  color: @nord4;
   padding: 5px 10px;
   margin: 5px;
   border-radius: 12px;
-  border: 2px solid alpha(@overlay0, 0.5);
+  border: 2px solid alpha(@nord3, 0.5);
 }
 
 #scratchpad.empty {
@@ -138,12 +128,12 @@ tooltip label {
 
 /* Clock */
 #clock {
-  background: alpha(@surface0, 0.8);
-  color: @text;
+  background: alpha(@nord1, 0.8);
+  color: @nord4;
   padding: 5px 15px;
   margin: 5px;
   border-radius: 12px;
-  border: 2px solid alpha(@nord9, 0.5);
+  border: 2px solid alpha(@nord8, 0.5);
   font-weight: bold;
   font-size: 16px;
 }
@@ -158,12 +148,12 @@ tooltip label {
 #pulseaudio,
 #idle_inhibitor,
 #tray {
-  background: alpha(@surface0, 0.8);
-  color: @text;
+  background: alpha(@nord1, 0.8);
+  color: @nord4;
   padding: 5px 10px;
   margin: 5px 2px;
   border-radius: 12px;
-  border: 2px solid alpha(@overlay0, 0.5);
+  border: 2px solid alpha(@nord3, 0.5);
   transition: all 0.3s ease-in-out;
 }
 
@@ -191,8 +181,8 @@ tooltip label {
 
 /* Temperature */
 #temperature {
-  color: @nord9;
-  border-color: alpha(@nord9, 0.5);
+  color: @nord8;
+  border-color: alpha(@nord8, 0.5);
 }
 
 #temperature.critical {
@@ -254,14 +244,14 @@ tooltip label {
 }
 
 #pulseaudio.muted {
-  color: @overlay0;
-  border-color: @overlay0;
+  color: @nord3;
+  border-color: @nord3;
 }
 
 /* Idle inhibitor */
 #idle_inhibitor {
-  color: @nord8;
-  border-color: alpha(@nord8, 0.5);
+  color: @nord9;
+  border-color: alpha(@nord9, 0.5);
 }
 
 #idle_inhibitor.activated {
@@ -288,7 +278,7 @@ tooltip label {
 @keyframes blink {
   to {
     background-color: alpha(@nord11, 0.5);
-    color: @base;
+    color: @nord0;
   }
 }
 

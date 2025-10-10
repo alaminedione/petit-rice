@@ -61,8 +61,6 @@ set $browser firefox
 set $file_manager Thunar
 set $code gvim
 
-### Output configuration
-output * bg ~/.wallpaper/lofi-anime-girl2.png fill
 
 ### Idle configuration
 exec swayidle -w \

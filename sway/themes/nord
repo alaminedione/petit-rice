@@ -54,3 +54,6 @@ set $warning    $nord13
 set $error      $nord11
 set $success    $nord14
 set $info       $nord9
+
+
+output * bg ~/.wallpaper/1-nord.png fill

@@ -39,3 +39,6 @@ set $warning    $yellow
 set $error      $red
 set $success    $green
 set $info       $blue
+
+
+output * bg ~/.wallpaper/1-everforest.jpg fill

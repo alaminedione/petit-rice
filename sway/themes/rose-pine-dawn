@@ -50,3 +50,6 @@ set $workspace_urgent   $love
 set $statusbar_bg       $surface
 set $statusbar_text     $text
 set $statusbar_accent   $iris
+
+
+output * bg ~/.wallpaper/1-catppuccin-latte.png fill
