@@ -1,3 +1,4 @@
+
 #!/bin/bash
 # Wofi Launcher Script avec thème Catppuccin Mocha
 # Compatible avec Sway et Hyprland
@@ -5,7 +6,6 @@
 
 CONFIG="$HOME/.config/wofi/config"
 STYLE="$HOME/.config/wofi/style.css"
-COLORS="$HOME/.config/wofi/colors"
 
 # Détection automatique du window manager
 detect_wm() {
@@ -44,7 +44,12 @@ case $1 in
     window)
         case $WM in
             sway)
-                window=$(swaymsg -t get_tree | jq -r '.nodes[].nodes[] | select(.type=="workspace") | .nodes[] | select(.type=="con") | " \  (.name)"' | \
+                window=$(swaymsg -t get_tree | jq -r '
+                    .nodes[].nodes[] 
+                    | select(.type=="workspace") 
+                    | .nodes[] 
+                    | select(.type=="con") 
+                    | "\(.id): \(.name)"' | \
                          wofi --show dmenu \
                               --conf "${CONFIG}" \
                               --style "${STYLE}" \
@@ -57,7 +62,7 @@ case $1 in
                 fi
                 ;;
             hyprland)
-                window=$(hyprctl clients -j | jq -r '.[] | "   \(.title)"' | \
+                window=$(hyprctl clients -j | jq -r '.[] | "\(.address): \(.title)"' | \
                          wofi --show dmenu \
                               --conf "${CONFIG}" \
                               --style "${STYLE}" \
@@ -126,10 +131,21 @@ case $1 in
                 systemctl suspend
                 ;;
             "🔄 Reboot")
-                systemctl reboot
+                if command -v systemctl > /dev/null; then
+                    systemctl reboot
+                else
+                    echo "Commande reboot non trouvée"
+                fi
                 ;;
             "⏻ Shutdown")
-                shutdown now
+                if command -v systemctl > /dev/null; then
+                    systemctl poweroff
+                else
+                    echo "Commande shutdown non trouvée"
+                fi
+                ;;
+            *)
+                echo "Option non reconnue"
                 ;;
         esac
         ;;
@@ -144,3 +160,4 @@ case $1 in
         echo "Window Manager détecté: $WM"
         ;;
 esac
+
