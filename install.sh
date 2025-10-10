@@ -35,6 +35,7 @@ source "$SCRIPT_DIR/scripts/config.sh"
 
 readonly -a OPTIONAL_SCRIPTS=(
     "scripts/fix_fonts.sh:Font correction"
+    "scripts/config-sddm.sh:setup sddm"
     "scripts/set-swapinness.sh:Swapiness configuration"
     "scripts/create_macspoof_service.sh:Creating macspoof service"
     "scripts/setup-bluetooth.sh:Setup bluetooth"
