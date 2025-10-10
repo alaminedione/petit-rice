@@ -61,8 +61,9 @@ case $1 in
                     swaymsg "[con_id=$window_id] focus"
                 fi
                 ;;
+
             hyprland)
-                window=$(hyprctl clients -j | jq -r '.[] | "\(.address): \(.title)"' | \
+                window=$(hyprctl clients -j | jq -r '.[] | .title' | \
                          wofi --show dmenu \
                               --conf "${CONFIG}" \
                               --style "${STYLE}" \
@@ -70,8 +71,11 @@ case $1 in
                               --insensitive)
                 
                 if [ -n "$window" ]; then
-                    window_address=$(echo "$window" | cut -d: -f1)
-                    hyprctl dispatch focuswindow "address:$window_address"
+                    # Recherche de l'adresse correspondant au titre sélectionné
+                    window_address=$(hyprctl clients -j | jq -r --arg title "$window" '.[] | select(.title == $title) | .address' | head -n1)
+                    if [ -n "$window_address" ]; then
+                        hyprctl dispatch focuswindow "address:$window_address"
+                    fi
                 fi
                 ;;
             *)
