@@ -97,3 +97,9 @@ eval "$(zoxide init zsh)"
 
 # Set path for globally installed npm packages
 export PATH=/home/alamine/.npm-global/bin:$PATH
+
+if [[ ":$PATH:" != *":$HOME/.cargo/bin:"* ]]; then
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+#echo "Guiome"
