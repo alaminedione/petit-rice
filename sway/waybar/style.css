@@ -40,7 +40,7 @@
 
 /* Main window */
 window#waybar {
-  background: alpha(@base, 0.9);
+  background: alpha(@crust, 0.9);
   border-radius: 12px;
   color: @text;
   transition-property: background-color;
@@ -53,7 +53,7 @@ window#waybar.hidden {
 
 /* Tooltips */
 tooltip {
-  background: @mantle;
+  background: @base;
   border-radius: 8px;
   border: 2px solid @mauve;
   color: @text;
@@ -65,7 +65,7 @@ tooltip label {
 
 /* Workspaces */
 #workspaces {
-  background: alpha(@surface0, 0.8);
+  background: alpha(@base, 0.8);
   margin: 5px;
   padding: 0px 5px;
   border-radius: 12px;
@@ -117,7 +117,7 @@ tooltip label {
 
 /* Scratchpad */
 #scratchpad {
-  background: alpha(@surface0, 0.8);
+  background: alpha(@base, 0.8);
   color: @text;
   padding: 5px 10px;
   margin: 5px;
@@ -134,7 +134,7 @@ tooltip label {
 
 /* Clock */
 #clock {
-  background: alpha(@surface0, 0.8);
+  background: alpha(@base, 0.8);
   color: @text;
   padding: 5px 15px;
   margin: 5px;
@@ -154,7 +154,7 @@ tooltip label {
 #pulseaudio,
 #idle_inhibitor,
 #tray {
-  background: alpha(@surface0, 0.8);
+  background: alpha(@base, 0.8);
   color: @text;
   padding: 5px 10px;
   margin: 5px 2px;

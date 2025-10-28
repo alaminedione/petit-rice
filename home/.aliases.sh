@@ -42,7 +42,7 @@ alias yt-dlp='yt-dlp --downloader aria2c --external-downloader-args "aria2c:-x 3
 # ------------------------------------------------------------------------------
 
 # Utiliser bat pour l'affichage des fichiers (si installé)
-alias b="bat "
+alias cat="bat  --theme Catppuccin\ Latte --pager=builtin"
 
 # ------------------------------------------------------------------------------
 #  Navigation

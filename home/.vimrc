@@ -95,7 +95,7 @@ map <F2> :NERDTreeToggle<CR>
 inoremap jj <Esc>
 
 set background=dark
-colorscheme nord
+colorscheme catppuccin_macchiato
 
 nnoremap ; :
 
