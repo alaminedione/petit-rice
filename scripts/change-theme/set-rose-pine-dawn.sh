@@ -48,8 +48,9 @@ gsettings set org.gnome.desktop.interface text-scaling-factor 1.0
 gsettings set org.gnome.desktop.interface cursor-theme 'Layan Cursors'
 gsettings set org.gnome.desktop.interface cursor-size 24
 
-echo "" > ~/.config/gtk-3.0/settings.ini
-echo  "" > ~/.config/gtk-4.0/settings.ini
+echo -e "[Settings] \n gtk-application-prefer-dark-theme=0" > ~/.config/gtk-3.0/settings.ini
+echo -e "[Settings] \n gtk-application-prefer-dark-theme=0" > ~/.config/gtk-4.0/settings.ini
+
 
 # changer le theme kvantum 
 sed -i "s|theme=.*|theme=KvArc|" ~/.config/Kvantum/kvantum.kvconfig
