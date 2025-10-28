@@ -102,3 +102,7 @@ if [[ ":$PATH:" != *":$HOME/.cargo/bin:"* ]]; then
     export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+
+export BAT_THEME_DARK="OneHalfDark"
+
+export BAT_THEME_LIGHT="Coldark-Cold"
