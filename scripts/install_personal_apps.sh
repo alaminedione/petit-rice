@@ -102,7 +102,7 @@ install_packages() {
 # Package definitions
 declare -A PACKAGES
 PACKAGES["extras"]="freedownloadmanager firefox gpu-screen-recorder-gtk pipes.sh onlyoffice-bin atril cheese meld clapper viewnior gst-plugin-bad gst-plugin-ugly gst-libav zeal"
-PACKAGES["personal"]="cloudflare-warp-bin  drawio-desktop brave-bin telegram-desktop   macchanger megasync-bin turso docker docker-compose podman podman-compose podman-desktop"
+PACKAGES["personal"]="cloudflare-warp-bin  drawio-desktop brave-bin telegram-desktop   macchanger megasync-bin turso docker docker-compose podman podman-compose podman-desktop hoppscotch-bin helium-browser-bin"
 
 # Main script execution
 main() {
